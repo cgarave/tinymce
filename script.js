@@ -1,4 +1,10 @@
-
+let head = `<SExpansionPanel class="last:rounded-b-lg border-0" header-class="bg-transparent" content-class="last:rounded-b-lg">
+            <template #header>
+              <h2 class="m-4 font-semibold text-body-1">Full Promotion Specific Term and Conditions</h2>
+            </template>
+            <template #content>`
+let foot = `</template>
+            </SExpansionPanel>`
 tinymce.init({
     selector: 'textarea',
     height: 300,
@@ -12,94 +18,6 @@ tinymce.init({
       { value: 'Email', title: 'Email' },
     ],
     templates: [{
-      title: "Test Template",
-      description: "Test Template",
-      content: `
-      <div class="text-center">
-        <ol>
-            <li>Promotion Period: 12:00PM on 1st June 2024 to 11:59AM on 1st July 2024 (GMT+8);</li>
-            <li>Only available to MYR account members;</li>
-            <li>First Deposit must be made within the Promotion Period;</li>
-            <li>Have not made a withdrawal request before the Bonus is credited;</li>
-            <li>Members must click on the “JOIN NOW” button to take part;</li>
-            <li>A Bonus of up to MYR 988 based on the First Deposit amount will be credited within 48 hours;</li>
-            <li>The Bonus and Qualifying Deposit amount used are subject to a 15 times rollover requirement within 90
-                days on any 188BET products, except Casino in Poker.</li>
-            <div>
-                <p>Example:</p>
-                <p><em>Deposit amount: MYR 3,600</em></p>
-                <p><em>Bonus amount = MYR 3,600 x 28% = MYR 988 (capped at MYR 988)</em></p>
-                <p><em>Deposit amount used to generate the bonus = MYR 988 / 28% = MYR 3,529</em></p>
-                <p><em>Deposit amounts not used for the promotion = MYR 3,600 – MYR 3,529 = MYR 71</em></p>
-                <p><em>Rollover requirement = (MYR 3,529 + MYR 988) x 15 + MYR 71 = MYR 67,820</em></p>
-            </div>
-            <li>Full Promotion Specific Terms and Conditions Apply.</li>
-        </ol>
-        <div>
-            <div>Full Promotion Specific Term and Conditions</div>
-            <ol>
-                <li>MYR 988 First Deposit Bonus promotion ("Promotion") runs from 1st June 2024 at 12:00PM (GMT+8) to
-                    1st July 2024 11:59AM (GMT+8) ("Promotion Period").</li>
-                <li>To be eligible for the Promotion, members must meet all criteria below (“Qualified Member”):</li>
-                <ol>
-                    <li>Have chosen MYR as their preferred currency,</li>
-                    <li>Have made their first approved deposit to their 188BET account during the promotion period.</li>
-                </ol>
-                <li>Qualified members will be awarded with a 28% bonus based on their first approved deposit amount made
-                    during the Promotion Period, up to a maximum of MYR 988, as illustrated below:
-                    <table>
-                        <tr>
-                            <td style="border: 1px solid black;">hello</td>
-                        </tr>
-                    </table>
-                </li>
-                <li>The Qualified Member is required to click on the “JOIN NOW” button within the Promotion-Specific
-                    Terms and Conditions page upon login to their 188BET account at www.188BET.com to claim the Bonus.
-                </li>
-                <li>The Qualified Member is not allowed to cancel the Bonus once it is credited to their 188BET account.
-                </li>
-                <li>The bonus received and deposit amount used to generate the bonus (“Qualifying Deposit”) by the
-                    Qualified Member from the Promotion are subject to a 15 times rollover requirement in 188BET
-                    Sportsbook, Casino, Live Casino, Keno, Lotto and/or Financials before any withdrawals can be made.
-                    General withdrawal rule applies for all other deposit amounts not used for the Promotion.
-                    For Example: Qualified Member A has made the first approved deposit during the Promotion Period with
-                    an amount of MYR 3,600. Member A will be eligible to claim the deposit bonus.
-                    <ul>
-                        <li>Bonus amount = MYR 3,600 x 28% = capped to MYR 988</li>
-                        <li>Deposit amount used to generate the bonus = MYR 988 / 28% = MYR 3,529</li>
-                        <li>Deposit amounts not used for the promotion = MYR 3,600 – MYR 3,529 = MYR 71</li>
-                    </ul>
-                    Before any withdrawals can be made, Qualified Member A is subjected to rollover = (MYR 3,529 + MYR
-                    988) x 15 + MYR 71 = MYR 67,820
-                </li>
-                <li>The Qualified Member is allowed to participate in only ONE (1) 188BET deposit-related promotion
-                    during the Promotion Period. Should the Qualified Member seek to participate in more than ONE (1)
-                    deposit-related promotion during the Promotion Period, only the first approved deposit received by
-                    188BET from such Qualified Member for the relevant promotion will be considered valid and
-                    participation in all other deposit-related promotions will be considered void.</li>
-                <li>The Qualified Member will be disqualified from the Promotion if any withdrawals are made before the
-                    Bonus is credited to their 188BET account.</li>
-                <li>Only wagers in 188BET that generate a win/loss return will contribute to the rollover requirement.
-                    Cancelled or void wagers, wagers on odds less than Euro 1.75 or Asia 0.75, or wagers on both
-                    even-chances during a single game will not count towards this requirement.</li>
-                <li>The rollover requirement will be considered fulfilled if the Qualified Member’s account balance is
-                    less than the minimum stake amount allowed (i.e. MYR 5).</li>
-                <li>188BET reserves the right to amend or withdraw the Promotion at any time.</li>
-                <li>188BET is the sole arbiter of the Promotion and its decision is final.</li>
-                <li>188BET Standard Terms and Conditions apply.</li>
-                <p>The above are the terms and conditions of the promotion as organised by the operator, BestCommerce
-                    Corporation, of the internet site found at www.188BET.com ('the Site'). By participating in this
-                    promotion, you are deemed to have accepted the Promotion-Specific Terms and Conditions, and the
-                    Promotion-General Terms and Conditions.. In the event of any discrepancy between the meaning of any
-                    translated version of these Promotion-Specific Terms and Conditions and the English language
-                    version, the English language version shall prevail. The operator reserves the right to cancel or
-                    vary the promotion at any time without notice. The promoter in respect of the promotion is
-                    BestCommerce Corporation. Last Updated Date: 04/04/2024 15:30:45</p>
-            </ol>
-        </div>
-    </div>`,
-    },
-    {
         title: 'VN Template',
         description: 'VN Template',
         content: `<div id="content-en-gb" class="tnc-content-wrap">
@@ -134,17 +52,7 @@ tinymce.init({
             <li> <strong>No rollover requirement for the Cash Prize</strong>; </li>
             <li><strong> Full Promotion Specific Terms and Conditions Apply</strong>.</li>
           </ol>
-          <SExpansionPanel
-            class="last:rounded-b-lg border-0"
-            header-class="bg-transparent"
-            content-class="last:rounded-b-lg"
-          >
-            <template #header
-              >
-              <h2 class="m-4 font-semibold text-body-1">Full Promotion Specific Term and Conditions</h2>
-            </template
-            >
-            <template #content>
+            <div id="replace"></div>
               <div class="full-promotion-content">
                 <ol class="list-decimal pl-8 my-4">
                   <li> The <strong>No Limit City - Cash X</strong> promotion (“Promotion”) runs from 02nd October 2023 at 08:00AM (GMT+8) to 30th October 2023 at 07:59AM (GMT+8) (“Promotion Period”). </li>
@@ -343,8 +251,7 @@ tinymce.init({
                   <li> <a :href="//corporate-affairs/terms-and-conditions">188BET Standard Term and Conditions</a> apply.</li>
                 </ol>
               </div>
-            </template>
-          </SExpansionPanel>
+            <div id="replace2"></div>
         </div>
         <IncludeContent :url="promoDetail.termsTpl"></IncludeContent>
       </div>`
@@ -358,16 +265,17 @@ tinymce.init({
     var content = tinymce.get('mytextarea').getContent() // Replace 'myTextarea' with the ID of your textarea
     
     let newContent = content;
-    //document.getElementById('htmlOutput').innerHTML = newContent; // Display the HTML output on the page
-    let x = newContent.replace('<div id="content-en-gb" class="tnc-content-wrap">', '<div id="eyyy">')
-    console.log(x);
+    let x = newContent.replace('<div id="replace">', head)
+                      .replace('<div id="replace2">', foot)
+    document.getElementById('htmlOutput').innerHTML = x; // Display the HTML output on the page
+    //console.log(x);
     
     
     //Download
-    let blob = new Blob([x], {type: 'text/html'});
-    let htmlFile = document.createElement('a');
-    htmlFile.download = 'try.html';
-    htmlFile.href = window.URL.createObjectURL(blob);
-    htmlFile.click()
+    // let blob = new Blob([x], {type: 'text/html'});
+    // let htmlFile = document.createElement('a');
+    // htmlFile.download = 'try.html';
+    // htmlFile.href = window.URL.createObjectURL(blob);
+    // htmlFile.click()
 }
 
