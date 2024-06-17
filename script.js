@@ -1,3 +1,4 @@
+
 tinymce.init({
     selector: 'textarea',
     height: 300,
@@ -351,18 +352,22 @@ tinymce.init({
 ],
   });
 
+
+
   function getHtmlContent() {
-    var content = tinymce.get('mytextarea').getContent(); // Replace 'myTextarea' with the ID of your textarea
-    //console.log(content); // You can use this content as needed
-    //document.getElementById('htmlOutput').innerHTML = content; // Display the HTML output on the page
-    let blob = new Blob([content], {type: 'text/html'});
+    var content = tinymce.get('mytextarea').getContent() // Replace 'myTextarea' with the ID of your textarea
+    
+    let newContent = content;
+    //document.getElementById('htmlOutput').innerHTML = newContent; // Display the HTML output on the page
+    let x = newContent.replace('<div id="content-en-gb" class="tnc-content-wrap">', '<div id="eyyy">')
+    console.log(x);
+    
+    
+    //Download
+    let blob = new Blob([x], {type: 'text/html'});
     let htmlFile = document.createElement('a');
     htmlFile.download = 'try.html';
     htmlFile.href = window.URL.createObjectURL(blob);
     htmlFile.click()
 }
-
-window.addEventListener('click', (e) => {
-    console.log(e.target.parentElement.parentElement.parentElement);
-});
 
