@@ -8,18 +8,32 @@
     <script src="https://cdn.tiny.cloud/1/w6ivg625dosxqduf6vnztan0ddkejc3laz65mbljef30pv1j/tinymce/4/tinymce.min.js"
         referrerpolicy="origin"></script>
     <link rel="stylesheet" href="style.css">
-    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+    <link href="src/output.css" rel="stylesheet">
 </head>
 
-<body>
-    <div id="editor-container">
-        <textarea id="mytextarea"></textarea>
+<body class="bg-slate-700 h-screen">
+    <header>
+        <nav class="flex flex-row justify-between items-center p-4">
+            <ul class="flex flex-row gap-x-5">
+                <li class="text-white text-sm cursor-pointer font-semibold hover:text-white hover:font-semibold">TNC</li>
+                <li class="text-gray-400 text-sm cursor-pointer hover:text-white hover:font-semibold">Winners-Prod</li>
+                <li class="text-gray-400 text-sm cursor-pointer hover:text-white hover:font-semibold">Winners-Web</li>
+            </ul>
+            <ul class="flex flex-row gap-x-5">
+                <li><button class="bg-cyan-600 px-5 py-3 rounded-md text-white text-sm font-semibold" onclick="previewContent()">Preview</button></li>
+                <li><button class="bg-cyan-600 px-5 py-3 rounded-md text-white text-sm font-semibold" onclick="getHtmlContent()">Convert</button></li>
+            </ul>
+        </nav>
+    </header>
+    <div id="container" class="flex flex-row gap-x-4">
+        <div id="editor-container" class="w-1/2 h-full mb-4 ml-4">
+            <textarea id="mytextarea"></textarea>
+        </div>
+        <div id="preview-area" class="w-1/2 h-[90vh] bg-white mb-4 mr-4 overflow-y-scroll">
+
+        </div>
     </div>
-    <button onclick="getHtmlContent()">Get HTML Output</button>
-    <div id="htmlOutput"></div>
 </body>
 
 <script src="script.js"></script>
-
-
 </html>

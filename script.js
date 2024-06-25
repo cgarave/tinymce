@@ -7,9 +7,10 @@ let foot = `</template>
             </SExpansionPanel>`
 tinymce.init({
     selector: 'textarea',
-    height: 300,
-    width: 1200,
-    plugins: 'template anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount mediaembed formatpainter linkchecker a11ychecker tinymcespellchecker powerpaste advcode mentions tinycomments',
+    height: '80vh',
+    width: 1000,
+    resize: false,
+    plugins: 'template anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount linkchecker',
     toolbar: 'template undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
     tinycomments_mode: 'embedded',
     tinycomments_author: 'Author name',
@@ -267,15 +268,16 @@ tinymce.init({
     let newContent = content;
     let x = newContent.replace('<div id="replace">', head)
                       .replace('<div id="replace2">', foot)
-    document.getElementById('htmlOutput').innerHTML = x; // Display the HTML output on the page
-    //console.log(x);
-    
-    
     //Download
-    // let blob = new Blob([x], {type: 'text/html'});
-    // let htmlFile = document.createElement('a');
-    // htmlFile.download = 'try.html';
-    // htmlFile.href = window.URL.createObjectURL(blob);
-    // htmlFile.click()
+    let blob = new Blob([x], {type: 'text/html'});
+    let htmlFile = document.createElement('a');
+    htmlFile.download = 'try.html';
+    htmlFile.href = window.URL.createObjectURL(blob);
+    htmlFile.click()
 }
 
+  function previewContent(){
+    let content = tinymce.get('mytextarea').getContent()
+    document.getElementById('preview-area').innerHTML = content;
+    console.log(content);
+}
