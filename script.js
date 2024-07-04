@@ -10,7 +10,9 @@ tinymce.init({
     height: '80vh',
     width: 1000,
     resize: false,
-    plugins: 'template anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount linkchecker',
+    plugins: ["template paste autolink link image lists advlist charmap print preview hr anchor pagebreak spellchecker",
+              "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+              "save table contextmenu directionality emoticons template paste textcolor",],
     toolbar: 'template undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
     tinycomments_mode: 'embedded',
     tinycomments_author: 'Author name',
@@ -279,5 +281,4 @@ tinymce.init({
   function previewContent(){
     let content = tinymce.get('mytextarea').getContent()
     document.getElementById('preview-area').innerHTML = content;
-    console.log(content);
 }
