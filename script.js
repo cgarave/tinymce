@@ -48,11 +48,14 @@ tinymce.init({
 
   function previewContent(){
     let content = tinymce.get('mytextarea').getContent()
+    //replaceAll is used to replace the default html content from tinymce.
     let y = content.replaceAll('<ol>', '<ol class="list-decimal">')
             .replaceAll('<ol style="list-style-type: lower-roman;">', '<ol class="list-lower-roman">')
             .replaceAll('<ol style="list-style-type: upper-roman;">', '<ol class="list-upper-roman">')
             .replaceAll('<ol style="list-style-type: lower-alpha;">', '<ol class="list-lower-alpha">')
             .replaceAll('<ol style="list-style-type: upper-alpha;">', '<ol class="list-upper-alpha">')
+            .replaceAll('<table style="border-collapse: collapse; width: 100%;" border="1">', '<table class="w-full border-collapse border-spacing-0 text-center">')
+            .replaceAll('<tbody>', '<tbody class="divide-y">')
     console.log(y);
     
     document.getElementById('preview-area').innerHTML = y;
@@ -68,5 +71,5 @@ function showWindow() {
     }
     document.getElementById('preview-area').classList.toggle('hidden');
     document.getElementById('preview-btn').classList.toggle('hidden');
-    document.getElementById('preview-btn').onclick = () => console.clear();
-}
+    console.clear();
+  }
