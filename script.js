@@ -11,7 +11,10 @@ tinymce.init({
     selector: 'textarea',
     table_resize_bars: false, //disable resize bars
     object_resizing: false, //disable table resizing
-    fix_list_elements: true,
+    visualblocks_default_state: true, //display visual blocks by default
+    end_container_on_empty_block: true,
+    // fix_list_elements: true,
+  
     height: '68vh',
     width: '100%',
     resize: false,
@@ -57,8 +60,9 @@ tinymce.init({
             .replaceAll('<ol style="list-style-type: upper-roman;">', '<ol class="list-upper-roman pl-8 mb-4">')
             .replaceAll('<ol style="list-style-type: lower-alpha;">', '<ol class="list-lower-alpha pl-8 mb-4">')
             .replaceAll('<ol style="list-style-type: upper-alpha;">', '<ol class="list-upper-alpha pl-8 mb-4">')
-            .replaceAll('<table style="border-collapse: collapse; width: 100%;" border="1">', '<table class="w-full border border-collapse border-spacing-0">')
-            .replaceAll('<table style="border-collapse: collapse; width: 100%; margin-left: auto; margin-right: auto;" border="1">', '<table class="w-full border border-collapse border-spacing-0">')
+            .replaceAll('<table style="border-collapse: collapse; width: 100%;" border="1">', '<div class="border rounded mb-4 table-responsive"><table class="w-full border border-collapse border-spacing-0">')
+            .replaceAll('<table style="border-collapse: collapse; width: 100%; margin-left: auto; margin-right: auto;" border="1">', '<div class="border rounded mb-4 table-responsive"><table class="w-full border border-collapse border-spacing-0">')
+            .replaceAll('</table>', '</table></div>')
             .replaceAll('<tbody>', '<tbody class="divide-y">')
             //2 columns
             .replaceAll('<td style="width: 50%;">', '<td class="w-1/2">') //2 columns with no text
