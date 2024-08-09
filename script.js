@@ -5,14 +5,14 @@ let head = `<SExpansionPanel class="last:rounded-b-lg border-0" header-class="bg
             <template #content>`
 let foot = `</template>
             </SExpansionPanel>`
-let show = false;
 
 tinymce.init({
     selector: 'textarea',
     table_resize_bars: false, //disable resize bars
     object_resizing: false, //disable table resizing
     visualblocks_default_state: true, //display visual blocks by default
-    end_container_on_empty_block: true,
+    //paste_as_text: true, 
+    end_container_on_empty_block: false, //not working as of now?
     // fix_list_elements: true,
   
     height: '68vh',
@@ -31,7 +31,7 @@ tinymce.init({
     templates: [{
         title: 'VN Template',
         description: 'VN Template',
-        content: ``
+        content: `test template`
     }
 ],
   });
@@ -55,7 +55,7 @@ tinymce.init({
   function previewContent(){
     let content = tinymce.get('mytextarea').getContent()
     //replaceAll is used to replace the default html content from tinymce.
-    let y = content.replaceAll('<ol>', '<ol class="list-decimal">')
+    let y = content.replaceAll('<ol>', '<ol class="list-decimal pl-8 mb-4">')
             .replaceAll('<ol style="list-style-type: lower-roman;">', '<ol class="list-lower-roman pl-8 mb-4">')
             .replaceAll('<ol style="list-style-type: upper-roman;">', '<ol class="list-upper-roman pl-8 mb-4">')
             .replaceAll('<ol style="list-style-type: lower-alpha;">', '<ol class="list-lower-alpha pl-8 mb-4">')
@@ -73,19 +73,6 @@ tinymce.init({
     console.log(y);
     return y;
 }
-
-// function showWindow() {
-//     if(!show){
-//       document.getElementById('editor-container').classList.replace('w-full', 'w-1/2');
-//       show = 1; //truthy
-//     } else {
-//       document.getElementById('editor-container').classList.replace('w-1/2', 'w-full');
-//       show = 0; //falsey
-//     }
-//     document.getElementById('preview-area').classList.toggle('hidden');
-//     document.getElementById('preview-btn').classList.toggle('hidden');
-//     console.clear();
-//   }
 
   function previewNew(){
     const content = previewContent();
