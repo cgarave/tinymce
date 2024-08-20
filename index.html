@@ -24,7 +24,7 @@
         }
     </style>
 </head>
-<body class="bg-[#100C1A] h-screen overflow-hidden">
+<body class="bg-[#100C1A] h-screen">
     <header>
         <nav class="flex flex-row justify-between items-center p-3 border-b border-[#332654] mb-4">
             <ul>
@@ -43,7 +43,7 @@
     <div class="px-3 mb-4 flex justify-between items-center">
         <input id="filename" type="text" class="rounded-[4px] p-2 h-10 w-80 outline-none font-medium text-xs" placeholder="HTML Filename">
         <div class="flex gap-x-2">
-            <button onclick="previewNew()" class="bg-[#4816C3] rounded-[4px] p-2 font-medium text-xs text-white h-fit flex flex-row gap-x-1">
+            <button onclick="previewContent()" class="bg-[#4816C3] rounded-[4px] p-2 font-medium text-xs text-white h-fit flex flex-row gap-x-1 hover:bg-[#591DEF]">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
                         stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                         class="icon icon-tabler icons-tabler-outline icon-tabler-eye">
@@ -53,7 +53,7 @@
                 </svg>
                 PREVIEW
             </button>
-            <button class="bg-[#4816C3] rounded-[4px] p-2 font-medium text-xs text-white h-fit flex flex-row gap-x-1">
+            <button class="bg-[#4816C3] rounded-[4px] p-2 font-medium text-xs text-white h-fit flex flex-row gap-x-1 hover:bg-[#591DEF]">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
                         stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                         class="icon icon-tabler icons-tabler-outline icon-tabler-download">
@@ -69,13 +69,42 @@
     <div id="container" class="flex flex-row w-full">
         <div id="editor-container" class="w-full h-fit overflow-hidden px-3">
             <textarea id="mytextarea">
-                <div id="content-en-gb" class="tnc-content-wrap">
-                    <div class="contentwrap tnc-content-format">
-                        <h2 class="mb-4 font-semibold text-body-1">Significant Conditions</h2>
-                    </div>
-                    <div id="replace" class="editable">WALLS HERE!</div>
-                </div>
+                
             </textarea>
+        </div>
+    </div>
+    <div class="bg-white mt-20 mx-3">
+        <nav class="w-full h-16 bg-neutral-800 flex flex-row justify-between items-center px-5">
+            <ul class="flex flex-row gap-x-8 items-center font-semibold text-neutral-400 text-xs">
+                <li><img id="light-logo" style="width: 60px;" src="https://www.sbbanner.com/newsletter/newsletter-template-2024/188-light.png"></li>
+                <li>Sports</li>
+                <li>Casino</li>
+                <li>Live Casino</li>
+                <li>Chess Game</li>
+                <li>Virtual</li>
+                <li>Lotto</li>
+                <li class="text-white">Promotions</li>
+                <li>App</li>
+            </ul>
+            <ul class="flex flex-row gap-x-2 items-center">
+                <li class="bg-neutral-700 p-2 rounded-[4px] font-semibold text-white text-xs">LOG IN</li>
+                <li><svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="#FFFFFF"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-grid-dots"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M12 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M19 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M5 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M19 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M5 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M12 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M19 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /></svg></li>
+            </ul>
+        </nav>
+        <div class="py-4 px-40">
+            <div class="w-full h-40 bg-neutral-800 flex flex-col p-4 gap-y-3">
+                <div>
+                    <svg  xmlns="http://www.w3.org/2000/svg"  width="20"  height="20"  viewBox="0 0 24 24"  fill="none"  stroke="#FFFFFF"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-left"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l14 0" /><path d="M5 12l6 6" /><path d="M5 12l6 -6" /></svg>
+                </div>
+                <div>
+                    <h1 class="text-white font-semibold text-lg">Ezugi Live Casino Cash Back Reward</h1>
+                    <p class="text-neutral-400 text-xs mb-9">Place your bets on any Ezugi Live casino table games to receive an unlimited 3% cash back bonus reward!</p>
+                    <p class="text-neutral-400 text-xs">Terms and conditions apply</p>
+                </div>
+            </div>
+            <div id="tnc-container" class="w-full py-4">
+                
+            </div>
         </div>
     </div>
 </body>

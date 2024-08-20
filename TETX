@@ -261,13 +261,12 @@
                         their 188BET account. </li>
                     <li> Any decision regarding the Prizes and the Winners is final. </li>
                     <li> 188BET reserves the right to amend or withdraw the Promotion at any time. </li>
-                    <li> <a :href="//promotions#promo_gen_terms">188BET Promotion General Terms &amp; Conditions</a>
+                    <li> <a href="//promotions#promo_gen_terms">188BET Promotion General Terms &amp; Conditions</a>
                         apply. </li>
-                    <li> <a :href="//corporate-affairs/terms-and-conditions">188BET Standard Term and Conditions</a>
+                    <li> <a href="//corporate-affairs/terms-and-conditions">188BET Standard Term and Conditions</a>
                         apply.</li>
                 </ol>
             </div>
             <div id="replace2"></div>
         </div>
-        <IncludeContent :url="promoDetail.termsTpl"></IncludeContent>
     </div>
