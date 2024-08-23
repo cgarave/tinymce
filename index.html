@@ -53,7 +53,7 @@
                 </svg>
                 PREVIEW
             </button>
-            <button class="bg-[#4816C3] rounded-[4px] p-2 font-medium text-xs text-white h-fit flex flex-row gap-x-1 hover:bg-[#591DEF]">
+            <button onclick="getHtmlContent()" class="bg-[#4816C3] rounded-[4px] p-2 font-medium text-xs text-white h-fit flex flex-row gap-x-1 hover:bg-[#591DEF]">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
                         stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                         class="icon icon-tabler icons-tabler-outline icon-tabler-download">
@@ -69,7 +69,18 @@
     <div id="container" class="flex flex-row w-full">
         <div id="editor-container" class="w-full h-fit overflow-hidden px-3">
             <textarea id="mytextarea">
-                
+                <div id="script1">
+                <div id="script2">
+                <div id="content-en-gb" class="tnc-content-wrap">
+                    <div class="contentwrap tnc-content-format">
+                        <h2 class="mb-4 font-semibold text-body-1">Significant Conditions</h2>
+                        <p>Insert Significant Contents here</p>
+                        <div id="SExpansion">
+                            <div class="full-promotion-content">
+                                <p style="font-weight: 600;">Full Promotion Specific Terms and Conditions</p>
+                                <p>Inser Full Promotion contents here</p>
+                            </div>
+                        <div id="closeSExpansion">
             </textarea>
         </div>
     </div>
