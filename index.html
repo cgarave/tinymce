@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="scroll-behavior: smooth;">
 
 <head>
     <meta charset="UTF-8">
@@ -30,29 +30,53 @@
             <ul>
                 <li class="text-white font-semibold text-lg">AUTOMATION JUST FOR U</li>
             </ul>
-            <ul>
-                <li class="bg-[#2C1A5A] text-white font-medium p-2 rounded-[4px] text-xs">
-                    <select name="" id="" class="bg-transparent border-none outline-none w-44">
-                        <option value="">Terms and Conditions</option>
-                        <option value="">Qualified Games</option>
-                    </select>
+            <ul class="flex flex-row gap-x-2">
+                <li>
+                    <button class="bg-[#2C1A5A] text-white font-medium p-2 rounded-[4px] text-xs">What's new?</button>
                 </li>
             </ul>
         </nav>
     </header>
     <div class="px-3 mb-4 flex justify-between items-center">
-        <input id="filename" type="text" class="rounded-[4px] p-2 h-10 w-80 outline-none font-medium text-xs" placeholder="HTML Filename">
+        <input id="filename" type="text" class="rounded-[4px] p-2 h-10 w-80 outline-none font-medium text-xs" placeholder="HTML Filename" autocomplete="off">
         <div class="flex gap-x-2">
-            <button onclick="previewContent()" class="bg-[#4816C3] rounded-[4px] p-2 font-medium text-xs text-white h-fit flex flex-row gap-x-1 hover:bg-[#591DEF]">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                        stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                        class="icon icon-tabler icons-tabler-outline icon-tabler-eye">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                        <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
-                        <path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />
-                </svg>
-                PREVIEW
-            </button>
+            <ol>
+                <li class="bg-[#2C1A5A] text-white font-medium p-2 rounded-[4px] text-xs">
+                    <select name="" id="templates-dropdown" class="bg-transparent border-none outline-none w-44 hover:cursor-pointer">
+                        <option value="#">Select template</option>
+                        <option value="TNC">Terms and Conditions</option>
+                        <option value="QG">Qualified Games</option>
+                    </select>
+                </li>
+            </ol>
+            <ol>
+                <li class="bg-[#2C1A5A] text-white font-medium p-2 rounded-[4px] text-xs">
+                    <select name="" id="regions-dropdown" class="bg-transparent border-none outline-none w-44 hover:cursor-pointer">
+                        <option value="#">Select region</option>
+                        <option value="ZH-CN">China - CN</option>
+                        <option value="ZH-MY">Malaysia - MY</option>
+                        <option value="VI-VN">Vietnam - VN</option>
+                        <option value="TH-TH">Thailand - TH</option>
+                        <option value="KO-KR">Korea - KR</option>
+                        <option value="ID-ID">Indonesia - ID</option>
+                        <option value="KM-KH">Cambodia - KH</option>
+                        <option value="JA-JP">Japan - JP</option>
+                        <option value="HI-IN">India - IN</option>
+                    </select>
+                </li>
+            </ol>
+            <a href="#preview-section">
+                <button onclick="previewContent()" class="bg-[#4816C3] rounded-[4px] p-2 font-medium text-xs text-white h-fit flex flex-row gap-x-1 hover:bg-[#591DEF]">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="icon icon-tabler icons-tabler-outline icon-tabler-eye">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+                            <path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />
+                    </svg>
+                    PREVIEW
+                </button>
+            </a>
             <button onclick="getHtmlContent()" class="bg-[#4816C3] rounded-[4px] p-2 font-medium text-xs text-white h-fit flex flex-row gap-x-1 hover:bg-[#591DEF]">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
                         stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -66,25 +90,16 @@
             </button>
         </div>
     </div>
+    <!--WYSIWYG Section-->
     <div id="container" class="flex flex-row w-full">
         <div id="editor-container" class="w-full h-fit overflow-hidden px-3">
             <textarea id="mytextarea">
-                <div id="script1">
-                <div id="script2">
-                <div id="content-en-gb" class="tnc-content-wrap">
-                    <div class="contentwrap tnc-content-format">
-                        <h2 class="mb-4 font-semibold text-body-1">Significant Conditions</h2>
-                        <p>Insert Significant Contents here</p>
-                        <div id="SExpansion">
-                            <div class="full-promotion-content">
-                                <p style="font-weight: 600;">Full Promotion Specific Terms and Conditions</p>
-                                <p>Inser Full Promotion contents here</p>
-                            </div>
-                        <div id="closeSExpansion">
+                <div id="hellow"></div>
             </textarea>
         </div>
     </div>
-    <div class="bg-white mt-20 mx-3">
+    <!--Preview Section-->
+    <div id="preview-section" class="bg-white mt-20 mx-3">
         <nav class="w-full h-16 bg-neutral-800 flex flex-row justify-between items-center px-5">
             <ul class="flex flex-row gap-x-8 items-center font-semibold text-neutral-400 text-xs">
                 <li><img id="light-logo" style="width: 60px;" src="https://www.sbbanner.com/newsletter/newsletter-template-2024/188-light.png"></li>
@@ -118,6 +133,11 @@
             </div>
         </div>
     </div>
+    <!--Footer Section-->
+    <footer class="px-3 py-5 text-white text-xs font-medium flex flex-row justify-between items-center">
+        <p>Created by Rave Flores</p>
+        <p>Version 0.1082524</p>
+    </footer>
 </body>
 
 <script src="script.js"></script>
