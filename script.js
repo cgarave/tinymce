@@ -1,11 +1,12 @@
+
 //Sandwich method
-const script1 = '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>';
-const script2 = '<script> $(function () { $("#webteam-ss").attr("href", "https://doc.188contents.com/contents/Components/webteam/webteam.css?" + $.now()); });</script>'
+const script1 = `<div id="script1" class="hidden" style="visibility: hidden;">&nbsp;</div><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>`;
+const script2 = `<div id="script2" class="hidden" style="visibility: hidden;">&nbsp;</div><script> $(function () { $("#webteam-ss").attr("href", "https://doc.188contents.com/contents/Components/webteam/webteam.css?" + $.now()); });</script>`;
 const closeSExpansion = ` </template>
                           </SExpansionPanel>
                           </div>
                           <IncludeContent :url="promoDetail.termsTpl"></IncludeContent>
-                          </div>`
+                          </div>`;
 
 const SExpansion = {
   EN: `<SExpansionPanel class="last:rounded-b-lg border-0" header-class="bg-transparent" content-class="last:rounded-b-lg">
@@ -93,7 +94,6 @@ const FPSTCs = {
               </div>`,
 }
 
-
 //TinyMCE settings
 tinymce.init({
     selector: 'textarea',
@@ -101,9 +101,8 @@ tinymce.init({
     object_resizing: false, //disable table resizing
     visualblocks_default_state: false, //display visual blocks by default
     paste_as_text: false, 
-    end_container_on_empty_block: false, //not working as of now?
+    newline_behavior: 'block',
     //forced_root_block: 'div',
-    //newline_behavior: 'block',
     // fix_list_elements: true,
     height: '68vh',
     width: '100%',
@@ -141,8 +140,8 @@ tinymce.init({
     
     let newContent = content;
     //replacing all contents, removing preview contents before download
-    let x = newContent.replaceAll('<div id="script1">', script1)
-                      .replaceAll('<div id="script2">', script2)
+    let x = newContent.replaceAll('<div id="script1" class="hidden" style="visibility: hidden;">&nbsp;</div>', script1)
+                      .replaceAll('<div id="script2" class="hidden" style="visibility: hidden;">&nbsp;</div>', script2)
                       .replaceAll('<div id="SExpansion">', SExpansion.EN)
                       .replaceAll('<div id="SExpansion-CN">', SExpansion.CN)
                       .replaceAll('<div id="SExpansion-VN">', SExpansion.VN)
@@ -162,6 +161,8 @@ tinymce.init({
                       .replaceAll(FPSTCs.KH, "")
                       .replaceAll(FPSTCs.JP, "")
                       .replaceAll(FPSTCs.IN, "")
+                      .replace('mt-40', '')
+                      
                       
     //Download
     let fileName = document.getElementById('filename').value;
@@ -216,11 +217,15 @@ tinymce.init({
             .replaceAll('<ol style="list-style-type: lower-alpha;">', '<ol class="list-lower-alpha pl-8 mb-4">')
             .replaceAll('<ol style="list-style-type: upper-alpha;">', '<ol class="list-upper-alpha pl-8 mb-4">')
             //replacing tables
-            .replaceAll('<table>', '<div class="border rounded mb-4 table-responsive"><table class="w-full border-collapse border-spacing-0">')
-            .replaceAll('<table width="618">', '<div class="border rounded mb-4 table-responsive"><table class="w-full border-collapse border-spacing-0">')
-            .replaceAll('<table width="600">', '<div class="border rounded mb-4 table-responsive"><table class="w-full border-collapse border-spacing-0">')
-            .replaceAll('<table style="border-collapse: collapse; width: 100%;" border="1">', '<div class="border rounded mb-4 table-responsive"><table class="w-full border-collapse border-spacing-0">')
-            .replaceAll('<table style="border-collapse: collapse; width: 100%; margin-left: auto; margin-right: auto;" border="1">', '<div class="border rounded mb-4 table-responsive"><table class="w-full border-collapse border-spacing-0">')
+            .replaceAll('<div class="border rounded mb-4 table-responsive">', '')
+            .replaceAll(/<table(.*?)>/g, '<div class="border rounded mb-4 table-responsive"><table class="w-full border-collapse border-spacing-0">')
+            // .replaceAll('<table class="w-full border-collapse border-spacing-0 text-center">', '<div class="border rounded mb-4 table-responsive"><table class="w-full border-collapse border-spacing-0">')
+            // .replaceAll('<table>', '<div class="border rounded mb-4 table-responsive"><table class="w-full border-collapse border-spacing-0">')
+            // .replaceAll('<table width="618">', '<div class="border rounded mb-4 table-responsive"><table class="w-full border-collapse border-spacing-0">')
+            // .replaceAll('<table width="600">', '<div class="border rounded mb-4 table-responsive"><table class="w-full border-collapse border-spacing-0">')
+            // .replaceAll('<table style="border-collapse: collapse; width: 100%;" border="1">', '<div class="border rounded mb-4 table-responsive"><table class="w-full border-collapse border-spacing-0">')
+            // .replaceAll('<table style="border-collapse: collapse; width: 100%; margin-left: auto; margin-right: auto;" border="1">', '<div class="border rounded mb-4 table-responsive"><table class="w-full border-collapse border-spacing-0">')
+            
             .replaceAll('</table>', '</table></div>')
             .replaceAll('<tbody>', '<tbody class="divide-y">')
             //2 columns
@@ -239,17 +244,18 @@ tinymce.init({
             .replaceAll('<p style="font-weight: 600;">លក្ខខណ្ឌ និងកិច្ចព្រមព្រៀងជាក់លាក់នៃការផ្តល់រង្វាន់ទាំងអស</p>', FPSTCs.KH)
             .replaceAll('<p style="font-weight: 600;">全てのプロモーション－特定の利用規約</p>', FPSTCs.JP)
             .replaceAll('<p style="font-weight: 600;">पूर्ण प्रमोशन-विशिष्ट नियम और शर्तें</p>', FPSTCs.IN)
+            //test
     console.log(y);
     document.getElementById('tnc-container').innerHTML = y;
     return y;
 }
 
 //Region handler
-const regionDropdown = document.getElementById('regions-dropdown');
-regionDropdown.addEventListener('change', () => {
+const tncRegionDropdown = document.getElementById('tnc-regions-dropdown');
+tncRegionDropdown.addEventListener('change', () => {
 
   
-  const selectedRegion = regionDropdown.value;
+  const selectedRegion = tncRegionDropdown.value;
   
   switch(selectedRegion){
     case 'zh-cn':
@@ -357,8 +363,8 @@ regionDropdown.addEventListener('change', () => {
 
 //Templates object
 const templates = {
-  TNC: `<div id="script1">
-          <div id="script2">
+  TNC: `<div id="script1" class="hidden" style="visibility: hidden;">&nbsp;</div>
+          <div id="script2" class="hidden" style="visibility: hidden;">&nbsp;</div>
           <div id="content-en-gb" class="tnc-content-wrap">
               <div class="contentwrap tnc-content-format">
                   <h2 class="mb-4 font-semibold text-body-1">Significant Conditions</h2>
@@ -383,6 +389,8 @@ const templates = {
   QG: "",
 }
 
+
+
 //Templates handler
 const templateDropdown = document.getElementById('templates-dropdown');
 templateDropdown.addEventListener('change', () => {
@@ -391,10 +399,10 @@ templateDropdown.addEventListener('change', () => {
 
   switch(selectedTemplates){
     case 'TNC':
-      console.log();
+      document.getElementById('region-container').classList.remove('hidden')
       break;
     case 'QG':
-      tinymce.get('mytextarea').setContent("");
+      document.getElementById('region-container').classList.add('hidden')
       break;
   }
 })
