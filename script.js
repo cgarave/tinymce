@@ -6,10 +6,12 @@ const closeSExpansion = ` </template>
                           </SExpansionPanel>
                           </div>
                           <IncludeContent :url="promoDetail.termsTpl"></IncludeContent>
-                          </div>`;
+                          </div>
+                          <div id="closeSExpansion" class="hidden" style="visibility: hidden;">&nbsp;</div>`;
 
 const SExpansion = {
-  EN: `<SExpansionPanel class="last:rounded-b-lg border-0" header-class="bg-transparent" content-class="last:rounded-b-lg">
+  EN: `<div id="SExpansion" class="hidden" style="visibility: hidden;">&nbsp;</div>
+        <SExpansionPanel class="last:rounded-b-lg border-0" header-class="bg-transparent" content-class="last:rounded-b-lg">
         <template #header>
           <h2 class="m-4 font-semibold text-body-1">Full Promotion Specific Terms and Conditions</h2>
         </template>
@@ -142,7 +144,8 @@ tinymce.init({
     //replacing all contents, removing preview contents before download
     let x = newContent.replaceAll('<div id="script1" class="hidden" style="visibility: hidden;">&nbsp;</div>', script1)
                       .replaceAll('<div id="script2" class="hidden" style="visibility: hidden;">&nbsp;</div>', script2)
-                      .replaceAll('<div id="SExpansion">', SExpansion.EN)
+                      .replaceAll('<h2 class="m-4 font-semibold text-body-1">Full Promotion Specific Terms and Conditions</h2>', '') //naiiwan kasi after import need to execute first before inserting sexpansion
+                      .replaceAll('<div id="SExpansion" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.EN)
                       .replaceAll('<div id="SExpansion-CN">', SExpansion.CN)
                       .replaceAll('<div id="SExpansion-VN">', SExpansion.VN)
                       .replaceAll('<div id="SExpansion-TH">', SExpansion.TH)
@@ -151,7 +154,7 @@ tinymce.init({
                       .replaceAll('<div id="SExpansion-KH">', SExpansion.KH)
                       .replaceAll('<div id="SExpansion-JP">', SExpansion.JP)
                       .replaceAll('<div id="SExpansion-IN">', SExpansion.IN)
-                      .replaceAll('<div id="closeSExpansion">', closeSExpansion)
+                      .replaceAll('<div id="closeSExpansion" class="hidden" style="visibility: hidden;">&nbsp;</div>', closeSExpansion)
                       .replaceAll(FPSTCs.EN, "")
                       .replaceAll(FPSTCs.CN, "")
                       .replaceAll(FPSTCs.VN, "")
@@ -369,12 +372,12 @@ const templates = {
               <div class="contentwrap tnc-content-format">
                   <h2 class="mb-4 font-semibold text-body-1">Significant Conditions</h2>
                   <p>Insert Significant Contents here</p>
-                  <div id="SExpansion">
+                  <div id="SExpansion" class="hidden" style="visibility: hidden;">&nbsp;</div>
                       <div class="full-promotion-content">
                           <p style="font-weight: 600;">Full Promotion Specific Terms and Conditions</p>
                           <p>Insert Full Promotion contents here</p>
                       </div>
-                  <div id="closeSExpansion">
+                  <div id="closeSExpansion" class="hidden" style="visibility: hidden;">&nbsp;</div>
 
           <div id="content-REGION" class="tnc-content-wrap mt-40">
               <div class="contentwrap tnc-content-format">
@@ -385,13 +388,13 @@ const templates = {
                           <p style="font-weight: 600;">LOCALIZED-FP</p>
                           <p>Insert Localized Full Promotion contents here</p>
                       </div>
-                  <div id="closeSExpansion">`,
+                  <div id="closeSExpansion" class="hidden" style="visibility: hidden;">&nbsp;</div>`,
   QG: "",
 }
 
 
 
-//Templates handler
+//Templates handler show region dropdown
 const templateDropdown = document.getElementById('templates-dropdown');
 templateDropdown.addEventListener('change', () => {
 
