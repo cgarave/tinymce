@@ -16,42 +16,50 @@ const SExpansion = {
           <h2 class="m-4 font-semibold text-body-1">Full Promotion Specific Terms and Conditions</h2>
         </template>
         <template #content>`,
-  CN: `<SExpansionPanel class="last:rounded-b-lg border-0" header-class="bg-transparent" content-class="last:rounded-b-lg">
+  CN: `<div id="LOCALIZED-SExpansion" class="hidden" style="visibility: hidden;">&nbsp;</div>
+        <SExpansionPanel class="last:rounded-b-lg border-0" header-class="bg-transparent" content-class="last:rounded-b-lg">
         <template #header>
           <h2 class="m-4 font-semibold text-body-1">完整优惠标准规则</h2>
         </template>
         <template #content>`,
-  VN: `<SExpansionPanel class="last:rounded-b-lg border-0" header-class="bg-transparent" content-class="last:rounded-b-lg">
+  VN: `<div id="LOCALIZED-SExpansion" class="hidden" style="visibility: hidden;">&nbsp;</div>
+        <SExpansionPanel class="last:rounded-b-lg border-0" header-class="bg-transparent" content-class="last:rounded-b-lg">
         <template #header>
           <h2 class="m-4 font-semibold text-body-1">Điều Khoản và Điều Kiện Hoàn Chỉnh</h2>
         </template>
         <template #content>`,
-  TH: `<SExpansionPanel class="last:rounded-b-lg border-0" header-class="bg-transparent" content-class="last:rounded-b-lg">
+  TH: `<div id="LOCALIZED-SExpansion" class="hidden" style="visibility: hidden;">&nbsp;</div>
+        <SExpansionPanel class="last:rounded-b-lg border-0" header-class="bg-transparent" content-class="last:rounded-b-lg">
         <template #header>
           <h2 class="m-4 font-semibold text-body-1">ข้อกำหนดและเงื่อนไขแบบเฉพาะเจาะจง</h2>
         </template>
         <template #content>`,
-  KR: `<SExpansionPanel class="last:rounded-b-lg border-0" header-class="bg-transparent" content-class="last:rounded-b-lg">
+  KR: `<div id="LOCALIZED-SExpansion" class="hidden" style="visibility: hidden;">&nbsp;</div>
+        <SExpansionPanel class="last:rounded-b-lg border-0" header-class="bg-transparent" content-class="last:rounded-b-lg">
         <template #header>
           <h2 class="m-4 font-semibold text-body-1">본 프로모션 이용약관</h2>
         </template>
         <template #content>`,
-  ID: `<SExpansionPanel class="last:rounded-b-lg border-0" header-class="bg-transparent" content-class="last:rounded-b-lg">
+  ID: `<div id="LOCALIZED-SExpansion" class="hidden" style="visibility: hidden;">&nbsp;</div>
+        <SExpansionPanel class="last:rounded-b-lg border-0" header-class="bg-transparent" content-class="last:rounded-b-lg">
         <template #header>
           <h2 class="m-4 font-semibold text-body-1">Syarat dan Kondisi Spesifik promosi Lengkap</h2>
         </template>
         <template #content>`,
-  KH: `<SExpansionPanel class="last:rounded-b-lg border-0" header-class="bg-transparent" content-class="last:rounded-b-lg">
+  KH: `<div id="LOCALIZED-SExpansion" class="hidden" style="visibility: hidden;">&nbsp;</div>
+        <SExpansionPanel class="last:rounded-b-lg border-0" header-class="bg-transparent" content-class="last:rounded-b-lg">
         <template #header>
           <h2 class="m-4 font-semibold text-body-1">លក្ខខណ្ឌ និងកិច្ចព្រមព្រៀងជាក់លាក់នៃការផ្តល់រង្វាន់ទាំងអស</h2>
         </template>
         <template #content>`,
-  JP: `<SExpansionPanel class="last:rounded-b-lg border-0" header-class="bg-transparent" content-class="last:rounded-b-lg">
+  JP: `<div id="LOCALIZED-SExpansion" class="hidden" style="visibility: hidden;">&nbsp;</div>
+        <SExpansionPanel class="last:rounded-b-lg border-0" header-class="bg-transparent" content-class="last:rounded-b-lg">
         <template #header>
           <h2 class="m-4 font-semibold text-body-1">全てのプロモーション－特定の利用規約</h2>
         </template>
         <template #content>`,
-  IN: `<SExpansionPanel class="last:rounded-b-lg border-0" header-class="bg-transparent" content-class="last:rounded-b-lg">
+  IN: `<div id="LOCALIZED-SExpansion" class="hidden" style="visibility: hidden;">&nbsp;</div>
+        <SExpansionPanel class="last:rounded-b-lg border-0" header-class="bg-transparent" content-class="last:rounded-b-lg">
         <template #header>
           <h2 class="m-4 font-semibold text-body-1">पूर्ण प्रमोशन-विशिष्ट नियम और शर्तें</h2>
         </template>
@@ -144,16 +152,15 @@ tinymce.init({
     //replacing all contents, removing preview contents before download
     let x = newContent.replaceAll('<div id="script1" class="hidden" style="visibility: hidden;">&nbsp;</div>', script1)
                       .replaceAll('<div id="script2" class="hidden" style="visibility: hidden;">&nbsp;</div>', script2)
-                      .replaceAll('<h2 class="m-4 font-semibold text-body-1">Full Promotion Specific Terms and Conditions</h2>', '') //naiiwan kasi after import need to execute first before inserting sexpansion
                       .replaceAll('<div id="SExpansion" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.EN)
-                      .replaceAll('<div id="SExpansion-CN">', SExpansion.CN)
-                      .replaceAll('<div id="SExpansion-VN">', SExpansion.VN)
-                      .replaceAll('<div id="SExpansion-TH">', SExpansion.TH)
-                      .replaceAll('<div id="SExpansion-KR">', SExpansion.KR)
-                      .replaceAll('<div id="SExpansion-ID">', SExpansion.ID)
-                      .replaceAll('<div id="SExpansion-KH">', SExpansion.KH)
-                      .replaceAll('<div id="SExpansion-JP">', SExpansion.JP)
-                      .replaceAll('<div id="SExpansion-IN">', SExpansion.IN)
+                      .replaceAll('<div id="SExpansion-CN" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.CN)
+                      .replaceAll('<div id="SExpansion-VN" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.VN)
+                      .replaceAll('<div id="SExpansion-TH" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.TH)
+                      .replaceAll('<div id="SExpansion-KR" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.KR)
+                      .replaceAll('<div id="SExpansion-ID" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.ID)
+                      .replaceAll('<div id="SExpansion-KH" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.KH)
+                      .replaceAll('<div id="SExpansion-JP" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.JP)
+                      .replaceAll('<div id="SExpansion-IN" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.IN)
                       .replaceAll('<div id="closeSExpansion" class="hidden" style="visibility: hidden;">&nbsp;</div>', closeSExpansion)
                       .replaceAll(FPSTCs.EN, "")
                       .replaceAll(FPSTCs.CN, "")
@@ -176,9 +183,45 @@ tinymce.init({
     htmlFile.href = window.URL.createObjectURL(blob);
     htmlFile.click();
 }
+
+function downloadImport(data){
+  let importedResult = localizedImport(data)
+
+  let y = importedResult.replaceAll('<div id="script1" class="hidden" style="visibility: hidden;">&nbsp;</div>', script1)
+                            .replaceAll('<div id="script2" class="hidden" style="visibility: hidden;">&nbsp;</div>', script2)
+                            .replaceAll('<h2 class="m-4 font-semibold text-body-1">Full Promotion Specific Terms and Conditions</h2>', '')  //EN cleanup
+                            .replaceAll('<h2 class="m-4 font-semibold text-body-1">完整优惠标准规则</h2>', '') //CN cleanup
+                            .replaceAll('<h2 class="m-4 font-semibold text-body-1">Điều Khoản và Điều Kiện Hoàn Chỉnh</h2>', '') //VN cleanup
+                            .replaceAll('<h2 class="m-4 font-semibold text-body-1">ข้อกำหนดและเงื่อนไขแบบเฉพาะเจาะจง</h2>', '') //TH cleanup
+                            .replaceAll('<h2 class="m-4 font-semibold text-body-1">본 프로모션 이용약관</h2>', '') //KR cleanup
+                            .replaceAll('<h2 class="m-4 font-semibold text-body-1">Syarat dan Kondisi Spesifik promosi Lengkap</h2>', '') //ID cleanup
+                            .replaceAll('<h2 class="m-4 font-semibold text-body-1">លក្ខខណ្ឌ និងកិច្ចព្រមព្រៀងជាក់លាក់នៃការផ្តល់រង្វាន់ទាំងអស</h2>', '') //KH cleanup
+                            .replaceAll('<h2 class="m-4 font-semibold text-body-1">全てのプロモーション－特定の利用規約</h2>', '') //JP cleanup
+                            .replaceAll('<h2 class="m-4 font-semibold text-body-1">पूर्ण प्रमोशन-विशिष्ट नियम और शर्तें</h2>', '') //IN cleanup
+                            .replaceAll('<div id="SExpansion" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.EN)
+                            .replaceAll('<div id="SExpansion-CN" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.CN)
+                            .replaceAll('<div id="SExpansion-VN" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.VN)
+                            .replaceAll('<div id="SExpansion-TH" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.TH)
+                            .replaceAll('<div id="SExpansion-KR" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.KR)
+                            .replaceAll('<div id="SExpansion-ID" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.ID)
+                            .replaceAll('<div id="SExpansion-KH" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.KH)
+                            .replaceAll('<div id="SExpansion-JP" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.JP)
+                            .replaceAll('<div id="SExpansion-IN" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.IN)
+                            .replaceAll('<div id="closeSExpansion" class="hidden" style="visibility: hidden;">&nbsp;</div>', closeSExpansion)
+
+  let fileName = document.getElementById('filename').value;
+  let blob = new Blob([y], {type: 'text/html'});
+  let htmlFile = document.createElement('a');
+  //htmlFile.download = 'try.html';
+  htmlFile.download = `${fileName}.html`;
+  htmlFile.href = window.URL.createObjectURL(blob);
+  htmlFile.click();
+}
+
   //Preview Content function
   function previewContent(data){
     let content = tinymce.get('mytextarea').getContent()
+
     //replaceAll is used to replace the default html content from tinymce.
     let y = content.replaceAll('<ol>', '<ol class="list-decimal pl-8 mb-4">')
             //replacing list (this is for copying from a document preventing numbers from breaking)
@@ -247,7 +290,7 @@ tinymce.init({
             .replaceAll('<p style="font-weight: 600;">លក្ខខណ្ឌ និងកិច្ចព្រមព្រៀងជាក់លាក់នៃការផ្តល់រង្វាន់ទាំងអស</p>', FPSTCs.KH)
             .replaceAll('<p style="font-weight: 600;">全てのプロモーション－特定の利用規約</p>', FPSTCs.JP)
             .replaceAll('<p style="font-weight: 600;">पूर्ण प्रमोशन-विशिष्ट नियम और शर्तें</p>', FPSTCs.IN)
-            //test
+            
     console.log(y);
     document.getElementById('tnc-container').innerHTML = y;
     return y;
@@ -383,7 +426,7 @@ const templates = {
               <div class="contentwrap tnc-content-format">
                   <h2 class="mb-4 font-semibold text-body-1">LOCALIZED-SC</h2>
                   <p>Insert Localized Significant Contents here</p>
-                  <div id="LOCALIZED-SExpansion">
+                  <div id="LOCALIZED-SExpansion" class="hidden" style="visibility: hidden;">&nbsp;</div>
                       <div class="full-promotion-content">
                           <p style="font-weight: 600;">LOCALIZED-FP</p>
                           <p>Insert Localized Full Promotion contents here</p>
@@ -410,3 +453,41 @@ templateDropdown.addEventListener('change', () => {
   }
 })
 
+function localizedImport(importedResult){
+
+  let importedContent = tinymce.get('mytextarea').getContent()
+
+  if (importedContent.match('content-zh-cn')) {
+    importedResult = importedContent.replace('LOCALIZED-SExpansion', 'SExpansion-CN')
+    return importedResult;
+  }
+  else if (importedContent.match('content-vi-vn')) {
+    importedResult = importedContent.replace('LOCALIZED-SExpansion', 'SExpansion-VN')
+    return importedResult;
+  }
+  else if (importedContent.match('content-th-th')) {
+    importedResult = importedContent.replace('LOCALIZED-SExpansion', 'SExpansion-TH')
+    return importedResult;
+  }
+  else if (importedContent.match('content-ko-kr')) {
+    importedResult = importedContent.replace('LOCALIZED-SExpansion', 'SExpansion-KR')
+    return importedResult;
+  }
+  else if (importedContent.match('content-id-id')) {
+    importedResult = importedContent.replace('LOCALIZED-SExpansion', 'SExpansion-ID')
+    return importedResult;
+  }
+  else if (importedContent.match('content-km-kh')) {
+    importedResult = importedContent.replace('LOCALIZED-SExpansion', 'SExpansion-KH')
+    return importedResult;
+  }
+  else if (importedContent.match('content-ja-jp')) {
+    importedResult = importedContent.replace('LOCALIZED-SExpansion', 'SExpansion-JP')
+    return importedResult;
+  }
+  else if (importedContent.match('content-hi-in')) {
+    importedResult = importedContent.replace('LOCALIZED-SExpansion', 'SExpansion-IN')
+    return importedResult;
+  }
+
+}
