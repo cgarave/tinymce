@@ -123,6 +123,9 @@ tinymce.init({
                     }
                     h2 {
                       font-size: 14px;
+                    }
+                    table {
+                      width: 100%;
                     }`,
     plugins: ["template paste autolink link image lists advlist charmap preview hr anchor",
               "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
@@ -137,8 +140,8 @@ tinymce.init({
     templates: [{
         title: 'dropdown',
         content: `hello`
-    }
-],
+    }],
+    
   });
 
   
@@ -221,7 +224,7 @@ function downloadImport(data){
   //Preview Content function
   function previewContent(data){
     let content = tinymce.get('mytextarea').getContent()
-
+    
     //replaceAll is used to replace the default html content from tinymce.
     let y = content.replaceAll('<ol>', '<ol class="list-decimal pl-8 mb-4">')
             //replacing list (this is for copying from a document preventing numbers from breaking)
