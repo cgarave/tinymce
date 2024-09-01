@@ -145,6 +145,18 @@ tinymce.init({
     
   });
 
+  function downloadFile(data){
+    let x = '';
+    let y = '';
+
+    //Download
+    let fileName = document.getElementById('filename').value;
+    let blob = new Blob([y], {type: 'text/html'});
+    let htmlFile = document.createElement('a');
+    htmlFile.download = `${fileName}.html`;
+    htmlFile.href = window.URL.createObjectURL(blob);
+    htmlFile.click();
+  }
   
   //Download HTML function
   function getHtmlContent(data) {
@@ -189,50 +201,8 @@ tinymce.init({
                       .replaceAll(FPSTCs.JP, "")
                       .replaceAll(FPSTCs.IN, "")
                       .replace('mt-40', '')
-                      
-                      
-    //Download
-    let fileName = document.getElementById('filename').value;
-    let blob = new Blob([x], {type: 'text/html'});
-    let htmlFile = document.createElement('a');
-    htmlFile.download = `${fileName}.html`;
-    htmlFile.href = window.URL.createObjectURL(blob);
-    htmlFile.click();
-}
 
-function downloadImport(data){
-  let importedResult = localizedImport(data)
-
-  let y = importedResult.replaceAll('<div id="script1" class="hidden" style="visibility: hidden;">&nbsp;</div>', script1)
-                            .replaceAll('<div id="script2" class="hidden" style="visibility: hidden;">&nbsp;</div>', script2)
-
-                            .replaceAll('<h2 class="m-4 font-semibold text-body-1">Full Promotion Specific Terms and Conditions</h2>', '')  //EN cleanup
-                            .replaceAll('<h2 class="m-4 font-semibold text-body-1">完整优惠标准规则</h2>', '') //CN cleanup
-                            .replaceAll('<h2 class="m-4 font-semibold text-body-1">Điều Khoản và Điều Kiện Hoàn Chỉnh</h2>', '') //VN cleanup
-                            .replaceAll('<h2 class="m-4 font-semibold text-body-1">ข้อกำหนดและเงื่อนไขแบบเฉพาะเจาะจง</h2>', '') //TH cleanup
-                            .replaceAll('<h2 class="m-4 font-semibold text-body-1">본 프로모션 이용약관</h2>', '') //KR cleanup
-                            .replaceAll('<h2 class="m-4 font-semibold text-body-1">Syarat dan Kondisi Spesifik promosi Lengkap</h2>', '') //ID cleanup
-                            .replaceAll('<h2 class="m-4 font-semibold text-body-1">លក្ខខណ្ឌ និងកិច្ចព្រមព្រៀងជាក់លាក់នៃការផ្តល់រង្វាន់ទាំងអស</h2>', '') //KH cleanup
-                            .replaceAll('<h2 class="m-4 font-semibold text-body-1">全てのプロモーション－特定の利用規約</h2>', '') //JP cleanup
-                            .replaceAll('<h2 class="m-4 font-semibold text-body-1">पूर्ण प्रमोशन-विशिष्ट नियम और शर्तें</h2>', '') //IN cleanup
-
-                            .replaceAll('<div id="SExpansion" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.EN)
-                            .replaceAll('<div id="SExpansion-CN" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.CN)
-                            .replaceAll('<div id="SExpansion-VN" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.VN)
-                            .replaceAll('<div id="SExpansion-TH" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.TH)
-                            .replaceAll('<div id="SExpansion-KR" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.KR)
-                            .replaceAll('<div id="SExpansion-ID" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.ID)
-                            .replaceAll('<div id="SExpansion-KH" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.KH)
-                            .replaceAll('<div id="SExpansion-JP" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.JP)
-                            .replaceAll('<div id="SExpansion-IN" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.IN)
-                            .replaceAll('<div id="closeSExpansion" class="hidden" style="visibility: hidden;">&nbsp;</div>', closeSExpansion)
-
-  let fileName = document.getElementById('filename').value;
-  let blob = new Blob([y], {type: 'text/html'});
-  let htmlFile = document.createElement('a');
-  htmlFile.download = `${fileName}.html`;
-  htmlFile.href = window.URL.createObjectURL(blob);
-  htmlFile.click();
+                      return x;
 }
 
   //Preview Content function
@@ -443,41 +413,62 @@ templateDropdown.addEventListener('change', () => {
   }
 })
 
-function localizedImport(importedResult){
+function localizedImport(){
 
   let importedContent = tinymce.get('mytextarea').getContent()
+  let importedResult = ''
 
   if (importedContent.match('content-zh-cn')) {
     importedResult = importedContent.replace('LOCALIZED-SExpansion', 'SExpansion-CN')
-    return importedResult;
   }
   else if (importedContent.match('content-vi-vn')) {
     importedResult = importedContent.replace('LOCALIZED-SExpansion', 'SExpansion-VN')
-    return importedResult;
   }
   else if (importedContent.match('content-th-th')) {
     importedResult = importedContent.replace('LOCALIZED-SExpansion', 'SExpansion-TH')
-    return importedResult;
   }
   else if (importedContent.match('content-ko-kr')) {
     importedResult = importedContent.replace('LOCALIZED-SExpansion', 'SExpansion-KR')
-    return importedResult;
   }
   else if (importedContent.match('content-id-id')) {
     importedResult = importedContent.replace('LOCALIZED-SExpansion', 'SExpansion-ID')
-    return importedResult;
   }
   else if (importedContent.match('content-km-kh')) {
     importedResult = importedContent.replace('LOCALIZED-SExpansion', 'SExpansion-KH')
-    return importedResult;
   }
   else if (importedContent.match('content-ja-jp')) {
     importedResult = importedContent.replace('LOCALIZED-SExpansion', 'SExpansion-JP')
-    return importedResult;
   }
   else if (importedContent.match('content-hi-in')) {
     importedResult = importedContent.replace('LOCALIZED-SExpansion', 'SExpansion-IN')
-    return importedResult;
   }
 
+  let y = importedResult.replaceAll('<div id="script1" class="hidden" style="visibility: hidden;">&nbsp;</div>', script1)
+                        .replaceAll('<div id="script2" class="hidden" style="visibility: hidden;">&nbsp;</div>', script2)   
+                        .replaceAll('<h2 class="m-4 font-semibold text-body-1">Full Promotion Specific Terms and Conditions</h2>', '')  //EN cleanup
+                        .replaceAll('<h2 class="m-4 font-semibold text-body-1">完整优惠标准规则</h2>', '') //CN cleanup
+                        .replaceAll('<h2 class="m-4 font-semibold text-body-1">Điều Khoản và Điều Kiện Hoàn Chỉnh</h2>', '') //VN cleanup
+                        .replaceAll('<h2 class="m-4 font-semibold text-body-1">ข้อกำหนดและเงื่อนไขแบบเฉพาะเจาะจง</h2>', '') //TH cleanup
+                        .replaceAll('<h2 class="m-4 font-semibold text-body-1">본 프로모션 이용약관</h2>', '') //KR cleanup
+                        .replaceAll('<h2 class="m-4 font-semibold text-body-1">Syarat dan Kondisi Spesifik promosi Lengkap</h2>', '') //ID cleanup
+                        .replaceAll('<h2 class="m-4 font-semibold text-body-1">លក្ខខណ្ឌ និងកិច្ចព្រមព្រៀងជាក់លាក់នៃការផ្តល់រង្វាន់ទាំងអស</h2>', '') //KH cleanup
+                        .replaceAll('<h2 class="m-4 font-semibold text-body-1">全てのプロモーション－特定の利用規約</h2>', '') //JP cleanup
+                        .replaceAll('<h2 class="m-4 font-semibold text-body-1">पूर्ण प्रमोशन-विशिष्ट नियम और शर्तें</h2>', '') //IN cleanup
+
+                        .replaceAll('<div id="SExpansion" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.EN)
+                        .replaceAll('<div id="SExpansion-CN" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.CN)
+                        .replaceAll('<div id="SExpansion-VN" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.VN)
+                        .replaceAll('<div id="SExpansion-TH" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.TH)
+                        .replaceAll('<div id="SExpansion-KR" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.KR)
+                        .replaceAll('<div id="SExpansion-ID" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.ID)
+                        .replaceAll('<div id="SExpansion-KH" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.KH)
+                        .replaceAll('<div id="SExpansion-JP" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.JP)
+                        .replaceAll('<div id="SExpansion-IN" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.IN)
+                        .replaceAll('<div id="closeSExpansion" class="hidden" style="visibility: hidden;">&nbsp;</div>', closeSExpansion)
+}
+
+if(document.getElementById('import-check').checked == true){
+     console.log('hello');
+     
+} else {
 }
