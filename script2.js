@@ -1,4 +1,45 @@
 
+//TinyMCE settings
+tinymce.init({
+  selector: 'textarea',
+  table_resize_bars: false, //disable resize bars
+  object_resizing: false, //disable table resizing
+  visualblocks_default_state: false, //display visual blocks by default
+  paste_as_text: false, 
+  newline_behavior: 'block',
+  
+  //forced_root_block: 'div',
+  // fix_list_elements: true,
+  height: '68vh',
+  width: '100%',
+  resize: false,
+  content_style: `
+                  body {
+                    padding: 5px;
+                  }
+                  h2 {
+                    font-size: 14px;
+                  }
+                  table {
+                    width: 100%;
+                  }`,
+  plugins: ["template paste autolink link image lists advlist charmap preview hr anchor",
+            "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+            "save table contextmenu directionality template paste textcolor",],
+  toolbar: 'template undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image table mergetags | align lineheight | checklist numlist bullist indent outdent',
+  // tinycomments_mode: 'embedded',
+  tinycomments_author: 'Author name',
+  mergetags_list: [
+    { value: 'First.Name', title: 'First Name' },
+    { value: 'Email', title: 'Email' },
+  ],
+  templates: [{
+      title: 'dropdown',
+      content: ``
+  }],
+  
+});
+
 //Sandwich method
 const script1 = `<div id="script1" class="hidden" style="visibility: hidden;">&nbsp;</div><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>`;
 const script2 = `<div id="script2" class="hidden" style="visibility: hidden;">&nbsp;</div><script> $(function () { $("#webteam-ss").attr("href", "https://doc.188contents.com/contents/Components/webteam/webteam.css?" + $.now()); });</script>`;
@@ -104,162 +145,54 @@ const FPSTCs = {
               </div>`,
 }
 
-//TinyMCE settings
-tinymce.init({
-    selector: 'textarea',
-    table_resize_bars: false, //disable resize bars
-    object_resizing: false, //disable table resizing
-    visualblocks_default_state: false, //display visual blocks by default
-    paste_as_text: false, 
-    newline_behavior: 'block',
-    
-    //forced_root_block: 'div',
-    // fix_list_elements: true,
-    height: '68vh',
-    width: '100%',
-    resize: false,
-    content_style: `
-                    body {
-                      padding: 5px;
-                    }
-                    h2 {
-                      font-size: 14px;
-                    }
-                    table {
-                      width: 100%;
-                    }`,
-    plugins: ["template paste autolink link image lists advlist charmap preview hr anchor",
-              "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
-              "save table contextmenu directionality template paste textcolor",],
-    toolbar: 'template undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image table mergetags | align lineheight | checklist numlist bullist indent outdent',
-    tinycomments_mode: 'embedded',
-    tinycomments_author: 'Author name',
-    mergetags_list: [
-      { value: 'First.Name', title: 'First Name' },
-      { value: 'Email', title: 'Email' },
-    ],
-    templates: [{
-        title: 'dropdown',
-        content: `hello`
-    }],
-    
-  });
+//Templates object
+const templates = {
+  TNC: `<div id="script1" class="hidden" style="visibility: hidden;">&nbsp;</div>
+          <div id="script2" class="hidden" style="visibility: hidden;">&nbsp;</div>
+          <div id="content-en-gb" class="tnc-content-wrap hidden" style="visibility: hidden;">&nbsp;</div>
+              <div class="contentwrap tnc-content-format hidden" style="visibility: hidden;">&nbsp;</div>
+                  <h2 class="mb-4 font-semibold text-body-1">Significant Conditions</h2>
+                  <p>Write/Paste Significant Contents here</p>
+                  <div id="SExpansion" class="hidden" style="visibility: hidden;">&nbsp;</div>
+                      <div class="full-promotion-content">
+                          <p style="font-weight: 600;">Full Promotion Specific Terms and Conditions</p>
+                          <p>Write/Paste Full Promotion contents here</p>
+                      </div>
+                  <div id="closeSExpansion" class="hidden" style="visibility: hidden;">&nbsp;</div>
 
-  function downloadFile(data){
-    let x = '';
-    let y = '';
+          <div id="content-REGION" class="tnc-content-wrap hidden" style="visibility: hidden;">&nbsp;</div>
+              <div class="contentwrap tnc-content-format hidden" style="visibility: hidden;">&nbsp;</div>
+                  <h2 class="mb-4 font-semibold text-body-1 mt-40">LOCALIZED-SC</h2>
+                  <p>Write/Paste Localized Significant Contents here</p>
+                  <div id="LOCALIZED-SExpansion" class="hidden" style="visibility: hidden;">&nbsp;</div>
+                      <div class="full-promotion-content">
+                          <p style="font-weight: 600;">LOCALIZED-FP</p>
+                          <p>Write/Paste Localized Full Promotion contents here</p>
+                      </div>
+                  <div id="closeSExpansion" class="hidden" style="visibility: hidden;">&nbsp;</div>`,
+  QG: "",
+}
 
-    //Download
-    let fileName = document.getElementById('filename').value;
-    let blob = new Blob([y], {type: 'text/html'});
-    let htmlFile = document.createElement('a');
-    htmlFile.download = `${fileName}.html`;
-    htmlFile.href = window.URL.createObjectURL(blob);
-    htmlFile.click();
+//Templates handler show region dropdown
+const templateDropdown = document.getElementById('templates-dropdown');
+templateDropdown.addEventListener('change', () => {
+
+  const selectedTemplates = templateDropdown.value;
+
+  switch(selectedTemplates){
+    case 'TNC':
+      document.getElementById('region-container').classList.remove('hidden')
+      break;
+    case 'QG':
+      document.getElementById('region-container').classList.add('hidden')
+      break;
   }
-  
-  //Download HTML function
-  function getHtmlContent(data) {
-    //var content = tinymce.get('mytextarea').getContent() // Replace 'myTextarea' with the ID of your textarea
-
-    let content = previewContent(data)
-    
-    let newContent = content;
-    //replacing all contents, removing preview contents before download
-    let x = newContent.replaceAll('<div id="script1" class="hidden" style="visibility: hidden;">&nbsp;</div>', script1)
-                      .replaceAll('<div id="script2" class="hidden" style="visibility: hidden;">&nbsp;</div>', script2)
-
-                      .replaceAll('<div id="content-en-gb" class="tnc-content-wrap hidden" style="visibility: hidden;">&nbsp;</div>', '<div id="content-en-gb" class="tnc-content-wrap">')
-                      .replaceAll('<div id="content-REGION" class="tnc-content-wrap hidden" style="visibility: hidden;">&nbsp;</div>', '<div id="content-REGION" class="tnc-content-wrap">')
-                      .replaceAll('<div id="content-zh-cn" class="tnc-content-wrap hidden" style="visibility: hidden;">&nbsp;</div>', '<div id="content-zh-cn" class="tnc-content-wrap">')
-                      .replaceAll('<div id="content-vi-vn" class="tnc-content-wrap hidden" style="visibility: hidden;">&nbsp;</div>', '<div id="content-vi-vn" class="tnc-content-wrap">')
-                      .replaceAll('<div id="content-th-th" class="tnc-content-wrap hidden" style="visibility: hidden;">&nbsp;</div>', '<div id="content-th-th" class="tnc-content-wrap">')
-                      .replaceAll('<div id="content-ko-kr" class="tnc-content-wrap hidden" style="visibility: hidden;">&nbsp;</div>', '<div id="content-ko-kr" class="tnc-content-wrap">')
-                      .replaceAll('<div id="content-id-id" class="tnc-content-wrap hidden" style="visibility: hidden;">&nbsp;</div>', '<div id="content-id-id" class="tnc-content-wrap">')
-                      .replaceAll('<div id="content-km-kh" class="tnc-content-wrap hidden" style="visibility: hidden;">&nbsp;</div>', '<div id="content-km-kh" class="tnc-content-wrap">')
-                      .replaceAll('<div id="content-ja-jp" class="tnc-content-wrap hidden" style="visibility: hidden;">&nbsp;</div>', '<div id="content-ja-jp" class="tnc-content-wrap">')
-                      .replaceAll('<div id="content-hi-in" class="tnc-content-wrap hidden" style="visibility: hidden;">&nbsp;</div>', '<div id="content-hi-in" class="tnc-content-wrap">')
-                      .replaceAll('<div class="contentwrap tnc-content-format hidden" style="visibility: hidden;">&nbsp;</div>', '<div class="contentwrap tnc-content-format">')
-
-                      .replaceAll('<div id="SExpansion" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.EN)
-                      .replaceAll('<div id="SExpansion-CN" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.CN)
-                      .replaceAll('<div id="SExpansion-VN" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.VN)
-                      .replaceAll('<div id="SExpansion-TH" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.TH)
-                      .replaceAll('<div id="SExpansion-KR" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.KR)
-                      .replaceAll('<div id="SExpansion-ID" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.ID)
-                      .replaceAll('<div id="SExpansion-KH" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.KH)
-                      .replaceAll('<div id="SExpansion-JP" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.JP)
-                      .replaceAll('<div id="SExpansion-IN" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.IN)
-                      .replaceAll('<div id="closeSExpansion" class="hidden" style="visibility: hidden;">&nbsp;</div>', closeSExpansion)
-                      .replaceAll(FPSTCs.EN, "")
-                      .replaceAll(FPSTCs.CN, "")
-                      .replaceAll(FPSTCs.VN, "")
-                      .replaceAll(FPSTCs.TH, "")
-                      .replaceAll(FPSTCs.KR, "")
-                      .replaceAll(FPSTCs.ID, "")
-                      .replaceAll(FPSTCs.KH, "")
-                      .replaceAll(FPSTCs.JP, "")
-                      .replaceAll(FPSTCs.IN, "")
-                      .replace('mt-40', '')
-
-                      return x;
-}
-
-  //Preview Content function
-  function previewContent(data){
-    let content = tinymce.get('mytextarea').getContent()
-    
-    //replaceAll is used to replace the default html content from tinymce.
-    let y = content.replaceAll('<ol>', '<ol class="list-decimal pl-8 mb-4">')
-        //replacing list (this is for copying from a document preventing numbers from breaking)
-        // .replaceAll('<ol start="2">', '<ol start="2" class="list-decimal pl-8 mb-4">')
-        .replaceAll(/<ol(.*?)>/g, '<ol class="list-decimal pl-8 mb-4"$1>')
-        //replacing Significant Conditions
-        .replaceAll('<p>Significant Conditions</p>', '<h2 class="mb-4 font-semibold text-body-1">Significant Conditions</h2>')
-        .replaceAll('<p><strong>Significant Conditions</strong></p>', '<h2 class="mb-4 font-semibold text-body-1">Significant Conditions</h2>')
-        //replacing list styles
-        .replaceAll('<ol style="list-style-type: lower-roman;">', '<ol class="list-lower-roman pl-8 mb-4">')
-        .replaceAll('<ol style="list-style-type: upper-roman;">', '<ol class="list-upper-roman pl-8 mb-4">')
-        .replaceAll('<ol style="list-style-type: lower-alpha;">', '<ol class="list-lower-alpha pl-8 mb-4">')
-        .replaceAll('<ol style="list-style-type: upper-alpha;">', '<ol class="list-upper-alpha pl-8 mb-4">')
-        //replacing tables
-        .replaceAll('<div class="border rounded mb-4 table-responsive">', '')
-        .replaceAll(/<table(.*?)>/g, '<div class="border rounded mb-4 table-responsive"><table class="w-full border-collapse border-spacing-0">')
-        // .replaceAll('<table class="w-full border-collapse border-spacing-0 text-center">', '<div class="border rounded mb-4 table-responsive"><table class="w-full border-collapse border-spacing-0">')
-        // .replaceAll('<table>', '<div class="border rounded mb-4 table-responsive"><table class="w-full border-collapse border-spacing-0">')
-        // .replaceAll('<table width="618">', '<div class="border rounded mb-4 table-responsive"><table class="w-full border-collapse border-spacing-0">')
-        // .replaceAll('<table width="600">', '<div class="border rounded mb-4 table-responsive"><table class="w-full border-collapse border-spacing-0">')
-        // .replaceAll('<table style="border-collapse: collapse; width: 100%;" border="1">', '<div class="border rounded mb-4 table-responsive"><table class="w-full border-collapse border-spacing-0">')
-        // .replaceAll('<table style="border-collapse: collapse; width: 100%; margin-left: auto; margin-right: auto;" border="1">', '<div class="border rounded mb-4 table-responsive"><table class="w-full border-collapse border-spacing-0">')
-        
-        .replaceAll('</table>', '</table></div>')
-        .replaceAll('<tbody>', '<tbody class="divide-y">')
-        //2 columns
-        .replaceAll('<td style="width: 50%;">', '<td class="w-1/2">') //2 columns with no text
-        .replaceAll('<td style="width: 50%; text-align: center;">', '<td class="w-1/2 text-center">') //if 2 columns with text aligned center
-        .replaceAll('<td style="width: 50%; text-align: left;">', '<td class="w-1/2 text-left">') //if 2 columns with text aligned left
-        .replaceAll('<td style="width: 50%; text-align: right;">', '<td class="w-1/2 text-right">') //if 2 columns with text aligned right
-        .replaceAll('<td style="width: 50%; text-align: justify;">', '<td class="w-1/2 text-justify">') //if 2 columns with text aligned justify
-        //FPSTC
-        .replaceAll('<p style="font-weight: 600;">Full Promotion Specific Terms and Conditions</p>', FPSTCs.EN)
-        .replaceAll('<p style="font-weight: 600;">完整优惠标准规则</p>', FPSTCs.CN)
-        .replaceAll('<p style="font-weight: 600;">Điều Khoản v&agrave; Điều Kiện Ho&agrave;n Chỉnh</p>', FPSTCs.VN)
-        .replaceAll('<p style="font-weight: 600;">ข้อกำหนดและเงื่อนไขแบบเฉพาะเจาะจง</p>', FPSTCs.TH)
-        .replaceAll('<p style="font-weight: 600;">본 프로모션 이용약관</p>', FPSTCs.KR)
-        .replaceAll('<p style="font-weight: 600;">Syarat dan Kondisi Spesifik promosi Lengkap</p>', FPSTCs.ID)
-        .replaceAll('<p style="font-weight: 600;">លក្ខខណ្ឌ និងកិច្ចព្រមព្រៀងជាក់លាក់នៃការផ្តល់រង្វាន់ទាំងអស</p>', FPSTCs.KH)
-        .replaceAll('<p style="font-weight: 600;">全てのプロモーション－特定の利用規約</p>', FPSTCs.JP)
-        .replaceAll('<p style="font-weight: 600;">पूर्ण प्रमोशन-विशिष्ट नियम और शर्तें</p>', FPSTCs.IN)
-            
-    document.getElementById('tnc-container').innerHTML = y;
-    return y;
-}
+})
 
 //Region handler
 const tncRegionDropdown = document.getElementById('tnc-regions-dropdown');
 tncRegionDropdown.addEventListener('change', () => {
 
-  
   const selectedRegion = tncRegionDropdown.value;
   
   switch(selectedRegion){
@@ -363,97 +296,89 @@ tncRegionDropdown.addEventListener('change', () => {
       templates.TNC = templates.TNC.replace('SExpansion-IN', 'LOCALIZED-SExpansion')
       break;
   }
-  
 })
 
-//Templates object
-const templates = {
-  TNC: `<div id="script1" class="hidden" style="visibility: hidden;">&nbsp;</div>
-          <div id="script2" class="hidden" style="visibility: hidden;">&nbsp;</div>
-          <div id="content-en-gb" class="tnc-content-wrap hidden" style="visibility: hidden;">&nbsp;</div>
-              <div class="contentwrap tnc-content-format hidden" style="visibility: hidden;">&nbsp;</div>
-                  <h2 class="mb-4 font-semibold text-body-1">Significant Conditions</h2>
-                  <p>Write/Paste Significant Contents here</p>
-                  <div id="SExpansion" class="hidden" style="visibility: hidden;">&nbsp;</div>
-                      <div class="full-promotion-content">
-                          <p style="font-weight: 600;">Full Promotion Specific Terms and Conditions</p>
-                          <p>Write/Paste Full Promotion contents here</p>
-                      </div>
-                  <div id="closeSExpansion" class="hidden" style="visibility: hidden;">&nbsp;</div>
+  document.getElementById('import-check').checked = false;
+  document.getElementById('download').addEventListener('click', (data) => {
+    if(document.getElementById('import-check').checked === true){
 
-          <div id="content-REGION" class="tnc-content-wrap hidden" style="visibility: hidden;">&nbsp;</div>
-              <div class="contentwrap tnc-content-format hidden" style="visibility: hidden;">&nbsp;</div>
-                  <h2 class="mb-4 font-semibold text-body-1 mt-40">LOCALIZED-SC</h2>
-                  <p>Write/Paste Localized Significant Contents here</p>
-                  <div id="LOCALIZED-SExpansion" class="hidden" style="visibility: hidden;">&nbsp;</div>
-                      <div class="full-promotion-content">
-                          <p style="font-weight: 600;">LOCALIZED-FP</p>
-                          <p>Write/Paste Localized Full Promotion contents here</p>
-                      </div>
-                  <div id="closeSExpansion" class="hidden" style="visibility: hidden;">&nbsp;</div>`,
-  QG: "",
-}
+      let importedContent = tinymce.get('mytextarea').getContent()
+      let importedResult = ''
 
+      if (importedContent.match('content-zh-cn')) {
+        importedResult = importedContent.replace('LOCALIZED-SExpansion', 'SExpansion-CN')
+      }
+      else if (importedContent.match('content-vi-vn')) {
+        importedResult = importedContent.replace('LOCALIZED-SExpansion', 'SExpansion-VN')
+      }
+      else if (importedContent.match('content-th-th')) {
+        importedResult = importedContent.replace('LOCALIZED-SExpansion', 'SExpansion-TH')
+      }
+      else if (importedContent.match('content-ko-kr')) {
+        importedResult = importedContent.replace('LOCALIZED-SExpansion', 'SExpansion-KR')
+      }
+      else if (importedContent.match('content-id-id')) {
+        importedResult = importedContent.replace('LOCALIZED-SExpansion', 'SExpansion-ID')
+      }
+      else if (importedContent.match('content-km-kh')) {
+        importedResult = importedContent.replace('LOCALIZED-SExpansion', 'SExpansion-KH')
+      }
+      else if (importedContent.match('content-ja-jp')) {
+        importedResult = importedContent.replace('LOCALIZED-SExpansion', 'SExpansion-JP')
+      }
+      else if (importedContent.match('content-hi-in')) {
+        importedResult = importedContent.replace('LOCALIZED-SExpansion', 'SExpansion-IN')
+      }
 
+      let y = importedResult.replaceAll('<div id="script1" class="hidden" style="visibility: hidden;">&nbsp;</div>', script1)
+                            .replaceAll('<div id="script2" class="hidden" style="visibility: hidden;">&nbsp;</div>', script2)   
+                            .replaceAll('<h2 class="m-4 font-semibold text-body-1">Full Promotion Specific Terms and Conditions</h2>', '')  //EN cleanup
+                            .replaceAll('<h2 class="m-4 font-semibold text-body-1">完整优惠标准规则</h2>', '') //CN cleanup
+                            .replaceAll('<h2 class="m-4 font-semibold text-body-1">Điều Khoản và Điều Kiện Hoàn Chỉnh</h2>', '') //VN cleanup
+                            .replaceAll('<h2 class="m-4 font-semibold text-body-1">ข้อกำหนดและเงื่อนไขแบบเฉพาะเจาะจง</h2>', '') //TH cleanup
+                            .replaceAll('<h2 class="m-4 font-semibold text-body-1">본 프로모션 이용약관</h2>', '') //KR cleanup
+                            .replaceAll('<h2 class="m-4 font-semibold text-body-1">Syarat dan Kondisi Spesifik promosi Lengkap</h2>', '') //ID cleanup
+                            .replaceAll('<h2 class="m-4 font-semibold text-body-1">លក្ខខណ្ឌ និងកិច្ចព្រមព្រៀងជាក់លាក់នៃការផ្តល់រង្វាន់ទាំងអស</h2>', '') //KH cleanup
+                            .replaceAll('<h2 class="m-4 font-semibold text-body-1">全てのプロモーション－特定の利用規約</h2>', '') //JP cleanup
+                            .replaceAll('<h2 class="m-4 font-semibold text-body-1">पूर्ण प्रमोशन-विशिष्ट नियम और शर्तें</h2>', '') //IN cleanup
 
+                            .replaceAll('<div id="SExpansion" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.EN)
+                            .replaceAll('<div id="SExpansion-CN" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.CN)
+                            .replaceAll('<div id="SExpansion-VN" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.VN)
+                            .replaceAll('<div id="SExpansion-TH" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.TH)
+                            .replaceAll('<div id="SExpansion-KR" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.KR)
+                            .replaceAll('<div id="SExpansion-ID" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.ID)
+                            .replaceAll('<div id="SExpansion-KH" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.KH)
+                            .replaceAll('<div id="SExpansion-JP" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.JP)
+                            .replaceAll('<div id="SExpansion-IN" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.IN)
+                            .replaceAll('<div id="closeSExpansion" class="hidden" style="visibility: hidden;">&nbsp;</div>', closeSExpansion)
 
-//Templates handler show region dropdown
-const templateDropdown = document.getElementById('templates-dropdown');
-templateDropdown.addEventListener('change', () => {
+      let fileName = document.getElementById('filename').value;
+      let blob = new Blob([y], {type: 'text/html'});
+      let htmlFile = document.createElement('a');
+      htmlFile.download = `${fileName}.html`;
+      htmlFile.href = window.URL.createObjectURL(blob);
+      htmlFile.click();
+    } 
+    else if (document.getElementById('import-check').checked === false){
 
-  const selectedTemplates = templateDropdown.value;
+      let content = previewContent(data)
+      let newContent = content;
+      //replacing all contents, removing preview contents before download
+      let x = newContent.replaceAll('<div id="script1" class="hidden" style="visibility: hidden;">&nbsp;</div>', script1)
+                        .replaceAll('<div id="script2" class="hidden" style="visibility: hidden;">&nbsp;</div>', script2)
 
-  switch(selectedTemplates){
-    case 'TNC':
-      document.getElementById('region-container').classList.remove('hidden')
-      break;
-    case 'QG':
-      document.getElementById('region-container').classList.add('hidden')
-      break;
-  }
-})
-
-function localizedImport(){
-
-  let importedContent = tinymce.get('mytextarea').getContent()
-  let importedResult = ''
-
-  if (importedContent.match('content-zh-cn')) {
-    importedResult = importedContent.replace('LOCALIZED-SExpansion', 'SExpansion-CN')
-  }
-  else if (importedContent.match('content-vi-vn')) {
-    importedResult = importedContent.replace('LOCALIZED-SExpansion', 'SExpansion-VN')
-  }
-  else if (importedContent.match('content-th-th')) {
-    importedResult = importedContent.replace('LOCALIZED-SExpansion', 'SExpansion-TH')
-  }
-  else if (importedContent.match('content-ko-kr')) {
-    importedResult = importedContent.replace('LOCALIZED-SExpansion', 'SExpansion-KR')
-  }
-  else if (importedContent.match('content-id-id')) {
-    importedResult = importedContent.replace('LOCALIZED-SExpansion', 'SExpansion-ID')
-  }
-  else if (importedContent.match('content-km-kh')) {
-    importedResult = importedContent.replace('LOCALIZED-SExpansion', 'SExpansion-KH')
-  }
-  else if (importedContent.match('content-ja-jp')) {
-    importedResult = importedContent.replace('LOCALIZED-SExpansion', 'SExpansion-JP')
-  }
-  else if (importedContent.match('content-hi-in')) {
-    importedResult = importedContent.replace('LOCALIZED-SExpansion', 'SExpansion-IN')
-  }
-
-  let y = importedResult.replaceAll('<div id="script1" class="hidden" style="visibility: hidden;">&nbsp;</div>', script1)
-                        .replaceAll('<div id="script2" class="hidden" style="visibility: hidden;">&nbsp;</div>', script2)   
-                        .replaceAll('<h2 class="m-4 font-semibold text-body-1">Full Promotion Specific Terms and Conditions</h2>', '')  //EN cleanup
-                        .replaceAll('<h2 class="m-4 font-semibold text-body-1">完整优惠标准规则</h2>', '') //CN cleanup
-                        .replaceAll('<h2 class="m-4 font-semibold text-body-1">Điều Khoản và Điều Kiện Hoàn Chỉnh</h2>', '') //VN cleanup
-                        .replaceAll('<h2 class="m-4 font-semibold text-body-1">ข้อกำหนดและเงื่อนไขแบบเฉพาะเจาะจง</h2>', '') //TH cleanup
-                        .replaceAll('<h2 class="m-4 font-semibold text-body-1">본 프로모션 이용약관</h2>', '') //KR cleanup
-                        .replaceAll('<h2 class="m-4 font-semibold text-body-1">Syarat dan Kondisi Spesifik promosi Lengkap</h2>', '') //ID cleanup
-                        .replaceAll('<h2 class="m-4 font-semibold text-body-1">លក្ខខណ្ឌ និងកិច្ចព្រមព្រៀងជាក់លាក់នៃការផ្តល់រង្វាន់ទាំងអស</h2>', '') //KH cleanup
-                        .replaceAll('<h2 class="m-4 font-semibold text-body-1">全てのプロモーション－特定の利用規約</h2>', '') //JP cleanup
-                        .replaceAll('<h2 class="m-4 font-semibold text-body-1">पूर्ण प्रमोशन-विशिष्ट नियम और शर्तें</h2>', '') //IN cleanup
+                        .replaceAll('<div id="content-en-gb" class="tnc-content-wrap hidden" style="visibility: hidden;">&nbsp;</div>', '<div id="content-en-gb" class="tnc-content-wrap">')
+                        .replaceAll('<div id="content-REGION" class="tnc-content-wrap hidden" style="visibility: hidden;">&nbsp;</div>', '<div id="content-REGION" class="tnc-content-wrap">')
+                        .replaceAll('<div id="content-zh-cn" class="tnc-content-wrap hidden" style="visibility: hidden;">&nbsp;</div>', '<div id="content-zh-cn" class="tnc-content-wrap">')
+                        .replaceAll('<div id="content-vi-vn" class="tnc-content-wrap hidden" style="visibility: hidden;">&nbsp;</div>', '<div id="content-vi-vn" class="tnc-content-wrap">')
+                        .replaceAll('<div id="content-th-th" class="tnc-content-wrap hidden" style="visibility: hidden;">&nbsp;</div>', '<div id="content-th-th" class="tnc-content-wrap">')
+                        .replaceAll('<div id="content-ko-kr" class="tnc-content-wrap hidden" style="visibility: hidden;">&nbsp;</div>', '<div id="content-ko-kr" class="tnc-content-wrap">')
+                        .replaceAll('<div id="content-id-id" class="tnc-content-wrap hidden" style="visibility: hidden;">&nbsp;</div>', '<div id="content-id-id" class="tnc-content-wrap">')
+                        .replaceAll('<div id="content-km-kh" class="tnc-content-wrap hidden" style="visibility: hidden;">&nbsp;</div>', '<div id="content-km-kh" class="tnc-content-wrap">')
+                        .replaceAll('<div id="content-ja-jp" class="tnc-content-wrap hidden" style="visibility: hidden;">&nbsp;</div>', '<div id="content-ja-jp" class="tnc-content-wrap">')
+                        .replaceAll('<div id="content-hi-in" class="tnc-content-wrap hidden" style="visibility: hidden;">&nbsp;</div>', '<div id="content-hi-in" class="tnc-content-wrap">')
+                        .replaceAll('<div class="contentwrap tnc-content-format hidden" style="visibility: hidden;">&nbsp;</div>', '<div class="contentwrap tnc-content-format">')
 
                         .replaceAll('<div id="SExpansion" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.EN)
                         .replaceAll('<div id="SExpansion-CN" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.CN)
@@ -465,10 +390,127 @@ function localizedImport(){
                         .replaceAll('<div id="SExpansion-JP" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.JP)
                         .replaceAll('<div id="SExpansion-IN" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.IN)
                         .replaceAll('<div id="closeSExpansion" class="hidden" style="visibility: hidden;">&nbsp;</div>', closeSExpansion)
+                        .replaceAll(FPSTCs.EN, "")
+                        .replaceAll(FPSTCs.CN, "")
+                        .replaceAll(FPSTCs.VN, "")
+                        .replaceAll(FPSTCs.TH, "")
+                        .replaceAll(FPSTCs.KR, "")
+                        .replaceAll(FPSTCs.ID, "")
+                        .replaceAll(FPSTCs.KH, "")
+                        .replaceAll(FPSTCs.JP, "")
+                        .replaceAll(FPSTCs.IN, "")
+                        .replace('mt-40', '')
+
+      let fileName = document.getElementById('filename').value;
+      let blob = new Blob([x], {type: 'text/html'});
+      let htmlFile = document.createElement('a');
+      htmlFile.download = `${fileName}.html`;
+      htmlFile.href = window.URL.createObjectURL(blob);
+      htmlFile.click();
+    }
+  }) 
+
+
+  //Preview Content function
+  function previewContent(data){
+    let content = tinymce.get('mytextarea').getContent()
+    
+    //replaceAll is used to replace the default html content from tinymce.
+    let y = content.replaceAll('<ol>', '<ol class="list-decimal pl-8 mb-4">')
+        //replacing list (this is for copying from a document preventing numbers from breaking)
+        // .replaceAll('<ol start="2">', '<ol start="2" class="list-decimal pl-8 mb-4">')
+        .replaceAll(/<ol(.*?)>/g, '<ol class="list-decimal pl-8 mb-4"$1>')
+        //replacing Significant Conditions
+        .replaceAll('<p>Significant Conditions</p>', '<h2 class="mb-4 font-semibold text-body-1">Significant Conditions</h2>')
+        .replaceAll('<p><strong>Significant Conditions</strong></p>', '<h2 class="mb-4 font-semibold text-body-1">Significant Conditions</h2>')
+        //replacing list styles
+        .replaceAll('<ol style="list-style-type: lower-roman;">', '<ol class="list-lower-roman pl-8 mb-4">')
+        .replaceAll('<ol style="list-style-type: upper-roman;">', '<ol class="list-upper-roman pl-8 mb-4">')
+        .replaceAll('<ol style="list-style-type: lower-alpha;">', '<ol class="list-lower-alpha pl-8 mb-4">')
+        .replaceAll('<ol style="list-style-type: upper-alpha;">', '<ol class="list-upper-alpha pl-8 mb-4">')
+        //replacing tables
+        .replaceAll('<div class="border rounded mb-4 table-responsive">', '')
+        .replaceAll(/<table(.*?)>/g, '<div class="border rounded mb-4 table-responsive"><table class="w-full border-collapse border-spacing-0">')
+        // .replaceAll('<table class="w-full border-collapse border-spacing-0 text-center">', '<div class="border rounded mb-4 table-responsive"><table class="w-full border-collapse border-spacing-0">')
+        // .replaceAll('<table>', '<div class="border rounded mb-4 table-responsive"><table class="w-full border-collapse border-spacing-0">')
+        // .replaceAll('<table width="618">', '<div class="border rounded mb-4 table-responsive"><table class="w-full border-collapse border-spacing-0">')
+        // .replaceAll('<table width="600">', '<div class="border rounded mb-4 table-responsive"><table class="w-full border-collapse border-spacing-0">')
+        // .replaceAll('<table style="border-collapse: collapse; width: 100%;" border="1">', '<div class="border rounded mb-4 table-responsive"><table class="w-full border-collapse border-spacing-0">')
+        // .replaceAll('<table style="border-collapse: collapse; width: 100%; margin-left: auto; margin-right: auto;" border="1">', '<div class="border rounded mb-4 table-responsive"><table class="w-full border-collapse border-spacing-0">')
+        
+        .replaceAll('</table>', '</table></div>')
+        .replaceAll('<tbody>', '<tbody class="divide-y">')
+        //2 columns
+        .replaceAll('<td style="width: 50%;">', '<td class="w-1/2">') //2 columns with no text
+        .replaceAll('<td style="width: 50%; text-align: center;">', '<td class="w-1/2 text-center">') //if 2 columns with text aligned center
+        .replaceAll('<td style="width: 50%; text-align: left;">', '<td class="w-1/2 text-left">') //if 2 columns with text aligned left
+        .replaceAll('<td style="width: 50%; text-align: right;">', '<td class="w-1/2 text-right">') //if 2 columns with text aligned right
+        .replaceAll('<td style="width: 50%; text-align: justify;">', '<td class="w-1/2 text-justify">') //if 2 columns with text aligned justify
+        //FPSTC
+        .replaceAll('<p style="font-weight: 600;">Full Promotion Specific Terms and Conditions</p>', FPSTCs.EN)
+        .replaceAll('<p style="font-weight: 600;">完整优惠标准规则</p>', FPSTCs.CN)
+        .replaceAll('<p style="font-weight: 600;">Điều Khoản v&agrave; Điều Kiện Ho&agrave;n Chỉnh</p>', FPSTCs.VN)
+        .replaceAll('<p style="font-weight: 600;">ข้อกำหนดและเงื่อนไขแบบเฉพาะเจาะจง</p>', FPSTCs.TH)
+        .replaceAll('<p style="font-weight: 600;">본 프로모션 이용약관</p>', FPSTCs.KR)
+        .replaceAll('<p style="font-weight: 600;">Syarat dan Kondisi Spesifik promosi Lengkap</p>', FPSTCs.ID)
+        .replaceAll('<p style="font-weight: 600;">លក្ខខណ្ឌ និងកិច្ចព្រមព្រៀងជាក់លាក់នៃការផ្តល់រង្វាន់ទាំងអស</p>', FPSTCs.KH)
+        .replaceAll('<p style="font-weight: 600;">全てのプロモーション－特定の利用規約</p>', FPSTCs.JP)
+        .replaceAll('<p style="font-weight: 600;">पूर्ण प्रमोशन-विशिष्ट नियम और शर्तें</p>', FPSTCs.IN)
+            
+    document.getElementById('tnc-container').innerHTML = y;
+    return y;
 }
 
-if(document.getElementById('import-check').checked == true){
-     console.log('hello');
-     
-} else {
-}
+// function localizedImport(){
+
+//   let importedContent = tinymce.get('mytextarea').getContent()
+//   let importedResult = ''
+
+//   if (importedContent.match('content-zh-cn')) {
+//     importedResult = importedContent.replace('LOCALIZED-SExpansion', 'SExpansion-CN')
+//   }
+//   else if (importedContent.match('content-vi-vn')) {
+//     importedResult = importedContent.replace('LOCALIZED-SExpansion', 'SExpansion-VN')
+//   }
+//   else if (importedContent.match('content-th-th')) {
+//     importedResult = importedContent.replace('LOCALIZED-SExpansion', 'SExpansion-TH')
+//   }
+//   else if (importedContent.match('content-ko-kr')) {
+//     importedResult = importedContent.replace('LOCALIZED-SExpansion', 'SExpansion-KR')
+//   }
+//   else if (importedContent.match('content-id-id')) {
+//     importedResult = importedContent.replace('LOCALIZED-SExpansion', 'SExpansion-ID')
+//   }
+//   else if (importedContent.match('content-km-kh')) {
+//     importedResult = importedContent.replace('LOCALIZED-SExpansion', 'SExpansion-KH')
+//   }
+//   else if (importedContent.match('content-ja-jp')) {
+//     importedResult = importedContent.replace('LOCALIZED-SExpansion', 'SExpansion-JP')
+//   }
+//   else if (importedContent.match('content-hi-in')) {
+//     importedResult = importedContent.replace('LOCALIZED-SExpansion', 'SExpansion-IN')
+//   }
+
+//   let y = importedResult.replaceAll('<div id="script1" class="hidden" style="visibility: hidden;">&nbsp;</div>', script1)
+//                         .replaceAll('<div id="script2" class="hidden" style="visibility: hidden;">&nbsp;</div>', script2)   
+//                         .replaceAll('<h2 class="m-4 font-semibold text-body-1">Full Promotion Specific Terms and Conditions</h2>', '')  //EN cleanup
+//                         .replaceAll('<h2 class="m-4 font-semibold text-body-1">完整优惠标准规则</h2>', '') //CN cleanup
+//                         .replaceAll('<h2 class="m-4 font-semibold text-body-1">Điều Khoản và Điều Kiện Hoàn Chỉnh</h2>', '') //VN cleanup
+//                         .replaceAll('<h2 class="m-4 font-semibold text-body-1">ข้อกำหนดและเงื่อนไขแบบเฉพาะเจาะจง</h2>', '') //TH cleanup
+//                         .replaceAll('<h2 class="m-4 font-semibold text-body-1">본 프로모션 이용약관</h2>', '') //KR cleanup
+//                         .replaceAll('<h2 class="m-4 font-semibold text-body-1">Syarat dan Kondisi Spesifik promosi Lengkap</h2>', '') //ID cleanup
+//                         .replaceAll('<h2 class="m-4 font-semibold text-body-1">លក្ខខណ្ឌ និងកិច្ចព្រមព្រៀងជាក់លាក់នៃការផ្តល់រង្វាន់ទាំងអស</h2>', '') //KH cleanup
+//                         .replaceAll('<h2 class="m-4 font-semibold text-body-1">全てのプロモーション－特定の利用規約</h2>', '') //JP cleanup
+//                         .replaceAll('<h2 class="m-4 font-semibold text-body-1">पूर्ण प्रमोशन-विशिष्ट नियम और शर्तें</h2>', '') //IN cleanup
+
+//                         .replaceAll('<div id="SExpansion" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.EN)
+//                         .replaceAll('<div id="SExpansion-CN" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.CN)
+//                         .replaceAll('<div id="SExpansion-VN" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.VN)
+//                         .replaceAll('<div id="SExpansion-TH" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.TH)
+//                         .replaceAll('<div id="SExpansion-KR" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.KR)
+//                         .replaceAll('<div id="SExpansion-ID" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.ID)
+//                         .replaceAll('<div id="SExpansion-KH" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.KH)
+//                         .replaceAll('<div id="SExpansion-JP" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.JP)
+//                         .replaceAll('<div id="SExpansion-IN" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.IN)
+//                         .replaceAll('<div id="closeSExpansion" class="hidden" style="visibility: hidden;">&nbsp;</div>', closeSExpansion)
+// }
