@@ -416,10 +416,11 @@ tncRegionDropdown.addEventListener('change', () => {
     let content = tinymce.get('mytextarea').getContent()
     
     //replaceAll is used to replace the default html content from tinymce.
-    let y = content.replaceAll('<ol>', '<ol class="list-decimal pl-8 mb-4">')
+    let y = content.replaceAll(/<ol(.*?)>/g, '<ol class="list-decimal pl-8 mb-4"$1>')
+        //.replaceAll('<ol>', '<ol class="list-decimal pl-8 mb-4">')
         //replacing list (this is for copying from a document preventing numbers from breaking)
         // .replaceAll('<ol start="2">', '<ol start="2" class="list-decimal pl-8 mb-4">')
-        .replaceAll(/<ol(.*?)>/g, '<ol class="list-decimal pl-8 mb-4"$1>')
+        
         //replacing Significant Conditions
         .replaceAll('<p>Significant Conditions</p>', '<h2 class="mb-4 font-semibold text-body-1">Significant Conditions</h2>')
         .replaceAll('<p><strong>Significant Conditions</strong></p>', '<h2 class="mb-4 font-semibold text-body-1">Significant Conditions</h2>')
@@ -428,6 +429,7 @@ tncRegionDropdown.addEventListener('change', () => {
         .replaceAll('<ol style="list-style-type: upper-roman;">', '<ol class="list-upper-roman pl-8 mb-4">')
         .replaceAll('<ol style="list-style-type: lower-alpha;">', '<ol class="list-lower-alpha pl-8 mb-4">')
         .replaceAll('<ol style="list-style-type: upper-alpha;">', '<ol class="list-upper-alpha pl-8 mb-4">')
+        .replaceAll('<ol class="list-decimal pl-8 mb-4" style="list-style-type: lower-alpha;">', '<ol class="list-lower-alpha pl-8 mb-4">')
         //replacing tables
         .replaceAll('<div class="border rounded mb-4 table-responsive">', '')
         .replaceAll(/<table(.*?)>/g, '<div class="border rounded mb-4 table-responsive"><table class="w-full border-collapse border-spacing-0">')
@@ -456,6 +458,9 @@ tncRegionDropdown.addEventListener('change', () => {
         .replaceAll('<p style="font-weight: 600;">លក្ខខណ្ឌ និងកិច្ចព្រមព្រៀងជាក់លាក់នៃការផ្តល់រង្វាន់ទាំងអស</p>', FPSTCs.KH)
         .replaceAll('<p style="font-weight: 600;">全てのプロモーション－特定の利用規約</p>', FPSTCs.JP)
         .replaceAll('<p style="font-weight: 600;">पूर्ण प्रमोशन-विशिष्ट नियम और शर्तें</p>', FPSTCs.IN)
+
+        //cleanup
+        .replaceAll('<p><strong>&nbsp;</strong></p>', '')
             
     document.getElementById('tnc-container').innerHTML = y;
     return y;
