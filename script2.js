@@ -7,9 +7,6 @@ tinymce.init({
   visualblocks_default_state: false, //display visual blocks by default
   paste_as_text: false, 
   newline_behavior: 'block',
-  
-  //forced_root_block: 'div',
-  // fix_list_elements: true,
   height: '68vh',
   width: '100%',
   resize: false,

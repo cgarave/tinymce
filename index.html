@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="https://cdn.tiny.cloud/1/w6ivg625dosxqduf6vnztan0ddkejc3laz65mbljef30pv1j/tinymce/4/tinymce.min.js"
+    <script src="https://cdn.tiny.cloud/1/te167wk1fiddsv5gf6bf7yi169ojp0pclg2kksirxrl0w9lg/tinymce/4/tinymce.min.js"
         referrerpolicy="origin"></script>
     <link rel="stylesheet" href="style.css">
     <link href="src/output.css" rel="stylesheet">
@@ -31,6 +31,9 @@
                 <li class="text-white font-semibold text-lg">WEB</li>
             </ul>
             <ul class="flex flex-row gap-x-2">
+                <li>
+                    <button id="guide" class="bg-[#2C1A5A] text-white font-medium p-2 rounded-[4px] text-xs">Keyboard Guide</button>
+                </li>
                 <li>
                     <button id="whats-new" class="bg-[#2C1A5A] text-white font-medium p-2 rounded-[4px] text-xs">What's new?</button>
                 </li>
@@ -150,10 +153,11 @@
     </div>
     <!--Footer Section-->
     <footer class="px-3 py-5 text-white text-xs font-medium flex flex-row justify-between items-center">
-        <p>Created by Rave</p>
+        <!-- <p>Created by Rave</p> -->
         <p>Version 0.1082824</p>
     </footer>
     <div id="update-card" class="hidden flex flex-col gap-y-1 w-80 h-40 bg-[#2C1A5A] border-2 border-[#4816C3] rounded-md absolute top-14 right-0 mr-3 p-1 overflow-scroll"></div>
+    <div id="guide-card" class="hidden flex flex-col gap-y-1 w-80 h-40 bg-[#2C1A5A] border-2 border-[#4816C3] rounded-md absolute top-14 right-0 mr-3 p-1 overflow-scroll"></div>
 </body>
 
 <!-- <script src="script.js"></script> -->
