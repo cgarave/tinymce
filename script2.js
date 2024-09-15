@@ -22,8 +22,8 @@ tinymce.init({
                   }`,
   plugins: ["template paste autolink link image lists advlist charmap preview hr anchor",
             "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
-            "save table contextmenu directionality template paste textcolor",],
-  toolbar: 'template undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image table mergetags | align lineheight | checklist numlist bullist indent outdent',
+            "save table contextmenu directionality template paste textcolor"],
+  toolbar: 'template undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image table mergetags | align lineheight | checklist numlist bullist indent outdent startAtButton',
   // tinycomments_mode: 'embedded',
   tinycomments_author: 'Author name',
   mergetags_list: [
@@ -338,6 +338,12 @@ tncRegionDropdown.addEventListener('change', () => {
                             .replaceAll('<h2 class="m-4 font-semibold text-body-1">លក្ខខណ្ឌ និងកិច្ចព្រមព្រៀងជាក់លាក់នៃការផ្តល់រង្វាន់ទាំងអស</h2>', '') //KH cleanup
                             .replaceAll('<h2 class="m-4 font-semibold text-body-1">全てのプロモーション－特定の利用規約</h2>', '') //JP cleanup
                             .replaceAll('<h2 class="m-4 font-semibold text-body-1">पूर्ण प्रमोशन-विशिष्ट नियम और शर्तें</h2>', '') //IN cleanup
+                            .replace(/<\/div>\s*<\/div>\s*<div id="closeSExpansion" class="hidden" style="visibility: hidden;">&nbsp;<\/div>/g, '<div id="closeSExpansion" class="hidden" style="visibility: hidden;">&nbsp;</div>')
+                            
+                            .replaceAll('<ol class="list-decimal pl-8 mb-4" style="list-style-type: lower-alpha;">', '<ol class="list-lower-alpha pl-8 mb-4">')
+                            .replaceAll('<ol class="list-lower-alpha pl-8 mb-4" style="list-style-type: lower-alpha;">', '<ol class="list-lower-alpha pl-8 mb-4">')
+                            .replaceAll('<ol class="list-decimal pl-8 mb-4" style="list-style-type: lower-roman;">', '<ol class="list-lower-roman pl-8 mb-4">')
+                            .replaceAll('<ol class="list-lower-roman pl-8 mb-4" style="list-style-type: lower-roman;">', '<ol class="list-lower-roman pl-8 mb-4">')
 
                             .replaceAll('<div id="SExpansion" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.EN)
                             .replaceAll('<div id="SExpansion-CN" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.CN)
@@ -411,12 +417,9 @@ tncRegionDropdown.addEventListener('change', () => {
   //Preview Content function
   function previewContent(data){
     let content = tinymce.get('mytextarea').getContent()
-    
+   
     //replaceAll is used to replace the default html content from tinymce.
     let y = content.replaceAll(/<ol(.*?)>/g, '<ol class="list-decimal pl-8 mb-4"$1>')
-        //.replaceAll('<ol>', '<ol class="list-decimal pl-8 mb-4">')
-        //replacing list (this is for copying from a document preventing numbers from breaking)
-        // .replaceAll('<ol start="2">', '<ol start="2" class="list-decimal pl-8 mb-4">')
         
         //replacing Significant Conditions
         .replaceAll('<p>Significant Conditions</p>', '<h2 class="mb-4 font-semibold text-body-1">Significant Conditions</h2>')
@@ -427,17 +430,12 @@ tncRegionDropdown.addEventListener('change', () => {
         .replaceAll('<ol style="list-style-type: lower-alpha;">', '<ol class="list-lower-alpha pl-8 mb-4">')
         .replaceAll('<ol style="list-style-type: upper-alpha;">', '<ol class="list-upper-alpha pl-8 mb-4">')
         .replaceAll('<ol class="list-decimal pl-8 mb-4" style="list-style-type: lower-alpha;">', '<ol class="list-lower-alpha pl-8 mb-4">')
+        .replaceAll('<ol class="list-decimal pl-8 mb-4" style="list-style-type: lower-roman;">', '<ol class="list-lower-roman pl-8 mb-4">')
         //replacing tables
         .replaceAll('<div class="border rounded mb-4 table-responsive">', '')
         .replaceAll(/<table(.*?)>/g, '<div class="border rounded mb-4 table-responsive"><table class="w-full border-collapse border-spacing-0">')
-        // .replaceAll('<table class="w-full border-collapse border-spacing-0 text-center">', '<div class="border rounded mb-4 table-responsive"><table class="w-full border-collapse border-spacing-0">')
-        // .replaceAll('<table>', '<div class="border rounded mb-4 table-responsive"><table class="w-full border-collapse border-spacing-0">')
-        // .replaceAll('<table width="618">', '<div class="border rounded mb-4 table-responsive"><table class="w-full border-collapse border-spacing-0">')
-        // .replaceAll('<table width="600">', '<div class="border rounded mb-4 table-responsive"><table class="w-full border-collapse border-spacing-0">')
-        // .replaceAll('<table style="border-collapse: collapse; width: 100%;" border="1">', '<div class="border rounded mb-4 table-responsive"><table class="w-full border-collapse border-spacing-0">')
-        // .replaceAll('<table style="border-collapse: collapse; width: 100%; margin-left: auto; margin-right: auto;" border="1">', '<div class="border rounded mb-4 table-responsive"><table class="w-full border-collapse border-spacing-0">')
-        
         .replaceAll('</table>', '</table></div>')
+        .replace(/<\/table>\s*<\/div>\s*<\/div>/g, '</table></div>') //checking whitespaces and ignoring it
         .replaceAll('<tbody>', '<tbody class="divide-y">')
         //2 columns
         .replaceAll('<td style="width: 50%;">', '<td class="w-1/2">') //2 columns with no text
@@ -458,7 +456,9 @@ tncRegionDropdown.addEventListener('change', () => {
 
         //cleanup
         .replaceAll('<p><strong>&nbsp;</strong></p>', '')
-            
+
+    console.log(y);
+    
     document.getElementById('tnc-container').innerHTML = y;
     return y;
 }
