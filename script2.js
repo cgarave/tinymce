@@ -12,7 +12,8 @@ tinymce.init({
   resize: false,
   content_style: `
                   body {
-                    padding: 5px;
+                    padding: 20px;
+                    font-size: 12px
                   }
                   h2 {
                     font-size: 14px;
@@ -38,8 +39,8 @@ tinymce.init({
 });
 
 //Sandwich method
-const script1 = `<div id="script1" class="hidden" style="visibility: hidden;">&nbsp;</div><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>`;
-const script2 = `<div id="script2" class="hidden" style="visibility: hidden;">&nbsp;</div><script> $(function () { $("#webteam-ss").attr("href", "https://doc.188contents.com/contents/Components/webteam/webteam.css?" + $.now()); });</script>`;
+const script1 = `<div id="script1" class="hidden" style="visibility: hidden; display: none;">&nbsp;</div><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>`;
+const script2 = `<div id="script2" class="hidden" style="visibility: hidden; display: none;">&nbsp;</div><script> $(function () { $("#webteam-ss").attr("href", "https://doc.188contents.com/contents/Components/webteam/webteam.css?" + $.now()); });</script>`;
 const closeSExpansion = ` </template>
                           </SExpansionPanel>
                           </div>
@@ -144,10 +145,10 @@ const FPSTCs = {
 
 //Templates object
 const templates = {
-  TNC: `<div id="script1" class="hidden" style="visibility: hidden;">&nbsp;</div>
-          <div id="script2" class="hidden" style="visibility: hidden;">&nbsp;</div>
-          <div id="content-en-gb" class="tnc-content-wrap hidden" style="visibility: hidden;">&nbsp;</div>
-              <div class="contentwrap tnc-content-format hidden" style="visibility: hidden;">&nbsp;</div>
+  TNC: `<div id="script1" class="hidden" style="visibility: hidden; display: none;">&nbsp;</div>
+          <div id="script2" class="hidden" style="visibility: hidden; display: none;">&nbsp;</div>
+          <div id="content-en-gb" class="tnc-content-wrap hidden" style="visibility: hidden; display: none;">&nbsp;</div>
+              <div class="contentwrap tnc-content-format hidden" style="visibility: hidden; display: none;">&nbsp;</div>
                   <h2 class="mb-4 font-semibold text-body-1">Significant Conditions</h2>
                   <p>Write/Paste Significant Contents here</p>
                   <div id="SExpansion" class="hidden" style="visibility: hidden;">&nbsp;</div>
@@ -327,8 +328,8 @@ tncRegionDropdown.addEventListener('change', () => {
         importedResult = importedContent.replace('LOCALIZED-SExpansion', 'SExpansion-IN')
       }
 
-      let y = importedResult.replaceAll('<div id="script1" class="hidden" style="visibility: hidden;">&nbsp;</div>', script1)
-                            .replaceAll('<div id="script2" class="hidden" style="visibility: hidden;">&nbsp;</div>', script2)   
+      let y = importedResult.replaceAll('<div id="script1" class="hidden" style="visibility: hidden; display: none;">&nbsp;</div>', script1)
+                            .replaceAll('<div id="script2" class="hidden" style="visibility: hidden; display: none;">&nbsp;</div>', script2)   
                             .replaceAll('<h2 class="m-4 font-semibold text-body-1">Full Promotion Specific Terms and Conditions</h2>', '')  //EN cleanup
                             .replaceAll('<h2 class="m-4 font-semibold text-body-1">完整优惠标准规则</h2>', '') //CN cleanup
                             .replaceAll('<h2 class="m-4 font-semibold text-body-1">Điều Khoản và Điều Kiện Hoàn Chỉnh</h2>', '') //VN cleanup
@@ -368,10 +369,10 @@ tncRegionDropdown.addEventListener('change', () => {
       let content = previewContent(data)
       let newContent = content;
       //replacing all contents, removing preview contents before download
-      let x = newContent.replaceAll('<div id="script1" class="hidden" style="visibility: hidden;">&nbsp;</div>', script1)
-                        .replaceAll('<div id="script2" class="hidden" style="visibility: hidden;">&nbsp;</div>', script2)
+      let x = newContent.replaceAll('<div id="script1" class="hidden" style="visibility: hidden; display: none;">&nbsp;</div>', script1)
+                        .replaceAll('<div id="script2" class="hidden" style="visibility: hidden; display: none;">&nbsp;</div>', script2)
 
-                        .replaceAll('<div id="content-en-gb" class="tnc-content-wrap hidden" style="visibility: hidden;">&nbsp;</div>', '<div id="content-en-gb" class="tnc-content-wrap">')
+                        .replaceAll('<div id="content-en-gb" class="tnc-content-wrap hidden" style="visibility: hidden; display: none;">&nbsp;</div>', '<div id="content-en-gb" class="tnc-content-wrap">')
                         .replaceAll('<div id="content-REGION" class="tnc-content-wrap hidden" style="visibility: hidden;">&nbsp;</div>', '<div id="content-REGION" class="tnc-content-wrap">')
                         .replaceAll('<div id="content-zh-cn" class="tnc-content-wrap hidden" style="visibility: hidden;">&nbsp;</div>', '<div id="content-zh-cn" class="tnc-content-wrap">')
                         .replaceAll('<div id="content-vi-vn" class="tnc-content-wrap hidden" style="visibility: hidden;">&nbsp;</div>', '<div id="content-vi-vn" class="tnc-content-wrap">')
@@ -381,7 +382,7 @@ tncRegionDropdown.addEventListener('change', () => {
                         .replaceAll('<div id="content-km-kh" class="tnc-content-wrap hidden" style="visibility: hidden;">&nbsp;</div>', '<div id="content-km-kh" class="tnc-content-wrap">')
                         .replaceAll('<div id="content-ja-jp" class="tnc-content-wrap hidden" style="visibility: hidden;">&nbsp;</div>', '<div id="content-ja-jp" class="tnc-content-wrap">')
                         .replaceAll('<div id="content-hi-in" class="tnc-content-wrap hidden" style="visibility: hidden;">&nbsp;</div>', '<div id="content-hi-in" class="tnc-content-wrap">')
-                        .replaceAll('<div class="contentwrap tnc-content-format hidden" style="visibility: hidden;">&nbsp;</div>', '<div class="contentwrap tnc-content-format">')
+                        .replaceAll('<div class="contentwrap tnc-content-format hidden" style="visibility: hidden; display: none;">&nbsp;</div>', '<div class="contentwrap tnc-content-format">')
 
                         .replaceAll('<div id="SExpansion" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.EN)
                         .replaceAll('<div id="SExpansion-CN" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.CN)
@@ -403,6 +404,8 @@ tncRegionDropdown.addEventListener('change', () => {
                         .replaceAll(FPSTCs.JP, "")
                         .replaceAll(FPSTCs.IN, "")
                         .replace('mt-40', '')
+                        .replaceAll('<br>', '')
+                        .replaceAll('<br />', '')
 
       let fileName = document.getElementById('filename').value;
       let blob = new Blob([x], {type: 'text/html'});

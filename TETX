@@ -39,38 +39,51 @@
 
 <ol class="list-lower-roman pl-8 mb-4">
     <li>Promotion Period runs from <strong>01st July 2024 at 12:00AM (GMT+8) to 01st January 2025 at 11:59AM
-            (GMT+8).</strong></li>
-    <li>The Promotion is open to 188BET Members who meet all the following criteria:
+        (GMT+8).</strong></li>
+    <li>The Promotion is open to 188BET Members who meet all the following criteria: 
 
-        <ol class="list-lower-alpha pl-8 mb-4">
-            <li>Have chosen <strong>MYR</strong> or <strong>USDT</strong> as their preferred currency.</li>
-            <li>Have placed a successful bet on any <a :href="`/${gv.lan}/live/ezugi`">Ezugi Live Casino</a> table game
-                during the promotion month within the promotion period. <br></li>
-        </ol>
-    </li>
+    <ol class="list-lower-alpha pl-8 mb-4">
+      <li>Have chosen <strong>MYR</strong> or <strong>USDT</strong> as their preferred currency.</li>
+      <li>Have placed a successful bet on any <a :href="`/${gv.lan}/live/ezugi`">Ezugi Live Casino</a> table game
+        during the promotion month within the promotion period. </li>
+    </ol></li>
 
 
     <li>Qualified Members will receive a 3% Cash Back Reward based on Qualifying loss amount calculate during
-        Promotion month within the promotion Period, as illustrated below:<br>
+      Promotion month within the promotion Period, as illustrated below:
 
-        <div class="border rounded mb-4 table-responsive">
-            <table class="w-full border-collapse border-spacing-0 text-center">
-                <tbody class="divide-y">
-                    <tr>
-                        <td width="152"><strong>Cash Back Reward </strong></td>
-                        <td width="219"><strong>Cash Back Reward Amount </strong></td>
-                    </tr>
-                    <tr>
-                        <td width="152">3%</td>
-                        <td width="219">Unlimited</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </li><br>
+      <div class="border rounded mb-4 table-responsive">
+        <table class="w-full border-collapse border-spacing-0 text-center">
+          <tbody class="divide-y">
+            <tr>
+              <td width="152"><strong>Cash Back Reward </strong></td>
+              <td width="219"><strong>Cash Back Reward Amount </strong></td>
+            </tr>
+            <tr>
+              <td width="152">3%</td>
+              <td width="219">Unlimited</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    
+    <strong><em>Member A has chosen MYR as their preferred currency</em></strong><em>
+      
+      Example: Member A stakes and wins/losses in different games during the promotion month:
+      
+      On the 1st of the month, staked in Baccarat and lost MYR 325
+      On the 10th of the month, staked in Ultimate Sic Bo and won MYR 195
+      On the 18th of the month, staked in Dragon Tiger and won MYR 325
+      On the 25th of the month, staked in Ultimate Roulette and lost MYR 650</em>
+    <em>Total Win/Loss Calculation = Total Wins - Total Losses
+      Total Wins: MYR 195 + MYR  325 = MYR 520
+      Total Losses:  MYR 325 + MYR 650 = MYR 975
+      Win/Loss = MYR 520 - MYR 975 = - MYR 455 (Qualifying loss amount)</em>
+    <em>Bonus = Qualifying Loss Amount x Cash Back 3%</em>
+    <em>Bonus = MYR 455 x 3% = MYR 13.65
+    </em></li>
 
-    <li start="4"><strong>No rollover requirement for the Cash Prize.</strong></li>
+    <li><strong>No rollover requirement for the Cash Prize.</strong></li>
     <li><strong>Promotion is exclusive to 188BET Qualified Members only.</strong></li>
     <li><strong>Full Promotion Specific Terms and Conditions apply.</strong></li>
-</ol>
-
+  </ol>
