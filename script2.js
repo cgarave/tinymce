@@ -1,7 +1,7 @@
 
 //TinyMCE settings
 tinymce.init({
-  selector: 'textarea',
+  selector: '#mytextarea',
   table_resize_bars: false, //disable resize bars
   object_resizing: false, //disable table resizing
   visualblocks_default_state: false, //display visual blocks by default
@@ -171,6 +171,12 @@ const templates = {
   QG: "",
 }
 
+//Import Area Button
+let htmlContent = document.getElementById('htmlContent').textContent
+const showImportArea = document.getElementById('importBtn').onclick = () => {document.getElementById('importArea').classList.remove('hidden')}
+const cancelImport = document.getElementById('cancelImport').onclick = () => {document.getElementById('importArea').classList.add('hidden')}
+const importCode = document.getElementById('importCode').onclick = () => {tinymce.get('mytextarea').setContent(htmlContent)}
+ 
 //Templates handler show region dropdown
 const templateDropdown = document.getElementById('templates-dropdown');
 templateDropdown.addEventListener('change', () => {
