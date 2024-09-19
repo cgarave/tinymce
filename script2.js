@@ -172,10 +172,14 @@ const templates = {
 }
 
 //Import Area Button
-let htmlContent = document.getElementById('htmlContent').textContent
+let htmlContent = ''
 const showImportArea = document.getElementById('importBtn').onclick = () => {document.getElementById('importArea').classList.remove('hidden')}
 const cancelImport = document.getElementById('cancelImport').onclick = () => {document.getElementById('importArea').classList.add('hidden')}
-const importCode = document.getElementById('importCode').onclick = () => {tinymce.get('mytextarea').setContent(htmlContent)}
+const importCode = document.getElementById('importCode').onclick = () => {
+  htmlContent = document.getElementById('htmlContent').value
+  console.log(htmlContent);
+  tinymce.get('mytextarea').setContent(htmlContent)
+}
  
 //Templates handler show region dropdown
 const templateDropdown = document.getElementById('templates-dropdown');
