@@ -22,8 +22,8 @@ tinymce.init({
                     width: 100%;
                   }`,
   plugins: ["template paste autolink link image lists advlist charmap preview hr anchor",
-            "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
-            "save table contextmenu directionality template paste textcolor"],
+            "searchreplace wordcount visualblocks visualchars fullscreen insertdatetime media nonbreaking",
+            "save table contextmenu directionality template paste textcolor"], //insert 'code' to view source
   toolbar: 'template undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image table mergetags | align lineheight | checklist numlist bullist indent outdent startAtButton',
   // tinycomments_mode: 'embedded',
   tinycomments_author: 'Author name',
@@ -174,11 +174,20 @@ const templates = {
 //Import Area Button
 let htmlContent = ''
 const showImportArea = document.getElementById('importBtn').onclick = () => {document.getElementById('importArea').classList.remove('hidden')}
-const cancelImport = document.getElementById('cancelImport').onclick = () => {document.getElementById('importArea').classList.add('hidden')}
+const cancelImport = document.getElementById('cancelImport').onclick = () => {
+  document.getElementById('htmlContent').value = ''
+  document.getElementById('importArea').classList.add('hidden')
+}
 const importCode = document.getElementById('importCode').onclick = () => {
   htmlContent = document.getElementById('htmlContent').value
-  console.log(htmlContent);
   tinymce.get('mytextarea').setContent(htmlContent)
+
+  if(htmlContent.match('<div id="content-en-gb" class="tnc-content-wrap">')){
+    htmlContent.replace('<div id="content-en-gb" class="tnc-content-wrap">', '<div id="script1" class="hidden" style="visibility: hidden; display: none;">&nbsp;</div><div id="script2" class="hidden" style="visibility: hidden; display: none;">&nbsp;</div><div id="content-en-gb" class="tnc-content-wrap">')
+  }
+
+  document.getElementById('importArea').classList.add('hidden')
+  document.getElementById('import-check').checked = true;
 }
  
 //Templates handler show region dropdown
@@ -305,7 +314,7 @@ tncRegionDropdown.addEventListener('change', () => {
       break;
   }
 })
-
+  //import check function
   document.getElementById('import-check').checked = false;
   document.getElementById('download').addEventListener('click', (data) => {
     if(document.getElementById('import-check').checked === true){
@@ -343,6 +352,7 @@ tncRegionDropdown.addEventListener('change', () => {
                             .replaceAll('<h2 class="m-4 font-semibold text-body-1">Full Promotion Specific Terms and Conditions</h2>', '')  //EN cleanup
                             .replaceAll('<h2 class="m-4 font-semibold text-body-1">完整优惠标准规则</h2>', '') //CN cleanup
                             .replaceAll('<h2 class="m-4 font-semibold text-body-1">Điều Khoản và Điều Kiện Hoàn Chỉnh</h2>', '') //VN cleanup
+                            .replaceAll('<h2 class="m-4 font-semibold text-body-1">Điều Khoản v&agrave; Điều Kiện Ho&agrave;n Chỉnh</h2>', '') //VN cleanup 2
                             .replaceAll('<h2 class="m-4 font-semibold text-body-1">ข้อกำหนดและเงื่อนไขแบบเฉพาะเจาะจง</h2>', '') //TH cleanup
                             .replaceAll('<h2 class="m-4 font-semibold text-body-1">본 프로모션 이용약관</h2>', '') //KR cleanup
                             .replaceAll('<h2 class="m-4 font-semibold text-body-1">Syarat dan Kondisi Spesifik promosi Lengkap</h2>', '') //ID cleanup
@@ -393,6 +403,7 @@ tncRegionDropdown.addEventListener('change', () => {
                         .replaceAll('<div id="content-ja-jp" class="tnc-content-wrap hidden" style="visibility: hidden;">&nbsp;</div>', '<div id="content-ja-jp" class="tnc-content-wrap">')
                         .replaceAll('<div id="content-hi-in" class="tnc-content-wrap hidden" style="visibility: hidden;">&nbsp;</div>', '<div id="content-hi-in" class="tnc-content-wrap">')
                         .replaceAll('<div class="contentwrap tnc-content-format hidden" style="visibility: hidden; display: none;">&nbsp;</div>', '<div class="contentwrap tnc-content-format">')
+                        .replaceAll('<div class="contentwrap tnc-content-format hidden" style="visibility: hidden;">&nbsp;</div>', '<div class="contentwrap tnc-content-format">')
 
                         .replaceAll('<div id="SExpansion" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.EN)
                         .replaceAll('<div id="SExpansion-CN" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.CN)
@@ -469,6 +480,7 @@ tncRegionDropdown.addEventListener('change', () => {
 
         //cleanup
         .replaceAll('<p><strong>&nbsp;</strong></p>', '')
+        .replaceAll('<p>&nbsp;</p>', '')
 
     console.log(y);
     
