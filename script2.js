@@ -182,10 +182,6 @@ const importCode = document.getElementById('importCode').onclick = () => {
   htmlContent = document.getElementById('htmlContent').value
   tinymce.get('mytextarea').setContent(htmlContent)
 
-  if(htmlContent.match('<div id="content-en-gb" class="tnc-content-wrap">')){
-    htmlContent.replace('<div id="content-en-gb" class="tnc-content-wrap">', '<div id="script1" class="hidden" style="visibility: hidden; display: none;">&nbsp;</div><div id="script2" class="hidden" style="visibility: hidden; display: none;">&nbsp;</div><div id="content-en-gb" class="tnc-content-wrap">')
-  }
-
   document.getElementById('importArea').classList.add('hidden')
   document.getElementById('import-check').checked = true;
 }
@@ -321,62 +317,83 @@ tncRegionDropdown.addEventListener('change', () => {
 
       let importedContent = tinymce.get('mytextarea').getContent()
       let importedResult = ''
+      let y = ''
+      
+      if(!importedContent.includes('<div id="script1" class="hidden" style="visibility: hidden; display: none;">&nbsp;</div>')){
+        importedContent += '<div id="closeSExpansion" class="hidden" style="visibility: hidden;">&nbsp;</div>'
+        y = importedContent.replaceAll('<div id="content-en-gb" class="tnc-content-wrap">', '<div id="script1" class="hidden" style="visibility: hidden; display: none;">&nbsp;</div><div id="script2" class="hidden" style="visibility: hidden; display: none;">&nbsp;</div><div id="content-en-gb" class="tnc-content-wrap">')
+                           .replaceAll('<div class="full-promotion-content">', '<div id="SExpansion" class="hidden" style="visibility: hidden;">&nbsp;</div><div class="full-promotion-content">')
 
-      if (importedContent.match('content-zh-cn')) {
-        importedResult = importedContent.replace('LOCALIZED-SExpansion', 'SExpansion-CN')
-      }
-      else if (importedContent.match('content-vi-vn')) {
-        importedResult = importedContent.replace('LOCALIZED-SExpansion', 'SExpansion-VN')
-      }
-      else if (importedContent.match('content-th-th')) {
-        importedResult = importedContent.replace('LOCALIZED-SExpansion', 'SExpansion-TH')
-      }
-      else if (importedContent.match('content-ko-kr')) {
-        importedResult = importedContent.replace('LOCALIZED-SExpansion', 'SExpansion-KR')
-      }
-      else if (importedContent.match('content-id-id')) {
-        importedResult = importedContent.replace('LOCALIZED-SExpansion', 'SExpansion-ID')
-      }
-      else if (importedContent.match('content-km-kh')) {
-        importedResult = importedContent.replace('LOCALIZED-SExpansion', 'SExpansion-KH')
-      }
-      else if (importedContent.match('content-ja-jp')) {
-        importedResult = importedContent.replace('LOCALIZED-SExpansion', 'SExpansion-JP')
-      }
-      else if (importedContent.match('content-hi-in')) {
-        importedResult = importedContent.replace('LOCALIZED-SExpansion', 'SExpansion-IN')
+                           .replaceAll('<div id="content-zh-cn" class="tnc-content-wrap">', '<div id="closeSExpansion" class="hidden" style="visibility: hidden;">&nbsp;</div><div id="content-zh-cn" class="tnc-content-wrap">')
+                           .replaceAll('<div id="content-vi-vn" class="tnc-content-wrap">', '<div id="closeSExpansion" class="hidden" style="visibility: hidden;">&nbsp;</div><div id="content-vi-vn" class="tnc-content-wrap">')
+                           .replaceAll('<div id="content-th-th" class="tnc-content-wrap">', '<div id="closeSExpansion" class="hidden" style="visibility: hidden;">&nbsp;</div><div id="content-th-th" class="tnc-content-wrap">')
+                           .replaceAll('<div id="content-ko-kr" class="tnc-content-wrap">', '<div id="closeSExpansion" class="hidden" style="visibility: hidden;">&nbsp;</div><div id="content-ko-kr" class="tnc-content-wrap">')
+                           .replaceAll('<div id="content-id-id" class="tnc-content-wrap">', '<div id="closeSExpansion" class="hidden" style="visibility: hidden;">&nbsp;</div><div id="content-id-id" class="tnc-content-wrap">')
+                           .replaceAll('<div id="content-km-kh" class="tnc-content-wrap">', '<div id="closeSExpansion" class="hidden" style="visibility: hidden;">&nbsp;</div><div id="content-km-kh" class="tnc-content-wrap">')
+                           .replaceAll('<div id="content-ja-jp" class="tnc-content-wrap">', '<div id="closeSExpansion" class="hidden" style="visibility: hidden;">&nbsp;</div><div id="content-ja-jp" class="tnc-content-wrap">')
+                           .replaceAll('<div id="content-hi-in" class="tnc-content-wrap">', '<div id="closeSExpansion" class="hidden" style="visibility: hidden;">&nbsp;</div><div id="content-hi-in" class="tnc-content-wrap">')
+                           .replace(/<\/div>\s*<\/div>\s*<div id="closeSExpansion" class="hidden" style="visibility: hidden;">&nbsp;<\/div>/g, '<div id="closeSExpansion" class="hidden" style="visibility: hidden;">&nbsp;</div>')
+        
+      } 
+      else if(importedContent.includes('<div id="script1" class="hidden" style="visibility: hidden; display: none;">&nbsp;</div>')){
+
+        if (importedContent.match('content-zh-cn')) {
+          importedResult = importedContent.replace('LOCALIZED-SExpansion', 'SExpansion-CN')
+        }
+        else if (importedContent.match('content-vi-vn')) {
+          importedResult = importedContent.replace('LOCALIZED-SExpansion', 'SExpansion-VN')
+        }
+        else if (importedContent.match('content-th-th')) {
+          importedResult = importedContent.replace('LOCALIZED-SExpansion', 'SExpansion-TH')
+        }
+        else if (importedContent.match('content-ko-kr')) {
+          importedResult = importedContent.replace('LOCALIZED-SExpansion', 'SExpansion-KR')
+        }
+        else if (importedContent.match('content-id-id')) {
+          importedResult = importedContent.replace('LOCALIZED-SExpansion', 'SExpansion-ID')
+        }
+        else if (importedContent.match('content-km-kh')) {
+          importedResult = importedContent.replace('LOCALIZED-SExpansion', 'SExpansion-KH')
+        }
+        else if (importedContent.match('content-ja-jp')) {
+          importedResult = importedContent.replace('LOCALIZED-SExpansion', 'SExpansion-JP')
+        }
+        else if (importedContent.match('content-hi-in')) {
+          importedResult = importedContent.replace('LOCALIZED-SExpansion', 'SExpansion-IN')
+        }
+  
+        y = importedResult.replaceAll('<div id="script1" class="hidden" style="visibility: hidden; display: none;">&nbsp;</div>', script1)
+                              .replaceAll('<div id="script2" class="hidden" style="visibility: hidden; display: none;">&nbsp;</div>', script2)   
+                              .replaceAll('<h2 class="m-4 font-semibold text-body-1">Full Promotion Specific Terms and Conditions</h2>', '')  //EN cleanup
+                              .replaceAll('<h2 class="m-4 font-semibold text-body-1">完整优惠标准规则</h2>', '') //CN cleanup
+                              .replaceAll('<h2 class="m-4 font-semibold text-body-1">Điều Khoản và Điều Kiện Hoàn Chỉnh</h2>', '') //VN cleanup
+                              .replaceAll('<h2 class="m-4 font-semibold text-body-1">Điều Khoản v&agrave; Điều Kiện Ho&agrave;n Chỉnh</h2>', '') //VN cleanup 2
+                              .replaceAll('<h2 class="m-4 font-semibold text-body-1">ข้อกำหนดและเงื่อนไขแบบเฉพาะเจาะจง</h2>', '') //TH cleanup
+                              .replaceAll('<h2 class="m-4 font-semibold text-body-1">본 프로모션 이용약관</h2>', '') //KR cleanup
+                              .replaceAll('<h2 class="m-4 font-semibold text-body-1">Syarat dan Kondisi Spesifik promosi Lengkap</h2>', '') //ID cleanup
+                              .replaceAll('<h2 class="m-4 font-semibold text-body-1">លក្ខខណ្ឌ និងកិច្ចព្រមព្រៀងជាក់លាក់នៃការផ្តល់រង្វាន់ទាំងអស</h2>', '') //KH cleanup
+                              .replaceAll('<h2 class="m-4 font-semibold text-body-1">全てのプロモーション－特定の利用規約</h2>', '') //JP cleanup
+                              .replaceAll('<h2 class="m-4 font-semibold text-body-1">पूर्ण प्रमोशन-विशिष्ट नियम और शर्तें</h2>', '') //IN cleanup
+                              .replace(/<\/div>\s*<\/div>\s*<div id="closeSExpansion" class="hidden" style="visibility: hidden;">&nbsp;<\/div>/g, '<div id="closeSExpansion" class="hidden" style="visibility: hidden;">&nbsp;</div>')
+                              
+                              .replaceAll('<ol class="list-decimal pl-8 mb-4" style="list-style-type: lower-alpha;">', '<ol class="list-lower-alpha pl-8 mb-4">')
+                              .replaceAll('<ol class="list-lower-alpha pl-8 mb-4" style="list-style-type: lower-alpha;">', '<ol class="list-lower-alpha pl-8 mb-4">')
+                              .replaceAll('<ol class="list-decimal pl-8 mb-4" style="list-style-type: lower-roman;">', '<ol class="list-lower-roman pl-8 mb-4">')
+                              .replaceAll('<ol class="list-lower-roman pl-8 mb-4" style="list-style-type: lower-roman;">', '<ol class="list-lower-roman pl-8 mb-4">')
+  
+                              .replaceAll('<div id="SExpansion" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.EN)
+                              .replaceAll('<div id="SExpansion-CN" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.CN)
+                              .replaceAll('<div id="SExpansion-VN" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.VN)
+                              .replaceAll('<div id="SExpansion-TH" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.TH)
+                              .replaceAll('<div id="SExpansion-KR" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.KR)
+                              .replaceAll('<div id="SExpansion-ID" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.ID)
+                              .replaceAll('<div id="SExpansion-KH" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.KH)
+                              .replaceAll('<div id="SExpansion-JP" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.JP)
+                              .replaceAll('<div id="SExpansion-IN" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.IN)
+                              .replaceAll('<div id="closeSExpansion" class="hidden" style="visibility: hidden;">&nbsp;</div>', closeSExpansion)
       }
 
-      let y = importedResult.replaceAll('<div id="script1" class="hidden" style="visibility: hidden; display: none;">&nbsp;</div>', script1)
-                            .replaceAll('<div id="script2" class="hidden" style="visibility: hidden; display: none;">&nbsp;</div>', script2)   
-                            .replaceAll('<h2 class="m-4 font-semibold text-body-1">Full Promotion Specific Terms and Conditions</h2>', '')  //EN cleanup
-                            .replaceAll('<h2 class="m-4 font-semibold text-body-1">完整优惠标准规则</h2>', '') //CN cleanup
-                            .replaceAll('<h2 class="m-4 font-semibold text-body-1">Điều Khoản và Điều Kiện Hoàn Chỉnh</h2>', '') //VN cleanup
-                            .replaceAll('<h2 class="m-4 font-semibold text-body-1">Điều Khoản v&agrave; Điều Kiện Ho&agrave;n Chỉnh</h2>', '') //VN cleanup 2
-                            .replaceAll('<h2 class="m-4 font-semibold text-body-1">ข้อกำหนดและเงื่อนไขแบบเฉพาะเจาะจง</h2>', '') //TH cleanup
-                            .replaceAll('<h2 class="m-4 font-semibold text-body-1">본 프로모션 이용약관</h2>', '') //KR cleanup
-                            .replaceAll('<h2 class="m-4 font-semibold text-body-1">Syarat dan Kondisi Spesifik promosi Lengkap</h2>', '') //ID cleanup
-                            .replaceAll('<h2 class="m-4 font-semibold text-body-1">លក្ខខណ្ឌ និងកិច្ចព្រមព្រៀងជាក់លាក់នៃការផ្តល់រង្វាន់ទាំងអស</h2>', '') //KH cleanup
-                            .replaceAll('<h2 class="m-4 font-semibold text-body-1">全てのプロモーション－特定の利用規約</h2>', '') //JP cleanup
-                            .replaceAll('<h2 class="m-4 font-semibold text-body-1">पूर्ण प्रमोशन-विशिष्ट नियम और शर्तें</h2>', '') //IN cleanup
-                            .replace(/<\/div>\s*<\/div>\s*<div id="closeSExpansion" class="hidden" style="visibility: hidden;">&nbsp;<\/div>/g, '<div id="closeSExpansion" class="hidden" style="visibility: hidden;">&nbsp;</div>')
-                            
-                            .replaceAll('<ol class="list-decimal pl-8 mb-4" style="list-style-type: lower-alpha;">', '<ol class="list-lower-alpha pl-8 mb-4">')
-                            .replaceAll('<ol class="list-lower-alpha pl-8 mb-4" style="list-style-type: lower-alpha;">', '<ol class="list-lower-alpha pl-8 mb-4">')
-                            .replaceAll('<ol class="list-decimal pl-8 mb-4" style="list-style-type: lower-roman;">', '<ol class="list-lower-roman pl-8 mb-4">')
-                            .replaceAll('<ol class="list-lower-roman pl-8 mb-4" style="list-style-type: lower-roman;">', '<ol class="list-lower-roman pl-8 mb-4">')
-
-                            .replaceAll('<div id="SExpansion" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.EN)
-                            .replaceAll('<div id="SExpansion-CN" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.CN)
-                            .replaceAll('<div id="SExpansion-VN" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.VN)
-                            .replaceAll('<div id="SExpansion-TH" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.TH)
-                            .replaceAll('<div id="SExpansion-KR" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.KR)
-                            .replaceAll('<div id="SExpansion-ID" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.ID)
-                            .replaceAll('<div id="SExpansion-KH" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.KH)
-                            .replaceAll('<div id="SExpansion-JP" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.JP)
-                            .replaceAll('<div id="SExpansion-IN" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.IN)
-                            .replaceAll('<div id="closeSExpansion" class="hidden" style="visibility: hidden;">&nbsp;</div>', closeSExpansion)
-
+      
       let fileName = document.getElementById('filename').value;
       let blob = new Blob([y], {type: 'text/html'});
       let htmlFile = document.createElement('a');
@@ -487,57 +504,3 @@ tncRegionDropdown.addEventListener('change', () => {
     document.getElementById('tnc-container').innerHTML = y;
     return y;
 }
-
-// function localizedImport(){
-
-//   let importedContent = tinymce.get('mytextarea').getContent()
-//   let importedResult = ''
-
-//   if (importedContent.match('content-zh-cn')) {
-//     importedResult = importedContent.replace('LOCALIZED-SExpansion', 'SExpansion-CN')
-//   }
-//   else if (importedContent.match('content-vi-vn')) {
-//     importedResult = importedContent.replace('LOCALIZED-SExpansion', 'SExpansion-VN')
-//   }
-//   else if (importedContent.match('content-th-th')) {
-//     importedResult = importedContent.replace('LOCALIZED-SExpansion', 'SExpansion-TH')
-//   }
-//   else if (importedContent.match('content-ko-kr')) {
-//     importedResult = importedContent.replace('LOCALIZED-SExpansion', 'SExpansion-KR')
-//   }
-//   else if (importedContent.match('content-id-id')) {
-//     importedResult = importedContent.replace('LOCALIZED-SExpansion', 'SExpansion-ID')
-//   }
-//   else if (importedContent.match('content-km-kh')) {
-//     importedResult = importedContent.replace('LOCALIZED-SExpansion', 'SExpansion-KH')
-//   }
-//   else if (importedContent.match('content-ja-jp')) {
-//     importedResult = importedContent.replace('LOCALIZED-SExpansion', 'SExpansion-JP')
-//   }
-//   else if (importedContent.match('content-hi-in')) {
-//     importedResult = importedContent.replace('LOCALIZED-SExpansion', 'SExpansion-IN')
-//   }
-
-//   let y = importedResult.replaceAll('<div id="script1" class="hidden" style="visibility: hidden;">&nbsp;</div>', script1)
-//                         .replaceAll('<div id="script2" class="hidden" style="visibility: hidden;">&nbsp;</div>', script2)   
-//                         .replaceAll('<h2 class="m-4 font-semibold text-body-1">Full Promotion Specific Terms and Conditions</h2>', '')  //EN cleanup
-//                         .replaceAll('<h2 class="m-4 font-semibold text-body-1">完整优惠标准规则</h2>', '') //CN cleanup
-//                         .replaceAll('<h2 class="m-4 font-semibold text-body-1">Điều Khoản và Điều Kiện Hoàn Chỉnh</h2>', '') //VN cleanup
-//                         .replaceAll('<h2 class="m-4 font-semibold text-body-1">ข้อกำหนดและเงื่อนไขแบบเฉพาะเจาะจง</h2>', '') //TH cleanup
-//                         .replaceAll('<h2 class="m-4 font-semibold text-body-1">본 프로모션 이용약관</h2>', '') //KR cleanup
-//                         .replaceAll('<h2 class="m-4 font-semibold text-body-1">Syarat dan Kondisi Spesifik promosi Lengkap</h2>', '') //ID cleanup
-//                         .replaceAll('<h2 class="m-4 font-semibold text-body-1">លក្ខខណ្ឌ និងកិច្ចព្រមព្រៀងជាក់លាក់នៃការផ្តល់រង្វាន់ទាំងអស</h2>', '') //KH cleanup
-//                         .replaceAll('<h2 class="m-4 font-semibold text-body-1">全てのプロモーション－特定の利用規約</h2>', '') //JP cleanup
-//                         .replaceAll('<h2 class="m-4 font-semibold text-body-1">पूर्ण प्रमोशन-विशिष्ट नियम और शर्तें</h2>', '') //IN cleanup
-
-//                         .replaceAll('<div id="SExpansion" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.EN)
-//                         .replaceAll('<div id="SExpansion-CN" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.CN)
-//                         .replaceAll('<div id="SExpansion-VN" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.VN)
-//                         .replaceAll('<div id="SExpansion-TH" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.TH)
-//                         .replaceAll('<div id="SExpansion-KR" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.KR)
-//                         .replaceAll('<div id="SExpansion-ID" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.ID)
-//                         .replaceAll('<div id="SExpansion-KH" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.KH)
-//                         .replaceAll('<div id="SExpansion-JP" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.JP)
-//                         .replaceAll('<div id="SExpansion-IN" class="hidden" style="visibility: hidden;">&nbsp;</div>', SExpansion.IN)
-//                         .replaceAll('<div id="closeSExpansion" class="hidden" style="visibility: hidden;">&nbsp;</div>', closeSExpansion)
-// }
