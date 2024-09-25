@@ -500,6 +500,8 @@ tncRegionDropdown.addEventListener('change', () => {
         .replaceAll('<td style="width: 50%; text-align: left;">', '<td class="w-1/2 text-left">') //if 2 columns with text aligned left
         .replaceAll('<td style="width: 50%; text-align: right;">', '<td class="w-1/2 text-right">') //if 2 columns with text aligned right
         .replaceAll('<td style="width: 50%; text-align: justify;">', '<td class="w-1/2 text-justify">') //if 2 columns with text aligned justify
+        //images
+        //.replaceAll(/<img(.*?)\/>/g, '<img class="" $1/>')
         //FPSTC
         .replaceAll('<p style="font-weight: 600;">Full Promotion Specific Terms and Conditions</p>', FPSTCs.EN)
         .replaceAll('<p style="font-weight: 600;">完整优惠标准规则</p>', FPSTCs.CN)
