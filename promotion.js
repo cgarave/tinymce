@@ -5,6 +5,15 @@ tinymce.init({
   table_resize_bars: false, //disable resize bars
   object_resizing: false, //disable table resizing
   visualblocks_default_state: false, //display visual blocks by default
+
+  encoding: 'xml',
+  element_format: 'xhtml',
+  invalid_elements: 'b,em,i',
+  entity_encoding: 'raw',
+  protect: [
+    /<a :href.*?\?>/g  // Protect php code
+  ],
+
   paste_as_text: false, 
   newline_behavior: 'block',
   height: '68vh',
@@ -23,7 +32,7 @@ tinymce.init({
                   }`,
   plugins: ["template paste autolink link image lists advlist charmap preview hr anchor",
             "searchreplace wordcount visualblocks visualchars fullscreen insertdatetime media nonbreaking",
-            "save table contextmenu directionality template paste textcolor"], //insert 'code' to view source
+            "save table contextmenu directionality template paste textcolor code"], //insert 'code' to view source
   toolbar: 'template undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image table mergetags | align lineheight | checklist numlist bullist indent outdent startAtButton',
   // tinycomments_mode: 'embedded',
   tinycomments_author: 'Author name',
@@ -501,7 +510,7 @@ tncRegionDropdown.addEventListener('change', () => {
         .replaceAll('<td style="width: 50%; text-align: right;">', '<td class="w-1/2 text-right">') //if 2 columns with text aligned right
         .replaceAll('<td style="width: 50%; text-align: justify;">', '<td class="w-1/2 text-justify">') //if 2 columns with text aligned justify
         //images
-        //.replaceAll(/<img(.*?)\/>/g, '<img class="" $1/>')
+        .replace(/<img(.*?)\/>/g, '<img class="my-0 mx-auto w-96 h-auto" $1/>')
         //FPSTC
         .replaceAll('<p style="font-weight: 600;">Full Promotion Specific Terms and Conditions</p>', FPSTCs.EN)
         .replaceAll('<p style="font-weight: 600;">完整优惠标准规则</p>', FPSTCs.CN)
