@@ -362,7 +362,7 @@ tncRegionDropdown.addEventListener('change', () => {
                            .replaceAll('<h2 class="m-4 font-semibold text-body-1">លក្ខខណ្ឌ និងកិច្ចព្រមព្រៀងជាក់លាក់នៃការផ្តល់រង្វាន់ទាំងអស</h2>', '') //KH cleanup
                            .replaceAll('<h2 class="m-4 font-semibold text-body-1">全てのプロモーション－特定の利用規約</h2>', '') //JP cleanup
                            .replaceAll('<h2 class="m-4 font-semibold text-body-1">पूर्ण प्रमोशन-विशिष्ट नियम और शर्तें</h2>', '') //IN cleanup
-                           .replaceAll('&#96;', '')
+                           .replaceAll('&#96;', '`')
                            .replaceAll('href', ':href')
                            .replaceAll('<br />', '')
 
@@ -524,7 +524,7 @@ tncRegionDropdown.addEventListener('change', () => {
         .replaceAll('<td style="width: 50%; text-align: right;">', '<td class="w-1/2 text-right">') //if 2 columns with text aligned right
         .replaceAll('<td style="width: 50%; text-align: justify;">', '<td class="w-1/2 text-justify">') //if 2 columns with text aligned justify
         //images
-        .replace(/<img(.*?)\/>/g, '<img class="my-0 mx-auto w-96 h-auto" $1/>')
+        .replace(/<img(.*?)\/>/g, '<img class="my-2 mx-auto w-96 h-auto" $1/>')
         //FPSTC
         .replaceAll('<p style="font-weight: 600;">Full Promotion Specific Terms and Conditions</p>', FPSTCs.EN)
         .replaceAll('<p style="font-weight: 600;">完整优惠标准规则</p>', FPSTCs.CN)

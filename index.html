@@ -28,7 +28,7 @@
     <header>
         <nav class="flex flex-row justify-between items-center p-3 border-b border-[#332654] mb-4">
             <ul>
-                <li class="text-white font-semibold text-lg">WEB</li>
+                <li id="automation-name" class="text-white font-semibold text-lg">Promotion Automation</li>
             </ul>
             <ul class="flex flex-row gap-x-2">
                 <li class="bg-[#2C1A5A] text-white font-medium p-2 rounded-[4px] text-xs">
@@ -37,9 +37,6 @@
                         <option value="promotion">Promotion</option>
                         <option value="newsletter">Newsletter</option>
                     </select>
-                </li>
-                <li>
-                    <button id="guide" class="bg-[#2C1A5A] text-white font-medium p-2 rounded-[4px] text-xs">Keyboard Guide</button>
                 </li>
                 <li>
                     <button id="whats-new" class="bg-[#2C1A5A] text-white font-medium p-2 rounded-[4px] text-xs">What's new?</button>
@@ -51,7 +48,9 @@
         <div class="px-3 mb-4 flex justify-between items-center">
             <div class="flex flex-row gap-x-2 items-center">
                 <input id="filename" type="text" class="rounded-[4px] p-2 h-10 w-80 outline-none font-medium text-xs" placeholder="HTML Filename" autocomplete="off">
-                <button id="importBtn" class="bg-[#4816C3] rounded-[4px] p-2 font-medium text-xs text-white h-fit flex flex-row gap-x-1 items-center hover:bg-[#591DEF]">IMPORT</button>
+                <button id="importBtn" class="bg-[#4816C3] rounded-[4px] p-2 font-medium text-xs text-white h-fit flex flex-row gap-x-1 items-center hover:bg-[#591DEF]">
+                    <svg  xmlns="http://www.w3.org/2000/svg"  width="16"  height="16"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-code"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 8l-4 4l4 4" /><path d="M17 8l4 4l-4 4" /><path d="M14 4l-4 16" /></svg>
+                    IMPORT</button>
                 <div class="text-xs text-white flex flex-row items-center gap-x-2">
                     <input type="checkbox" id="import-check">
                     <label for="import-check">Uncheck if not imported</label>
@@ -185,17 +184,19 @@
         <!-- <p>Created by Rave</p> -->
         <p>Version 0.1082824</p>
     </footer>
+
     <div id="update-card" class="hidden flex flex-col gap-y-1 w-80 h-40 bg-[#2C1A5A] border-2 border-[#4816C3] rounded-md absolute top-14 right-0 mr-3 p-1 overflow-scroll"></div>
-    <div id="guide-card" class="hidden flex flex-col gap-y-1 w-80 h-40 bg-[#2C1A5A] border-2 border-[#4816C3] rounded-md absolute top-14 right-0 mr-3 p-1 overflow-scroll"></div>
-    <div id="importArea" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-neutral-200 overflow-hidden p-2 rounded-md h-fit w-[800px] hidden flex flex-col shadow-2xl">
+    <!--Import div-->
+    <div id="importArea" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white overflow-hidden p-2 rounded-md h-fit w-[800px] hidden flex flex-col shadow-[0_0_12px_6px_rgba(0,0,0,0.3)]">
         <h1 class="font-semibold">Import HTML code</h1>
         <p class="text-xs mb-4">Copy HTML code of existing T&C file and paste here</p>
-        <textarea name="" id="htmlContent" cols="30" rows="10" class="w-full h-96 p-4 rounded-md text-xs mb-2 outline-none"></textarea>
+        <textarea name="" id="htmlContent" cols="30" rows="10" class="w-full h-96 p-4 rounded-md text-xs mb-2 outline-none bg-neutral-100"></textarea>
         <div class="flex flex-row gap-x-2 justify-end">
             <button id="cancelImport" class="bg-neutral-300 rounded-[4px] p-2 font-medium text-xs h-fit w-fit cursor-pointer">CANCEL</button>
             <button id="importCode" class="bg-[#4816C3] rounded-[4px] p-2 font-medium text-xs text-white h-fit w-fit hover:bg-[#591DEF] cursor-pointer">IMPORT CODE</button>
         </div>
     </div>
+
 </body>
 
 <!-- <script src="script.js"></script> -->
