@@ -16,7 +16,8 @@ tinymce.init({
       // For example, replace certain patterns or attributes
 
       // Example: Replace :href with some specific handling
-      event.content = event.content.replace(/:href/g, 'href');
+      event.content = event.content.replace(/:href/g, 'href')
+                                   .replace(/<SCard.*?<\/SCard>/g, '');
 
       // You can also log or inspect the content
       console.log('BeforeSetContent:', event.content);
