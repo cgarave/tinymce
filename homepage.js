@@ -17,3 +17,7 @@ automationDropdown.addEventListener('change', () => {
             break;
     }
 })
+
+setTimeout(() => {
+    document.querySelector('.mce-close').click();
+}, 1000)

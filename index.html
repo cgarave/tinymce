@@ -109,10 +109,39 @@
             </div>
         </div>
         <div class="w-full opacity-90 px-3 mb-4">
-            <div class="w-full h-40 bg-violet-900 bg-opacity-40 border-2 border-violet-600 rounded-lg p-3 text-white text-xs flex flex-col gap-y-2">
-                <p class="font-semibold">Guide for new users</p>
-                <p>1. 'Select Automation' dropdown - select which automation you want to use.</p>
+            <div class="w-full h-fit bg-violet-900 bg-opacity-20 border-2 border-violet-600 rounded-lg p-3 text-white text-xs flex flex-col gap-y-4">
+                <p class="font-bold text-sm">Guide for new users</p>
+                <p>1. <b>Promotion Automation</b> - this is where you create and edit your T&C promotions.</p>
+                <p>2. <b>HTML Filename</b> - file name of your T&C promotion. <i>(ex. MY_SPPT_11_Sep_2024_005)</i></p>
+                <ol class="list-disc">3. <b>Import</b> - this is where you import your existing T&C promotion if you want to edit or add something to the file.
+                    <li class="ml-10">Open the HTML file using an application that can open HTML files <i>(e.g., Visual Studio Code, Adobe Dreamweaver, Notepad++)</i> and copy all the codes.</li>
+                    <li class="ml-10">After pasting all the code into the import box, the text will appear in the editor.</li>
+                </ol>
+                <ol class="list-disc">4. <b>Uncheck if not imported</b>
+                    <li class="ml-10">Checkbox will remain unchecked if you don't import codes.</li>
+                    <li class="ml-10">The checkbox will automatically be checked when you import a code. However, if you delete all the contents or want to create T&C from scratch, you will need to uncheck the checkbox if it is checked.</li>
+                </ol>
+                <p>5. <b>Select templates</b> - templates are designed to allow users to easily create and edit their T&C promotions without needing any knowledge of editing HTML files.</p>
+                <ol class="list-disc"> 6. <b>Select region</b> - select the region for which you want to create T&C.
+                    <li class="ml-10">After selecting region, a generated text will appear in the editor.</li>
+                    <li class="ml-10">Note: Only edit the text under <b>Write/Paste Significant/Full Promotion Contents here</b>. Do not delete titles such as <b>Significant Conditions</b> and <b>Full Promotion Specific Terms and Conditions</b>.</li>
+                </ol>
+                <p>7. <b>Preview</b> - a preview of your T&C promotion when deployed to production.</p>
+                <p>8. <b>Download</b> - a filename must be provided before clicking the download button.</p>
 
+                <p class="font-bold text-sm mt-2">Current limitations and its workaround</p>
+                <ol>
+                    <li><b>Issue:</b> Copying numbered text with lower-roman or lower-alpha formatting from Microsoft Word will not work.</li>
+                   <li><b>Workaround:</b> Convert all lower-roman and lower-alpha formats to numbers in Microsoft Word before pasting into the editor, then use the automation's editor to convert the numbers back to lower-roman or lower-alpha.</li> 
+                </ol>
+                <ol>
+                    <li><b>Issue:</b> Copying numbered text without a dot (e.g., ❌ 1 instead of ✅ 1.) from Microsoft Word will not work.</li>
+                    <li><b>Workaround:</b> Convert the numbers with the right format on Microsoft Word before pasting to get the right result. (e.g., ✅ 1.)</li>
+                </ol>
+                <ol>
+                    <li><b>Limitation:</b> Copying of images directly to the automation's editor.</li>
+                    <li><b>Workaround:</b> Message the Web team (your region's POC) to deploy the image to the server. Once the image link is provided, paste the link to editor and it will automatically convert to image.</li>
+                </ol>
             </div>
         </div>
         <!--WYSIWYG Section-->

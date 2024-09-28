@@ -1,4 +1,4 @@
-
+let scardContents = ''
 //TinyMCE settings
 tinymce.init({
   selector: '#mytextarea',
@@ -15,9 +15,13 @@ tinymce.init({
       // Manipulate the content here
       // For example, replace certain patterns or attributes
 
+      //Copy SCard
+      const scardcontentMatches = event.content.match(/<SCard[^>]*>.*?<\/SCard>/gs);
+      scardContents = scardcontentMatches
+
       // Example: Replace :href with some specific handling
       event.content = event.content.replace(/:href/g, 'href')
-                                   .replace(/<SCard.*?<\/SCard>/g, '');
+                                   .replace(/<SCard[^>]*>.*?<\/SCard>/gs, '<h4 class="my-4">Dont remove as this will be replaced with SCard</h4>').trim();
 
       // You can also log or inspect the content
       console.log('BeforeSetContent:', event.content);
@@ -42,8 +46,8 @@ tinymce.init({
                   }`,
   plugins: ["template paste autolink link image lists advlist charmap preview hr anchor",
             "searchreplace wordcount visualblocks visualchars fullscreen insertdatetime media nonbreaking",
-            "save table contextmenu directionality template paste textcolor code"], //insert 'code' to view source
-  toolbar: 'template undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image table mergetags | align lineheight | checklist numlist bullist indent outdent startAtButton',
+            "table contextmenu directionality template paste textcolor code"], //insert 'code' to view source
+  toolbar: 'template undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image table mergetags | align lineheight | checklist numlist startAtButton',
   // tinycomments_mode: 'embedded',
   tinycomments_author: 'Author name',
   mergetags_list: [
@@ -203,6 +207,8 @@ const importCode = document.getElementById('importCode').onclick = () => {
 
   document.getElementById('importArea').classList.add('hidden')
   document.getElementById('import-check').checked = true;
+  //console.log(scardContents[0]);
+  
 }
  
 //Templates handler show region dropdown
@@ -367,6 +373,7 @@ tncRegionDropdown.addEventListener('change', () => {
                            .replaceAll('href', ':href')
                            .replaceAll('<br />', '')
 
+                           .replaceAll('<h4 class="my-4">Dont remove as this will be replaced with SCard</h4>', scardContents[0])
                            .replaceAll('<div id="script1" class="hidden" style="visibility: hidden; display: none;">1</div>', script1)
                            .replaceAll('<div id="script2" class="hidden" style="visibility: hidden; display: none;">1</div>', script2)
                            .replaceAll('<div id="SExpansion" class="hidden" style="visibility: hidden;">1</div>', SExpansion.EN)
@@ -431,6 +438,11 @@ tncRegionDropdown.addEventListener('change', () => {
                           .replaceAll('<div id="SExpansion-JP" class="hidden" style="visibility: hidden;">1</div>', SExpansion.JP)
                           .replaceAll('<div id="SExpansion-IN" class="hidden" style="visibility: hidden;">1</div>', SExpansion.IN)
                           .replaceAll('<div id="closeSExpansion" class="hidden" style="visibility: hidden;">1</div>', closeSExpansion)
+
+                          .replaceAll('&#96;', '`')
+                          .replaceAll('href', ':href')
+                          .replaceAll('<br />', '')
+                          .replaceAll('<h4 class="my-4">Dont remove as this will be replaced with SCard</h4>', scardContents[0])
       }
 
       
@@ -541,7 +553,7 @@ tncRegionDropdown.addEventListener('change', () => {
         .replaceAll('<p><strong>1</strong></p>', '')
         .replaceAll('<p>1</p>', '')
 
-    console.log(y);
+    //console.log(y);
     
     document.getElementById('tnc-container').innerHTML = y;
     document.getElementById('tnc-container-mobile').innerHTML = y;
