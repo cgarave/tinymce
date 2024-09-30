@@ -21,10 +21,13 @@ tinymce.init({
 
       // Example: Replace :href with some specific handling
       event.content = event.content.replace(/:href/g, 'href')
-                                   .replace(/<SCard[^>]*>.*?<\/SCard>/gs, '<h4 class="my-4 font-semibold text-red-500" style="color: red;">Dont remove as this will be replaced with SCard</h4>').trim();
+                                   .replace(/<SCard[^>]*>.*?<\/SCard>/gs, '<h4 class="my-4 font-semibold text-red-500" style="color: red;">Dont remove as this will be replaced with SCard</h4>').trim()
+                                   .replace(/<\/ol>.s*<ul>/g, '')
+                                   .replace(/<\/ul>.s*<ul>/g, '')
+                                   .replace('</ul>', '</ol>')
 
       // You can also log or inspect the content
-      //console.log('BeforeSetContent:', event.content);
+      console.log('BeforeSetContent:', event.content);
     });
   },
 
