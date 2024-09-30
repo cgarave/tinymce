@@ -1,4 +1,4 @@
-let scardContents = ''
+let scardLength = ''
 //TinyMCE settings
 tinymce.init({
   selector: '#mytextarea',
@@ -17,14 +17,14 @@ tinymce.init({
 
       //Copy SCard
       const scardcontentMatches = event.content.match(/<SCard[^>]*>.*?<\/SCard>/gs);
-      scardContents = scardcontentMatches
+      scardLength = scardcontentMatches //return all SCard as an array
 
       // Example: Replace :href with some specific handling
       event.content = event.content.replace(/:href/g, 'href')
-                                   .replace(/<SCard[^>]*>.*?<\/SCard>/gs, '<h4 class="my-4">Dont remove as this will be replaced with SCard</h4>').trim();
+                                   .replace(/<SCard[^>]*>.*?<\/SCard>/gs, '<h4 class="my-4 font-semibold text-red-500" style="color: red;">Dont remove as this will be replaced with SCard</h4>').trim();
 
       // You can also log or inspect the content
-      console.log('BeforeSetContent:', event.content);
+      //console.log('BeforeSetContent:', event.content);
     });
   },
 
@@ -48,7 +48,6 @@ tinymce.init({
             "searchreplace wordcount visualblocks visualchars fullscreen insertdatetime media nonbreaking",
             "table contextmenu directionality template paste textcolor code"], //insert 'code' to view source
   toolbar: 'template undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image table mergetags | align lineheight | checklist numlist startAtButton',
-  // tinycomments_mode: 'embedded',
   tinycomments_author: 'Author name',
   mergetags_list: [
     { value: 'First.Name', title: 'First Name' },
@@ -207,7 +206,8 @@ const importCode = document.getElementById('importCode').onclick = () => {
 
   document.getElementById('importArea').classList.add('hidden')
   document.getElementById('import-check').checked = true;
-  //console.log(scardContents[0]);
+
+  //console.log(scardContents);
   
 }
  
@@ -373,12 +373,19 @@ tncRegionDropdown.addEventListener('change', () => {
                            .replaceAll('href', ':href')
                            .replaceAll('<br />', '')
 
-                           .replaceAll('<h4 class="my-4">Dont remove as this will be replaced with SCard</h4>', scardContents[0])
                            .replaceAll('<div id="script1" class="hidden" style="visibility: hidden; display: none;">1</div>', script1)
                            .replaceAll('<div id="script2" class="hidden" style="visibility: hidden; display: none;">1</div>', script2)
                            .replaceAll('<div id="SExpansion" class="hidden" style="visibility: hidden;">1</div>', SExpansion.EN)
                            .replaceAll('<div id="closeSExpansion" class="hidden" style="visibility: hidden;">1</div>', closeSExpansion)
 
+        let matchScard = y.match(/<h4 class="my-4 font-semibold text-red-500" style="color: red;">Dont remove as this will be replaced with SCard<\/h4>/g)
+
+        if(matchScard){
+          for(let i = 0; i <= matchScard.length; i++){
+            y = y.replace(matchScard[i], scardLength[i])
+            //console.log(matchScard[i]);
+          }
+        }
         
       } 
       else if(importedContent.includes('<div id="script1" class="hidden" style="visibility: hidden; display: none;">1</div>')){
@@ -442,7 +449,15 @@ tncRegionDropdown.addEventListener('change', () => {
                           .replaceAll('&#96;', '`')
                           .replaceAll('href', ':href')
                           .replaceAll('<br />', '')
-                          .replaceAll('<h4 class="my-4">Dont remove as this will be replaced with SCard</h4>', scardContents[0])
+                          //.replaceAll('<h4 class="my-4 font-semibold text-red-500" style="color: red;">Dont remove as this will be replaced with SCard</h4>', scardContents[0])
+        let matchScard = y.match(/<h4 class="my-4 font-semibold text-red-500" style="color: red;">Dont remove as this will be replaced with SCard<\/h4>/g)
+
+        if(matchScard){
+          for(let i = 0; i <= matchScard.length; i++){
+            y = y.replace(matchScard[i], scardLength[i])
+            //console.log(matchScard[i]);
+          }
+        }
       }
 
       
@@ -510,7 +525,7 @@ tncRegionDropdown.addEventListener('change', () => {
   //Preview Content function
   function previewContent(data){
     let content = tinymce.get('mytextarea').getContent()
-   
+    
     //replaceAll is used to replace the default html content from tinymce.
     let y = content.replaceAll(/<ol(.*?)>/g, '<ol class="list-decimal pl-8 mb-4"$1>')
         
@@ -553,9 +568,18 @@ tncRegionDropdown.addEventListener('change', () => {
         .replaceAll('<p><strong>1</strong></p>', '')
         .replaceAll('<p>1</p>', '')
 
-    //console.log(y);
-    
     document.getElementById('tnc-container').innerHTML = y;
     document.getElementById('tnc-container-mobile').innerHTML = y;
     return y;
 }
+
+document.getElementById('promotionGuide-button').onclick = () => {
+  document.getElementById('instruction-container').classList.toggle('hidden')
+}
+
+//Guide for new users
+setTimeout(() => {
+  if(!document.getElementById('instruction-container').classList.contains('hidden') ){
+    document.getElementById('promotionGuide-button').click();
+  }
+}, 10000)
