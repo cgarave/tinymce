@@ -12,8 +12,7 @@ tinymce.init({
   entity_encoding: 'raw',
   setup: function(editor) {
     editor.on('BeforeSetContent', function(event) {
-      // Manipulate the content here
-      // For example, replace certain patterns or attributes
+      // replace certain patterns or attributes
 
       //Copy SCard
       const scardcontentMatches = event.content.match(/<SCard[^>]*>.*?<\/SCard>/gs);
@@ -25,7 +24,6 @@ tinymce.init({
                                    .replace(/<ul>/g, '<ol>')
                                    .replace(/<\/ul>/g, '</ol>')
 
-      // You can also log or inspect the content
       console.log('BeforeSetContent:', event.content);
     });
   },
@@ -382,6 +380,10 @@ tncRegionDropdown.addEventListener('change', () => {
                            .replaceAll('<div id="SExpansion" class="hidden" style="visibility: hidden;">1</div>', SExpansion.EN)
                            .replaceAll('<div id="closeSExpansion" class="hidden" style="visibility: hidden;">1</div>', closeSExpansion)
 
+        //Full prom
+        let fullPromMatches = y.match(/<h2 class="m-4 font-semibold text-body-1">Full Promotion Specific Terms and Conditions<\/h2>/g);
+        console.log(fullPromMatches);
+        
         let matchScard = y.match(/<h4 class="my-4 font-semibold text-red-500" style="color: red;">Dont remove as this will be replaced with SCard<\/h4>/g)
 
         if(matchScard){
@@ -433,7 +435,7 @@ tncRegionDropdown.addEventListener('change', () => {
                           .replaceAll('<h2 class="m-4 font-semibold text-body-1">पूर्ण प्रमोशन-विशिष्ट नियम और शर्तें</h2>', '') //IN cleanup
                           .replace(/<\/div>\s*<\/div>\s*<div id="closeSExpansion" class="hidden" style="visibility: hidden;">1<\/div>/g, '<div id="closeSExpansion" class="hidden" style="visibility: hidden;">1</div>')
                           //images
-                          .replace(/<img(.*?)\/>/g, '<img class="my-0 mx-auto w-96 h-auto" $1/>')
+                          .replace(/<img(.*?)\/>/g, '<img class="my-0 mx-auto h-auto rounded-lg" $1/>')
                           
                           .replaceAll('<ol class="list-decimal pl-8 mb-4" style="list-style-type: lower-alpha;">', '<ol class="list-lower-alpha pl-8 mb-4">')
                           .replaceAll('<ol class="list-lower-alpha pl-8 mb-4" style="list-style-type: lower-alpha;">', '<ol class="list-lower-alpha pl-8 mb-4">')
@@ -560,11 +562,11 @@ tncRegionDropdown.addEventListener('change', () => {
         .replaceAll('<td style="width: 50%; text-align: right;">', '<td class="w-1/2 text-right">') //if 2 columns with text aligned right
         .replaceAll('<td style="width: 50%; text-align: justify;">', '<td class="w-1/2 text-justify">') //if 2 columns with text aligned justify
         //images
-        .replace(/<img(.*?)\/>/g, '<img class="my-2 mx-auto w-96 h-auto" $1/>')
+        .replace(/<img(.*?)\/>/g, '<img class="my-2 mx-auto h-auto rounded-lg" $1/>')
         //FPSTC
         .replaceAll('<p style="font-weight: 600;">Full Promotion Specific Terms and Conditions</p>', FPSTCs.EN)
         .replaceAll('<p style="font-weight: 600;">完整优惠标准规则</p>', FPSTCs.CN)
-        .replaceAll('<p style="font-weight: 600;">Điều Khoản v&agrave; Điều Kiện Ho&agrave;n Chỉnh</p>', FPSTCs.VN)
+        .replaceAll('<p style="font-weight: 600;">Điều Khoản và Điều Kiện Hoàn Chỉnh</p>', FPSTCs.VN)
         .replaceAll('<p style="font-weight: 600;">ข้อกำหนดและเงื่อนไขแบบเฉพาะเจาะจง</p>', FPSTCs.TH)
         .replaceAll('<p style="font-weight: 600;">본 프로모션 이용약관</p>', FPSTCs.KR)
         .replaceAll('<p style="font-weight: 600;">Syarat dan Kondisi Spesifik promosi Lengkap</p>', FPSTCs.ID)
