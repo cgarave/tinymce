@@ -371,6 +371,8 @@ tncRegionDropdown.addEventListener('change', () => {
                            .replaceAll('<h2 class="m-4 font-semibold text-body-1">លក្ខខណ្ឌ និងកិច្ចព្រមព្រៀងជាក់លាក់នៃការផ្តល់រង្វាន់ទាំងអស</h2>', '') //KH cleanup
                            .replaceAll('<h2 class="m-4 font-semibold text-body-1">全てのプロモーション－特定の利用規約</h2>', '') //JP cleanup
                            .replaceAll('<h2 class="m-4 font-semibold text-body-1">पूर्ण प्रमोशन-विशिष्ट नियम और शर्तें</h2>', '') //IN cleanup
+
+                           //links
                            .replaceAll('&#96;', '`')
                            .replaceAll('href', ':href')
                            .replaceAll('<br />', '')
@@ -448,10 +450,13 @@ tncRegionDropdown.addEventListener('change', () => {
                           .replaceAll('<div id="SExpansion-IN" class="hidden" style="visibility: hidden;">1</div>', SExpansion.IN)
                           .replaceAll('<div id="closeSExpansion" class="hidden" style="visibility: hidden;">1</div>', closeSExpansion)
 
+                          //links
                           .replaceAll('&#96;', '`')
                           .replaceAll('href', ':href')
                           .replaceAll('<br />', '')
-                          //.replaceAll('<h4 class="my-4 font-semibold text-red-500" style="color: red;">Dont remove as this will be replaced with SCard</h4>', scardContents[0])
+                          .replace(/<a :href="(.*?)">/g, '<a :href="`$1`">')
+
+        //.replaceAll('<h4 class="my-4 font-semibold text-red-500" style="color: red;">Dont remove as this will be replaced with SCard</h4>', scardContents[0])
         let matchScard = y.match(/<h4 class="my-4 font-semibold text-red-500" style="color: red;">Dont remove as this will be replaced with SCard<\/h4>/g)
 
         if(matchScard){
