@@ -659,10 +659,6 @@ video {
   inset: -0.25rem;
 }
 
-.bottom-0 {
-  bottom: 0px;
-}
-
 .end-1 {
   inset-inline-end: 0.25rem;
 }
@@ -681,22 +677,6 @@ video {
 
 .top-14 {
   top: 3.5rem;
-}
-
-.-bottom-20 {
-  bottom: -5rem;
-}
-
-.top-0 {
-  top: 0px;
-}
-
-.left-0 {
-  left: 0px;
-}
-
-.right-10 {
-  right: 2.5rem;
 }
 
 .isolate {
@@ -775,14 +755,14 @@ video {
   margin-bottom: 0.5rem;
 }
 
-.my-6 {
-  margin-top: 1.5rem;
-  margin-bottom: 1.5rem;
-}
-
 .my-4 {
   margin-top: 1rem;
   margin-bottom: 1rem;
+}
+
+.my-6 {
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
 }
 
 .mb-2 {
@@ -795,6 +775,10 @@ video {
 
 .mb-9 {
   margin-bottom: 2.25rem;
+}
+
+.ml-10 {
+  margin-left: 2.5rem;
 }
 
 .mr-3 {
@@ -811,14 +795,6 @@ video {
 
 .mt-40 {
   margin-top: 10rem;
-}
-
-.ml-4 {
-  margin-left: 1rem;
-}
-
-.ml-10 {
-  margin-left: 2.5rem;
 }
 
 .box-border {
@@ -951,10 +927,6 @@ video {
 
 .h-screen {
   height: 100vh;
-}
-
-.h-20 {
-  height: 5rem;
 }
 
 .w-1\/2 {
@@ -1217,10 +1189,6 @@ video {
   scroll-snap-stop: always;
 }
 
-.scroll-m-0 {
-  scroll-margin: 0px;
-}
-
 .list-inside {
   list-style-position: inside;
 }
@@ -1231,6 +1199,10 @@ video {
 
 .list-decimal {
   list-style-type: decimal;
+}
+
+.list-disc {
+  list-style-type: disc;
 }
 
 .list-lower-alpha {
@@ -1247,10 +1219,6 @@ video {
 
 .list-upper-roman {
   list-style-type: upper-roman;
-}
-
-.list-disc {
-  list-style-type: disc;
 }
 
 .appearance-none {
@@ -1596,12 +1564,12 @@ video {
   row-gap: 0.75rem;
 }
 
-.gap-y-2 {
-  row-gap: 0.5rem;
-}
-
 .gap-y-4 {
   row-gap: 1rem;
+}
+
+.gap-y-5 {
+  row-gap: 1.25rem;
 }
 
 .space-x-2 > :not([hidden]) ~ :not([hidden]) {
@@ -1924,8 +1892,8 @@ video {
   border-radius: 4px;
 }
 
-.rounded-full {
-  border-radius: 9999px;
+.rounded-lg {
+  border-radius: 0.5rem;
 }
 
 .rounded-md {
@@ -1934,10 +1902,6 @@ video {
 
 .rounded-sm {
   border-radius: 0.125rem;
-}
-
-.rounded-lg {
-  border-radius: 0.5rem;
 }
 
 .rounded-b {
@@ -2082,19 +2046,9 @@ video {
   border-color: rgb(72 22 195 / var(--tw-border-opacity));
 }
 
-.border-violet-700 {
-  --tw-border-opacity: 1;
-  border-color: rgb(109 40 217 / var(--tw-border-opacity));
-}
-
 .border-violet-600 {
   --tw-border-opacity: 1;
   border-color: rgb(124 58 237 / var(--tw-border-opacity));
-}
-
-.border-red-500 {
-  --tw-border-opacity: 1;
-  border-color: rgb(239 68 68 / var(--tw-border-opacity));
 }
 
 .border-b-gray-300 {
@@ -2146,36 +2100,14 @@ video {
   background-color: transparent;
 }
 
-.bg-white {
-  --tw-bg-opacity: 1;
-  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
-}
-
-.bg-violet-700 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(109 40 217 / var(--tw-bg-opacity));
-}
-
-.bg-violet-600 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(124 58 237 / var(--tw-bg-opacity));
-}
-
 .bg-violet-900 {
   --tw-bg-opacity: 1;
   background-color: rgb(76 29 149 / var(--tw-bg-opacity));
 }
 
-.bg-opacity-80 {
-  --tw-bg-opacity: 0.8;
-}
-
-.bg-opacity-70 {
-  --tw-bg-opacity: 0.7;
-}
-
-.bg-opacity-40 {
-  --tw-bg-opacity: 0.4;
+.bg-white {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
 .bg-opacity-20 {
@@ -2343,6 +2275,11 @@ video {
   padding-bottom: 1.25rem;
 }
 
+.px-20 {
+  padding-left: 5rem;
+  padding-right: 5rem;
+}
+
 .pl-8 {
   padding-left: 2rem;
 }
@@ -2507,14 +2444,14 @@ video {
   color: rgb(59 130 246 / var(--tw-text-opacity));
 }
 
+.text-gray-300 {
+  --tw-text-opacity: 1;
+  color: rgb(209 213 219 / var(--tw-text-opacity));
+}
+
 .text-neutral-400 {
   --tw-text-opacity: 1;
   color: rgb(163 163 163 / var(--tw-text-opacity));
-}
-
-.text-white {
-  --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
 .text-red-500 {
@@ -2522,8 +2459,14 @@ video {
   color: rgb(239 68 68 / var(--tw-text-opacity));
 }
 
-.text-opacity-100 {
+.text-white {
   --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.text-gray-400 {
+  --tw-text-opacity: 1;
+  color: rgb(156 163 175 / var(--tw-text-opacity));
 }
 
 .underline {
@@ -2574,10 +2517,6 @@ video {
 
 .opacity-90 {
   opacity: 0.9;
-}
-
-.opacity-80 {
-  opacity: 0.8;
 }
 
 .bg-blend-normal {

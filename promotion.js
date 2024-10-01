@@ -21,10 +21,12 @@ tinymce.init({
 
       // Example: Replace :href with some specific handling
       event.content = event.content.replace(/:href/g, 'href')
-                                   .replace(/<SCard[^>]*>.*?<\/SCard>/gs, '<h4 class="my-4 font-semibold text-red-500" style="color: red;">Dont remove as this will be replaced with SCard</h4>').trim();
+                                   .replace(/<SCard[^>]*>.*?<\/SCard>/gs, '<h4 class="my-4 font-semibold text-red-500" style="color: red;">Dont remove as this will be replaced with SCard</h4>').trim()
+                                   .replace(/<ul>/g, '<ol>')
+                                   .replace(/<\/ul>/g, '</ol>')
 
       // You can also log or inspect the content
-      //console.log('BeforeSetContent:', event.content);
+      console.log('BeforeSetContent:', event.content);
     });
   },
   
@@ -538,6 +540,7 @@ tncRegionDropdown.addEventListener('change', () => {
         .replaceAll('<ol style="list-style-type: lower-alpha;">', '<ol class="list-lower-alpha pl-8 mb-4">')
         .replaceAll('<ol style="list-style-type: upper-alpha;">', '<ol class="list-upper-alpha pl-8 mb-4">')
         .replaceAll('<ol class="list-decimal pl-8 mb-4" style="list-style-type: lower-alpha;">', '<ol class="list-lower-alpha pl-8 mb-4">')
+        .replaceAll('<ol class="list-decimal pl-8 mb-4" class="list-lower-alpha pl-8 mb-4">', '<ol class="list-lower-alpha pl-8 mb-4">')
         .replaceAll('<ol class="list-decimal pl-8 mb-4" style="list-style-type: lower-roman;">', '<ol class="list-lower-roman pl-8 mb-4">')
         //replacing tables
         .replaceAll('<div class="border rounded mb-4 table-responsive">', '')
@@ -568,6 +571,7 @@ tncRegionDropdown.addEventListener('change', () => {
         .replaceAll('<p><strong>1</strong></p>', '')
         .replaceAll('<p>1</p>', '')
 
+    console.log(y)
     document.getElementById('tnc-container').innerHTML = y;
     document.getElementById('tnc-container-mobile').innerHTML = y;
     return y;
@@ -582,4 +586,4 @@ setTimeout(() => {
   if(!document.getElementById('instruction-container').classList.contains('hidden') ){
     document.getElementById('promotionGuide-button').click();
   }
-}, 10000)
+}, 8000)
