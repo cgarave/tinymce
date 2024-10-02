@@ -24,7 +24,7 @@ tinymce.init({
                                    .replace(/<ul>/g, '<ol>')
                                    .replace(/<\/ul>/g, '</ol>')
 
-      console.log('BeforeSetContent:', event.content);
+      //console.log('BeforeSetContent:', event.content);
     });
   },
   
@@ -381,8 +381,8 @@ tncRegionDropdown.addEventListener('change', () => {
                            .replaceAll('<div id="closeSExpansion" class="hidden" style="visibility: hidden;">1</div>', closeSExpansion)
 
         //Full prom
-        let fullPromMatches = y.match(/<h2 class="m-4 font-semibold text-body-1">Full Promotion Specific Terms and Conditions<\/h2>/g);
-        console.log(fullPromMatches);
+        // let fullPromMatches = y.match(/<h2 class="m-4 font-semibold text-body-1">Full Promotion Specific Terms and Conditions<\/h2>/g);
+        // y = y.replace(fullPromMatches[1], 'hello')
         
         let matchScard = y.match(/<h4 class="my-4 font-semibold text-red-500" style="color: red;">Dont remove as this will be replaced with SCard<\/h4>/g)
 
@@ -577,8 +577,8 @@ tncRegionDropdown.addEventListener('change', () => {
         //cleanup
         .replaceAll('<p><strong>1</strong></p>', '')
         .replaceAll('<p>1</p>', '')
+        
 
-    console.log(y)
     document.getElementById('tnc-container').innerHTML = y;
     document.getElementById('tnc-container-mobile').innerHTML = y;
     return y;
