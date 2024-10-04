@@ -23,8 +23,9 @@ tinymce.init({
                                    .replace(/<SCard[^>]*>.*?<\/SCard>/gs, '<h4 class="my-4 font-semibold text-red-500" style="color: red;">Dont remove as this will be replaced with SCard</h4>').trim()
                                    .replace(/<ul>/g, '<ol>')
                                    .replace(/<\/ul>/g, '</ol>')
+                                   .replace(/<a :href="(.*?)">/g, '<a :href="`$1`">')
 
-      //console.log('BeforeSetContent:', event.content);
+      console.log('BeforeSetContent:', event.content);
     });
   },
   
@@ -373,7 +374,7 @@ tncRegionDropdown.addEventListener('change', () => {
                            //links
                            .replaceAll('&#96;', '`')
                            .replaceAll('href', ':href')
-                           .replaceAll('<br />', '')
+                           //.replaceAll('<br />', '')
 
                            .replaceAll('<div id="script1" class="hidden" style="visibility: hidden; display: none;">1</div>', script1)
                            .replaceAll('<div id="script2" class="hidden" style="visibility: hidden; display: none;">1</div>', script2)
@@ -421,9 +422,7 @@ tncRegionDropdown.addEventListener('change', () => {
           importedResult = importedContent.replace('LOCALIZED-SExpansion', 'SExpansion-IN')
         }
   
-        y = importedResult.replaceAll('<div id="script1" class="hidden" style="visibility: hidden; display: none;">1</div>', script1)
-                          .replaceAll('<div id="script2" class="hidden" style="visibility: hidden; display: none;">1</div>', script2)   
-                          .replaceAll('<h2 class="m-4 font-semibold text-body-1">Full Promotion Specific Terms and Conditions</h2>', '')  //EN cleanup
+        y = importedResult.replaceAll('<h2 class="m-4 font-semibold text-body-1">Full Promotion Specific Terms and Conditions</h2>', '')  //EN cleanup
                           .replaceAll('<h2 class="m-4 font-semibold text-body-1">完整优惠标准规则</h2>', '') //CN cleanup
                           .replaceAll('<h2 class="m-4 font-semibold text-body-1">Điều Khoản và Điều Kiện Hoàn Chỉnh</h2>', '') //VN cleanup
                           .replaceAll('<h2 class="m-4 font-semibold text-body-1">Điều Khoản v&agrave; Điều Kiện Ho&agrave;n Chỉnh</h2>', '') //VN cleanup 2
@@ -455,8 +454,10 @@ tncRegionDropdown.addEventListener('change', () => {
                           //links
                           .replaceAll('&#96;', '`')
                           .replaceAll('href', ':href')
-                          .replaceAll('<br />', '')
-                          .replace(/<a :href="(.*?)">/g, '<a :href="`$1`">')
+                          .replaceAll('<div id="script1" class="hidden" style="visibility: hidden; display: none;">1</div>', script1) 
+                          .replaceAll('<div id="script2" class="hidden" style="visibility: hidden; display: none;">1</div>', script2)  
+                          //.replaceAll('<br />', '')
+                          //.replace(/<a :href="(.*?)">/g, '<a :href="`$1`">')
 
         //.replaceAll('<h4 class="my-4 font-semibold text-red-500" style="color: red;">Dont remove as this will be replaced with SCard</h4>', scardContents[0])
         let matchScard = y.match(/<h4 class="my-4 font-semibold text-red-500" style="color: red;">Dont remove as this will be replaced with SCard<\/h4>/g)
@@ -518,8 +519,7 @@ tncRegionDropdown.addEventListener('change', () => {
                         .replaceAll(FPSTCs.JP, "")
                         .replaceAll(FPSTCs.IN, "")
                         .replace('mt-40', '')
-                        .replaceAll('<br>', '')
-                        .replaceAll('<br />', '')
+                        //.replaceAll('<br />', '')
 
       let fileName = document.getElementById('filename').value;
       let blob = new Blob([x], {type: 'text/html'});
@@ -575,8 +575,8 @@ tncRegionDropdown.addEventListener('change', () => {
         .replaceAll('<p style="font-weight: 600;">पूर्ण प्रमोशन-विशिष्ट नियम और शर्तें</p>', FPSTCs.IN)
 
         //cleanup
-        .replaceAll('<p><strong>1</strong></p>', '')
-        .replaceAll('<p>1</p>', '')
+        .replaceAll('<p><strong></strong></p>', '')
+        .replaceAll('<p></p>', '')
         
 
     document.getElementById('tnc-container').innerHTML = y;
