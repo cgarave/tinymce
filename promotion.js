@@ -3,12 +3,13 @@ let scardLength = ''
 tinymce.init({
   selector: '#mytextarea',
   table_resize_bars: false, //disable resize bars
-  object_resizing: false, //disable table resizing
+  object_resizing: 'img', //disable table resizing
   visualblocks_default_state: false, //display visual blocks by default
+  resize_img_proportional: false,
 
   encoding: 'xml',
   element_format: 'xhtml',
-  invalid_elements: 'b,em,i',
+  invalid_elements: 'b, i',
   entity_encoding: 'raw',
   setup: function(editor) {
     editor.on('BeforeSetContent', function(event) {
@@ -21,8 +22,8 @@ tinymce.init({
       // Example: Replace :href with some specific handling
       event.content = event.content.replace(/:href/g, 'href')
                                    .replace(/<SCard[^>]*>.*?<\/SCard>/gs, '<h4 class="my-4 font-semibold text-red-500" style="color: red;">Dont remove as this will be replaced with SCard</h4>').trim()
-                                   .replace(/<ul>/g, '<ol>')
-                                   .replace(/<\/ul>/g, '</ol>')
+                                  //  .replace(/<ul>/g, '<ol>')
+                                  //  .replace(/<\/ul>/g, '</ol>')
                                    .replace(/<a :href="(.*?)">/g, '<a :href="`$1`">')
 
       console.log('BeforeSetContent:', event.content);
@@ -45,10 +46,10 @@ tinymce.init({
                   table {
                     width: 100%;
                   }`,
-  plugins: ["template paste autolink link image lists advlist charmap preview hr anchor",
-            "searchreplace wordcount visualblocks visualchars fullscreen insertdatetime media nonbreaking",
-            "table contextmenu directionality template paste textcolor code"], //insert 'code' to view source
-  toolbar: 'template undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image table mergetags | align lineheight | checklist numlist startAtButton',
+  plugins: ["template paste autolink link image lists advlist charmap hr anchor",
+            "searchreplace wordcount visualblocks visualchars media nonbreaking",
+            "table contextmenu directionality template paste"], //insert 'code' to view source
+  toolbar: 'template undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image table mergetags | align lineheight | checklist bullist numlist startAtButton',
   tinycomments_author: 'Author name',
   mergetags_list: [
     { value: 'First.Name', title: 'First Name' },
@@ -222,9 +223,6 @@ templateDropdown.addEventListener('change', () => {
     case 'TNC':
       document.getElementById('region-container').classList.remove('hidden')
       break;
-    case 'QG':
-      document.getElementById('region-container').classList.add('hidden')
-      break;
   }
 })
 
@@ -245,6 +243,7 @@ tncRegionDropdown.addEventListener('change', () => {
       templates.TNC = templates.TNC.replace('主要规则', 'LOCALIZED-SC')
       templates.TNC = templates.TNC.replace('完整优惠标准规则', 'LOCALIZED-FP')
       templates.TNC = templates.TNC.replace('SExpansion-CN', 'LOCALIZED-SExpansion')
+      document.getElementById('import-check').checked = false;
       break;
     case 'zh-my':
       templates.TNC = templates.TNC.replace('REGION', 'zh-cn')
@@ -256,6 +255,7 @@ tncRegionDropdown.addEventListener('change', () => {
       templates.TNC = templates.TNC.replace('主要规则', 'LOCALIZED-SC')
       templates.TNC = templates.TNC.replace('完整优惠标准规则', 'LOCALIZED-FP')
       templates.TNC = templates.TNC.replace('SExpansion-CN', 'LOCALIZED-SExpansion')
+      document.getElementById('import-check').checked = false;
       break;
     case 'vi-vn':
       templates.TNC = templates.TNC.replace('REGION', 'vi-vn')
@@ -267,6 +267,7 @@ tncRegionDropdown.addEventListener('change', () => {
       templates.TNC = templates.TNC.replace('Điều Kiện Tóm Lược', 'LOCALIZED-SC')
       templates.TNC = templates.TNC.replace('Điều Khoản và Điều Kiện Hoàn Chỉnh', 'LOCALIZED-FP')
       templates.TNC = templates.TNC.replace('SExpansion-VN', 'LOCALIZED-SExpansion')
+      document.getElementById('import-check').checked = false;
       break;
     case 'th-th':
       templates.TNC = templates.TNC.replace('REGION', 'th-th')
@@ -278,6 +279,7 @@ tncRegionDropdown.addEventListener('change', () => {
       templates.TNC = templates.TNC.replace('ข้อกำหนดและเงื่อนไขฉบับย่อ', 'LOCALIZED-SC')
       templates.TNC = templates.TNC.replace('ข้อกำหนดและเงื่อนไขแบบเฉพาะเจาะจง', 'LOCALIZED-FP')
       templates.TNC = templates.TNC.replace('SExpansion-TH', 'LOCALIZED-SExpansion')
+      document.getElementById('import-check').checked = false;
       break;
     case 'ko-kr':
       templates.TNC = templates.TNC.replace('REGION', 'ko-kr')
@@ -289,6 +291,7 @@ tncRegionDropdown.addEventListener('change', () => {
       templates.TNC = templates.TNC.replace('약관 주요내용', 'LOCALIZED-SC')
       templates.TNC = templates.TNC.replace('본 프로모션 이용약관', 'LOCALIZED-FP')
       templates.TNC = templates.TNC.replace('SExpansion-KR', 'LOCALIZED-SExpansion')
+      document.getElementById('import-check').checked = false;
       break;
     case 'id-id':
       templates.TNC = templates.TNC.replace('REGION', 'id-id')
@@ -300,6 +303,7 @@ tncRegionDropdown.addEventListener('change', () => {
       templates.TNC = templates.TNC.replace('Syarat dan Kondisi Penting', 'LOCALIZED-SC')
       templates.TNC = templates.TNC.replace('Syarat dan Kondisi Spesifik promosi Lengkap', 'LOCALIZED-FP')
       templates.TNC = templates.TNC.replace('SExpansion-ID', 'LOCALIZED-SExpansion')
+      document.getElementById('import-check').checked = false;
       break
     case 'km-kh':
       templates.TNC = templates.TNC.replace('REGION', 'km-kh')
@@ -311,6 +315,7 @@ tncRegionDropdown.addEventListener('change', () => {
       templates.TNC = templates.TNC.replace('លក្ខខណ្ឌសំខាន់ៗ', 'LOCALIZED-SC')
       templates.TNC = templates.TNC.replace('លក្ខខណ្ឌ និងកិច្ចព្រមព្រៀងជាក់លាក់នៃការផ្តល់រង្វាន់ទាំងអស', 'LOCALIZED-FP')
       templates.TNC = templates.TNC.replace('SExpansion-KH', 'LOCALIZED-SExpansion')
+      document.getElementById('import-check').checked = false;
       break;
     case 'ja-jp':
       templates.TNC = templates.TNC.replace('REGION', 'ja-jp')
@@ -322,6 +327,7 @@ tncRegionDropdown.addEventListener('change', () => {
       templates.TNC = templates.TNC.replace('キャンペーン概要', 'LOCALIZED-SC')
       templates.TNC = templates.TNC.replace('全てのプロモーション－特定の利用規約', 'LOCALIZED-FP')
       templates.TNC = templates.TNC.replace('SExpansion-JP', 'LOCALIZED-SExpansion')
+      document.getElementById('import-check').checked = false;
       break;
     case 'hi-in':
       templates.TNC = templates.TNC.replace('REGION', 'hi-in')
@@ -333,6 +339,7 @@ tncRegionDropdown.addEventListener('change', () => {
       templates.TNC = templates.TNC.replace('टमहत्वपूर्ण स्थितियां', 'LOCALIZED-SC')
       templates.TNC = templates.TNC.replace('पूर्ण प्रमोशन-विशिष्ट नियम और शर्तें', 'LOCALIZED-FP')
       templates.TNC = templates.TNC.replace('SExpansion-IN', 'LOCALIZED-SExpansion')
+      document.getElementById('import-check').checked = false;
       break;
   }
 })
@@ -538,6 +545,8 @@ tncRegionDropdown.addEventListener('change', () => {
     //replaceAll is used to replace the default html content from tinymce.
     let y = content.replaceAll(/<ol(.*?)>/g, '<ol class="list-decimal pl-8 mb-4"$1>')
         
+        .replace(/<ul(.*?)>/g, '<ul class="list-disc pl-8 mb-4"$1>')
+        
         //replacing Significant Conditions
         .replaceAll('<p>Significant Conditions</p>', '<h2 class="mb-4 font-semibold text-body-1">Significant Conditions</h2>')
         .replaceAll('<p><strong>Significant Conditions</strong></p>', '<h2 class="mb-4 font-semibold text-body-1">Significant Conditions</h2>')
@@ -589,8 +598,8 @@ document.getElementById('promotionGuide-button').onclick = () => {
 }
 
 //Guide for new users
-setTimeout(() => {
-  if(!document.getElementById('instruction-container').classList.contains('hidden') ){
-    document.getElementById('promotionGuide-button').click();
-  }
-}, 8000)
+// setTimeout(() => {
+//   if(!document.getElementById('instruction-container').classList.contains('hidden') ){
+//     document.getElementById('promotionGuide-button').click();
+//   }
+// }, 8000)
