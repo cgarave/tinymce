@@ -22,8 +22,8 @@ tinymce.init({
       // Example: Replace :href with some specific handling
       event.content = event.content.replace(/:href/g, 'href')
                                    .replace(/<SCard[^>]*>.*?<\/SCard>/gs, '<h4 class="my-4 font-semibold text-red-500" style="color: red;">Dont remove as this will be replaced with SCard</h4>').trim()
-                                  //  .replace(/<ul>/g, '<ol>')
-                                  //  .replace(/<\/ul>/g, '</ol>')
+                                  //  .replace(/<ul>/g, '')
+                                  //  .replace(/<\/ul>/g, '')
                                    .replace(/<a :href="(.*?)">/g, '<a :href="`$1`">')
 
       console.log('BeforeSetContent:', event.content);
@@ -48,7 +48,7 @@ tinymce.init({
                   }`,
   plugins: ["template paste autolink link image lists advlist charmap hr anchor",
             "searchreplace wordcount visualblocks visualchars media nonbreaking",
-            "table contextmenu directionality template paste"], //insert 'code' to view source
+            "table contextmenu directionality template paste code"], //insert 'code' to view source
   toolbar: 'template undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image table mergetags | align lineheight | checklist bullist numlist startAtButton',
   tinycomments_author: 'Author name',
   mergetags_list: [
@@ -56,7 +56,7 @@ tinymce.init({
     { value: 'Email', title: 'Email' },
   ],
   templates: [{
-      title: 'dropdown',
+      title: 'MY Localized',
       content: ``
   }],
   
@@ -192,7 +192,6 @@ const templates = {
                           <p>Write/Paste Localized Full Promotion contents here</p>
                       </div>
                   <div id="closeSExpansion" class="hidden" style="visibility: hidden;">1</div>`,
-  QG: "",
 }
 
 //Import Area Button
@@ -212,19 +211,6 @@ const importCode = document.getElementById('importCode').onclick = () => {
   //console.log(scardContents);
   
 }
- 
-//Templates handler show region dropdown
-const templateDropdown = document.getElementById('templates-dropdown');
-templateDropdown.addEventListener('change', () => {
-
-  const selectedTemplates = templateDropdown.value;
-
-  switch(selectedTemplates){
-    case 'TNC':
-      document.getElementById('region-container').classList.remove('hidden')
-      break;
-  }
-})
 
 //Region handler
 const tncRegionDropdown = document.getElementById('tnc-regions-dropdown');

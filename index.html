@@ -7,8 +7,8 @@
     <title>Document</title>
     <script src="https://cdn.tiny.cloud/1/te167wk1fiddsv5gf6bf7yi169ojp0pclg2kksirxrl0w9lg/tinymce/4/tinymce.min.js"
         referrerpolicy="origin"></script>
-    <link rel="stylesheet" href="style.css">
-    <link href="src/output.css" rel="stylesheet">
+    <link rel="stylesheet" href="sys/style.css">
+    <link href="sys/src/output.css" rel="stylesheet">
     <style>
         .mce-tinymce {
             border-radius: 6px;
@@ -28,12 +28,12 @@
     <header>
         <nav class="flex flex-row justify-between items-center p-3 border-b border-[#332654] mb-4">
             <ul>
-                <li id="automation-name" class="text-white font-semibold text-lg">Promotion Automation</li>
+                <li id="automation-name" class="text-white font-semibold text-lg">T&C Automation</li>
             </ul>
             <ul class="flex flex-row gap-x-2">
                 <li class="bg-[#2C1A5A] text-white font-medium rounded-[4px] px-2 text-xs">
                     <select id="automation-dropdown" class="bg-transparent border-none outline-none w-44 h-full hover:cursor-pointer">
-                        <option value="promotion">Promotion</option>
+                        <option value="tnc">Terms and Conditions</option>
                         <option value="newsletter">Newsletter</option>
                     </select>
                 </li>
@@ -45,7 +45,7 @@
     </header>
 
     <!--PROMOTION AUTOMATION-->
-    <div id="promotion" class="block">
+    <div id="tnc" class="block">
         <div class="px-3 mb-4 flex justify-between items-center">
             <div class="flex flex-row gap-x-2 items-center">
                 <input id="filename" type="text" class="rounded-[4px] p-2 h-10 w-80 outline-none font-medium text-xs" placeholder="HTML Filename" autocomplete="off">
@@ -59,15 +59,7 @@
             </div>
             <div class="flex gap-x-2">
                 <ol>
-                    <li class="bg-[#2C1A5A] text-white font-medium p-2 rounded-[4px] text-xs">
-                        <select id="templates-dropdown" class="bg-transparent border-none outline-none w-44 h-full hover:cursor-pointer">
-                            <option value="#">Select template</option>
-                            <option value="TNC">Terms and Conditions</option>
-                        </select>
-                    </li>
-                </ol>
-                <ol>
-                    <li id="region-container" class="bg-[#2C1A5A] text-white font-medium p-2 rounded-[4px] text-xs hidden">
+                    <li id="region-container" class="bg-[#2C1A5A] text-white font-medium p-2 rounded-[4px] text-xs">
                         <select name="" id="tnc-regions-dropdown" class="bg-transparent border-none outline-none w-44 h-full hover:cursor-pointer">
                             <option value="#">Select region</option>
                             <option value="zh-cn">China - CN</option>
@@ -265,9 +257,9 @@
 </body>
 
 <!-- <script src="script.js"></script> -->
- <script src="homepage.js"></script>
-<script src="promotion.js"></script>
-<script src="newsletter.js"></script>
-<script src="updates.js"></script>
+ <script src="sys/homepage.js"></script>
+<script src="sys/promotion.js"></script>
+<script src="sys/newsletter.js"></script>
+<script src="sys/updates.js"></script>
 
 </html>
