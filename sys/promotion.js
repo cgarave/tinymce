@@ -11,6 +11,7 @@ tinymce.init({
   element_format: 'xhtml',
   invalid_elements: 'b, i',
   entity_encoding: 'raw',
+
   setup: function(editor) {
     editor.on('BeforeSetContent', function(event) {
       // replace certain patterns or attributes
@@ -29,6 +30,20 @@ tinymce.init({
       console.log('BeforeSetContent:', event.content);
     });
   },
+  setup: function (editor) {
+    editor.on('NodeChange', function () {
+      // Get the selected content
+      const selectedText = editor.selection.getContent();
+      
+      if (selectedText) {
+        console.log("Text is highlighted: ", selectedText);
+        // You can add additional logic here if text is highlighted
+      } else {
+        console.log("No text is highlighted.");
+      }
+    });
+  },
+  
   
   paste_as_text: false, 
   newline_behavior: 'block',
@@ -48,7 +63,7 @@ tinymce.init({
                   }`,
   plugins: ["template paste autolink link image lists advlist charmap hr anchor",
             "searchreplace wordcount visualblocks visualchars media nonbreaking",
-            "table contextmenu directionality template paste code"], //insert 'code' to view source
+            "table contextmenu directionality template paste"], //insert 'code' to view source
   toolbar: 'template undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image table mergetags | align lineheight | checklist bullist numlist startAtButton',
   tinycomments_author: 'Author name',
   mergetags_list: [
