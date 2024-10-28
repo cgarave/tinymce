@@ -589,3 +589,27 @@ document.getElementById('promotionGuide-button').onclick = () => {
 //     document.getElementById('promotionGuide-button').click();
 //   }
 // }, 8000)
+
+document.getElementById('import-tnc').addEventListener('change', async(e) => {
+  const tncfile = e.target.files[0]
+  if(tncfile) {
+    const content = await readFile(tncfile);
+    tinymce.get('mytextarea').setContent(content);
+    document.getElementById('import-check').checked = true;
+  } else {
+    document.getElementById('output').innerHTML = 'No file selected';
+  }
+})
+
+const readFile = async (file) => {
+  return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+          resolve(event.target.result);
+      };
+      reader.onerror = (error) => {
+          reject(error);
+      };
+      reader.readAsText(file);
+  });
+};
