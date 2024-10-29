@@ -548,6 +548,7 @@ tncRegionDropdown.addEventListener('change', () => {
     let y = content.replaceAll(/<ol(.*?)>/g, '<ol class="list-decimal pl-8 mb-4"$1>')
         
         .replace(/<ul(.*?)>/g, '<ul class="list-disc pl-8 mb-4"$1>')
+        .replace(/<\/ol>\n<ol[^>]*>/g, "")
         
         //replacing Significant Conditions
         .replaceAll('<p>Significant Conditions</p>', '<h2 class="mb-4 font-semibold text-body-1">Significant Conditions</h2>')
