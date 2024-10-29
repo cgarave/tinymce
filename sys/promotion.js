@@ -14,7 +14,6 @@ tinymce.init({
 
   setup: function(editor) {
     editor.on('BeforeSetContent', function(event) {
-      // replace certain patterns or attributes
 
       //Copy SCard
       const scardcontentMatches = event.content.match(/<SCard[^>]*>.*?<\/SCard>/gs);
@@ -26,23 +25,26 @@ tinymce.init({
                                   //  .replace(/<ul>/g, '')
                                   //  .replace(/<\/ul>/g, '')
                                    .replace(/<a :href="(.*?)">/g, '<a :href="`$1`">')
+                                   .replaceAll('<ol class="list-lower-alpha pl-8 mb-4">', '<ol class="list-lower-alpha pl-8 mb-4" style="list-style-type: lower-alpha;">')
+                                   .replaceAll('<ol class="list-upper-alpha pl-8 mb-4">', '<ol class="list-upper-alpha pl-8 mb-4" style="list-style-type: upper-alpha;">')
+                                   .replaceAll('<ol class="list-lower-roman pl-8 mb-4">', '<ol class="list-lower-roman pl-8 mb-4" style="list-style-type: lower-roman;">')
+                                   .replaceAll('<ol class="list-upper-roman pl-8 mb-4">', '<ol class="list-upper-roman pl-8 mb-4" style="list-style-type: upper-roman;">')
 
       console.log('BeforeSetContent:', event.content);
-    });
-  },
-  setup: function (editor) {
+    }),
     editor.on('NodeChange', function () {
       // Get the selected content
       const selectedText = editor.selection.getContent();
       
       if (selectedText) {
         console.log("Text is highlighted: ", selectedText);
-        // You can add additional logic here if text is highlighted
+        
       } else {
         console.log("No text is highlighted.");
       }
     });
   },
+  
   
   
   paste_as_text: false, 
@@ -444,10 +446,9 @@ tncRegionDropdown.addEventListener('change', () => {
                           //images
                           .replace(/<img(.*?)\/>/g, '<img class="my-0 mx-auto h-auto rounded-lg" $1/>')
                           
-                          .replaceAll('<ol class="list-decimal pl-8 mb-4" style="list-style-type: lower-alpha;">', '<ol class="list-lower-alpha pl-8 mb-4">')
-                          .replaceAll('<ol class="list-lower-alpha pl-8 mb-4" style="list-style-type: lower-alpha;">', '<ol class="list-lower-alpha pl-8 mb-4">')
-                          .replaceAll('<ol class="list-decimal pl-8 mb-4" style="list-style-type: lower-roman;">', '<ol class="list-lower-roman pl-8 mb-4">')
-                          .replaceAll('<ol class="list-lower-roman pl-8 mb-4" style="list-style-type: lower-roman;">', '<ol class="list-lower-roman pl-8 mb-4">')
+                          .replaceAll('<ol class="list-decimal pl-8 mb-4" style="list-style-type: lower-alpha;">', '<ol class="list-lower-alpha pl-8 mb-4" style="list-style-type: lower-alpha;">')
+                          .replaceAll('<ol class="list-decimal pl-8 mb-4" style="list-style-type: lower-roman;">', '<ol class="list-lower-roman pl-8 mb-4" style="list-style-type: lower-roman;">')
+
                           .replaceAll('<div id="SExpansion" class="hidden" style="visibility: hidden;">1</div>', SExpansion.EN)
                           .replaceAll('<div id="SExpansion-CN" class="hidden" style="visibility: hidden;">1</div>', SExpansion.CN)
                           .replaceAll('<div id="SExpansion-VN" class="hidden" style="visibility: hidden;">1</div>', SExpansion.VN)
@@ -556,6 +557,7 @@ tncRegionDropdown.addEventListener('change', () => {
         .replaceAll('<ol style="list-style-type: upper-roman;">', '<ol class="list-upper-roman pl-8 mb-4" style="list-style-type: upper-roman;">')
         .replaceAll('<ol style="list-style-type: lower-alpha;">', '<ol class="list-lower-alpha pl-8 mb-4" style="list-style-type: lower-alpha;">')
         .replaceAll('<ol style="list-style-type: upper-alpha;">', '<ol class="list-upper-alpha pl-8 mb-4" style="list-style-type: upper-alpha;">')
+
         .replaceAll('<ol class="list-decimal pl-8 mb-4" style="list-style-type: lower-alpha;">', '<ol class="list-lower-alpha pl-8 mb-4" style="list-style-type: lower-alpha;">')
         .replaceAll('<ol class="list-decimal pl-8 mb-4" class="list-lower-alpha pl-8 mb-4">', '<ol class="list-lower-alpha pl-8 mb-4" style="list-style-type: lower-alpha;">')
         .replaceAll('<ol class="list-decimal pl-8 mb-4" style="list-style-type: lower-roman;">', '<ol class="list-lower-roman pl-8 mb-4" style="list-style-type: lower-roman;">')
