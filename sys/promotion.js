@@ -608,6 +608,8 @@ document.getElementById('promotionGuide-button').onclick = () => {
 //   }
 // }, 8000)
 
+
+//import HTML file
 document.getElementById('import-tnc').addEventListener('change', async(e) => {
   const tncfile = e.target.files[0]
   if(tncfile) {
@@ -631,3 +633,29 @@ const readFile = async (file) => {
       reader.readAsText(file);
   });
 };
+
+//Import DOCX file
+document.getElementById('import-docx').addEventListener('change', (e) => {
+  const fileInput = document.getElementById('import-docx');
+  const file = fileInput.files[0];
+  
+  if (file && file.name.endsWith('.docx')) {
+    const reader = new FileReader();
+    
+    reader.onload = function(event) {
+      const arrayBuffer = reader.result;
+      
+      // Use mammoth.js to convert the DOCX file to HTML
+      mammoth.convertToHtml({arrayBuffer: arrayBuffer})
+        .then(function(result) {
+          // Insert the converted content into the TinyMCE editor
+          tinymce.activeEditor.setContent(result.value);
+        })
+        .catch(function(err) {
+          console.error('Error reading DOCX file:', err);
+        });
+    };
+    
+    reader.readAsArrayBuffer(file);
+  }
+})
