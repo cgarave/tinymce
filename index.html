@@ -100,11 +100,11 @@
                     UPLOAD HTML
                     <input type="file" id="import-tnc" accept=".html" class="hidden">
                 </label>
-                <label for="import-docx" class="bg-[#4816C3] p-2 rounded-[4px] font-medium text-xs text-white h-fit w-fit flex flex-row gap-x-1 items-center hover:bg-[#591DEF] cursor-pointer">
+                <!-- <label for="import-docx" class="bg-[#4816C3] p-2 rounded-[4px] font-medium text-xs text-white h-fit w-fit flex flex-row gap-x-1 items-center hover:bg-[#591DEF] cursor-pointer">
                     <svg  xmlns="http://www.w3.org/2000/svg"  width="16"  height="16"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-file-word"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" /><path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" /></svg>
                     UPLOAD DOCX
                     <input type="file" id="import-docx" accept=".docx" class="hidden">
-                </label>
+                </label> -->
                 <button id="download" class="bg-[#4816C3] rounded-[4px] p-2 font-medium text-xs text-white h-fit flex flex-row gap-x-1 hover:bg-[#591DEF]">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
                             stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -129,7 +129,6 @@
                     <p>2. <b>HTML Filename</b> - file name of your T&C promotion. <i>(ex. MY_SPPT_11_Sep_2024_005)</i></p>
                     <ol class="list-disc"> 3. <b>Select region</b> - select the region for which you want to create T&C.
                         <li class="ml-10">After selecting region, a generated text will appear in the editor.</li>
-                        <li class="ml-10">Note: Only edit the text under <b>Write/Paste Significant/Full Promotion Contents here</b>. Do not delete titles such as <b>Significant Conditions</b> and <b>Full Promotion Specific Terms and Conditions</b>.</li>
                     </ol>
                     <p>4. <b>Preview</b> - a preview of your T&C promotion when deployed to production.</p>
                     <p>5. <b>Download</b> - a filename must be provided before clicking the download button.</p>
@@ -151,10 +150,10 @@
         </div>
         <!--WYSIWYG Section-->
         <div id="container" class="flex flex-row w-full justify-center relative">
-            <!-- <div class="flex flex-col gap-y-2 absolute left-0">
+            <div class="flex flex-col gap-y-2 absolute left-0 hidden">
                 <button id="redBtn" class="text-red-500">Change color to red</button>
                 <button id="blackBtn" class="text-white">Change color to black</button>
-            </div> -->
+            </div>
             <div id="editor-container" class="w-[70%] h-fit overflow-hidden rounded-xl">
                 <textarea id="mytextarea">
                     
@@ -224,7 +223,13 @@
                 </div>
             </div>
             <a href="#header" class="bg-[#4816C3] rounded-[4px] p-2 font-medium text-xs text-white h-fit flex flex-row gap-x-1 hover:bg-[#591DEF] absolute right-5 bottom-5">Back to Home</a>
+        <!--Footer Section-->
+        <footer class="px-3 py-5 text-black text-xs font-medium flex flex-row justify-between items-center absolute bottom-0 gap-x-1">
+            <p>Created by Rave</p>
+            <p>v0.2111424</p>
+        </footer>
         </div>
+        
     </div>
     <!--PROMOTION AUTOMATION-->
 
@@ -305,12 +310,6 @@
         
     </div>
     <!--NEWSLETTER AUTOMATION-->
-    
-    <!--Footer Section-->
-    <footer class="px-3 py-5 text-white text-xs font-medium flex flex-row justify-between items-center">
-        <p>Created by Rave</p>
-        <p>Version 0.2103124</p>
-    </footer>
 
     <div id="update-card" class="hidden flex flex-col gap-y-1 w-80 h-fit bg-[#2C1A5A] border-2 border-[#4816C3] rounded-md absolute top-14 right-0 mr-3 p-1"></div>
     <!--Import div-->

@@ -38,7 +38,6 @@ tinymce.init({
         // const selectedText = editor.selection.getContent({format: 'html'});
         // const selectedNode = editor.selection.getNode();
         // editor.selection.setContent('<span style="color: red;">' + selectedText + '</span>')
-        const selectedNode = editor.selection.getNode();
       })
     });
   },
@@ -369,7 +368,7 @@ tncRegionDropdown.addEventListener('change', () => {
         
         if(replacedFullProm){
           //y = y.replace(replacedFullProm[0], '<h2 class="m-4 font-semibold text-body-1">' + fsptcEn + '</h2>')
-          y = y.replace(replacedFullProm[0], fsptcEn + '</h2>').replace(replacedFullProm[1], fsptcLocal + '</h2>')
+          y = y.replace(replacedFullProm[0], '<h2 class="m-4 font-semibold text-body-1">' + fsptcEn + '</h2>').replace(replacedFullProm[1], '<h2 class="m-4 font-semibold text-body-1">' + fsptcLocal + '</h2>')
         }
         
         
