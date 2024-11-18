@@ -321,8 +321,10 @@ tncRegionDropdown.addEventListener('change', () => {
         let fsptcLocal = ''
         if(importedContent.match(/<h2 class="m-4 font-semibold text-body-1">(.*?)<\/h2>/g)){
           let matches = importedContent.match(/<h2 class="m-4 font-semibold text-body-1">(.*?)<\/h2>/g)
-          fsptcEn = matches[0].replace('<h2 class="m-4 font-semibold text-body-1">', '').replace('</h2>', '')
-          fsptcLocal = matches[1].replace('<h2 class="m-4 font-semibold text-body-1">', '').replace('</h2>', '')
+          // fsptcEn = matches[0].replace('<h2 class="m-4 font-semibold text-body-1">', '').replace('</h2>', '')
+          // fsptcLocal = matches[1].replace('<h2 class="m-4 font-semibold text-body-1">', '').replace('</h2>', '')
+          fsptcEn = matches[0]
+          fsptcLocal = matches[1]
         }
 
         y = importedContent.replaceAll('<div id="content-en-gb" class="tnc-content-wrap">', '<div id="script1" class="hidden" style="visibility: hidden; display: none;">1</div><div id="script2" class="hidden" style="visibility: hidden; display: none;">1</div><div id="content-en-gb" class="tnc-content-wrap">')
@@ -348,8 +350,9 @@ tncRegionDropdown.addEventListener('change', () => {
                            .replaceAll('<div id="script1" class="hidden" style="visibility: hidden; display: none;">1</div>', script1)
                            .replaceAll('<div id="script2" class="hidden" style="visibility: hidden; display: none;">1</div>', script2)
                            .replaceAll('<div id="SExpansion" class="hidden" style="visibility: hidden;">1</div>', SExpansion.EN)
-                           .replaceAll('<div id="closeSExpansion" class="hidden" style="visibility: hidden;">1</div>', closeSExpansion)
+                           .replaceAll('<div id="closeSExpansion" class="hidden" style="visibility: hidden;">1</div>', closeSExpansion);
 
+        
         //Full prom
         // let fullPromMatches = y.match(/<h2 class="m-4 font-semibold text-body-1">Full Promotion Specific Terms and Conditions<\/h2>/g);
         // y = y.replace(fullPromMatches[1], 'hello')
@@ -363,13 +366,13 @@ tncRegionDropdown.addEventListener('change', () => {
           }
         }
 
-        let replacedFullProm = y.match(/<h2 class="m-4 font-semibold text-body-1">(.*?)<\/h2>/g)
-        console.log(replacedFullProm);
+        // let replacedFullProm = y.match(/<h2 class="m-4 font-semibold text-body-1">(.*?)<\/h2>/g)
         
-        if(replacedFullProm){
-          //y = y.replace(replacedFullProm[0], '<h2 class="m-4 font-semibold text-body-1">' + fsptcEn + '</h2>')
-          y = y.replace(replacedFullProm[0], '<h2 class="m-4 font-semibold text-body-1">' + fsptcEn + '</h2>').replace(replacedFullProm[1], '<h2 class="m-4 font-semibold text-body-1">' + fsptcLocal + '</h2>')
-        }
+        // if(replacedFullProm){
+        //   //y = y.replace(replacedFullProm[0], '<h2 class="m-4 font-semibold text-body-1">' + fsptcEn + '</h2>')
+        //   y = y.replace(replacedFullProm[0], fsptcEn).replace(replacedFullProm[1], fsptcLocal)
+          
+        // }
         
         
       }
@@ -643,4 +646,12 @@ document.getElementById('import-docx').addEventListener('change', (e) => {
     
     reader.readAsArrayBuffer(file);
   }
+})
+
+
+//left control panel
+document.getElementById('resetBtn').addEventListener('click', () => {
+  tinymce.get('mytextarea').setContent('')
+  tncRegionDropdown.value = '#'
+  document.getElementById('import-check').checked = false;
 })

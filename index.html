@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Automation</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.tiny.cloud/1/te167wk1fiddsv5gf6bf7yi169ojp0pclg2kksirxrl0w9lg/tinymce/4/tinymce.min.js" referrerpolicy="origin"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.4.2/mammoth.browser.min.js"></script>
@@ -100,11 +100,11 @@
                     UPLOAD HTML
                     <input type="file" id="import-tnc" accept=".html" class="hidden">
                 </label>
-                <!-- <label for="import-docx" class="bg-[#4816C3] p-2 rounded-[4px] font-medium text-xs text-white h-fit w-fit flex flex-row gap-x-1 items-center hover:bg-[#591DEF] cursor-pointer">
+                <label for="import-docx" class="bg-[#4816C3] p-2 rounded-[4px] font-medium text-xs text-white h-fit w-fit flex flex-row gap-x-1 items-center hover:bg-[#591DEF] cursor-pointer hidden">
                     <svg  xmlns="http://www.w3.org/2000/svg"  width="16"  height="16"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-file-word"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" /><path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" /></svg>
                     UPLOAD DOCX
                     <input type="file" id="import-docx" accept=".docx" class="hidden">
-                </label> -->
+                </label>
                 <button id="download" class="bg-[#4816C3] rounded-[4px] p-2 font-medium text-xs text-white h-fit flex flex-row gap-x-1 hover:bg-[#591DEF]">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
                             stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -130,16 +130,13 @@
                     <ol class="list-disc"> 3. <b>Select region</b> - select the region for which you want to create T&C.
                         <li class="ml-10">After selecting region, a generated text will appear in the editor.</li>
                     </ol>
-                    <p>4. <b>Preview</b> - a preview of your T&C promotion when deployed to production.</p>
-                    <p>5. <b>Download</b> - a filename must be provided before clicking the download button.</p>
+                    <p>4. <b>Preview</b> - a preview of your T&C promotion when deployed to production. <a href="sys/videos/preview.mp4" class="underline italic" target="_blank">(watch tutorial)</a></p>
+                    <p>5. <b>Download</b> - a filename must be provided before clicking the download button. <a href="sys/videos/download.mp4" class="underline italic" target="_blank">(watch tutorial)</a></p>
                     <p class="font-bold text-sm mt-2">Current limitations and their workarounds</p>
                     <ol>
                         <li><b>Issue:</b> Copying numbered text with lower-roman or lower-alpha formatting (e.g., a b c/i ii iii) from Microsoft Word will not work.</li>
                        <li><b>Workaround:</b> Convert all lower-roman and lower-alpha formats to numbers in Microsoft Word before pasting into the editor, then use the automation's editor to convert the numbers back to lower-roman or lower-alpha.</li>
-                    </ol>
-                    <ol>
-                        <li><b>Issue:</b> Copying numbered text without a dot (e.g., 1 2 3) from Microsoft Word will not work.</li>
-                        <li><b>Workaround:</b> Convert the numbers with the right format on Microsoft Word before pasting to get the right result. (e.g., ✅ 1. 2. 3.)</li>
+                       <li><a href="sys/videos/convert-to-numbers.mp4" class="underline italic" target="_blank">(watch tutorial)</a></li>
                     </ol>
                     <ol>
                         <li><b>Limitation:</b> Copying of images directly to the automation's editor.</li>
@@ -150,9 +147,13 @@
         </div>
         <!--WYSIWYG Section-->
         <div id="container" class="flex flex-row w-full justify-center relative">
-            <div class="flex flex-col gap-y-2 absolute left-0 hidden">
-                <button id="redBtn" class="text-red-500">Change color to red</button>
-                <button id="blackBtn" class="text-white">Change color to black</button>
+            <div class="flex flex-col gap-y-2 absolute left-0 pl-3">
+                <button id="resetBtn" class="bg-[#4816C3] rounded-[4px] p-2 font-medium text-xs text-white h-fit flex flex-row gap-x-1 items-center hover:bg-[#591DEF]">
+                    <svg  xmlns="http://www.w3.org/2000/svg"  width="16"  height="16"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-back-up"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 14l-4 -4l4 -4" /><path d="M5 10h11a4 4 0 1 1 0 8h-1" /></svg>
+                    RESET EDITOR
+                </button>
+                <button id="redBtn" class="bg-[#4816C3] rounded-[4px] p-2 font-medium text-xs text-white h-fit flex flex-row gap-x-1 items-center hover:bg-[#591DEF] hidden">Change color to red</button>
+                <button id="blackBtn" class="bg-[#4816C3] rounded-[4px] p-2 font-medium text-xs text-white h-fit flex flex-row gap-x-1 items-center hover:bg-[#591DEF] hidden">Change color to black</button>
             </div>
             <div id="editor-container" class="w-[70%] h-fit overflow-hidden rounded-xl">
                 <textarea id="mytextarea">
