@@ -598,12 +598,14 @@ document.getElementById('promotionGuide-button').onclick = () => {
 
 
 //import HTML file
+
 document.getElementById('import-tnc').addEventListener('change', async(e) => {
   const tncfile = e.target.files[0]
   if(tncfile) {
     const content = await readFile(tncfile);
     tinymce.get('mytextarea').setContent(content);
     document.getElementById('import-check').checked = true;
+    document.getElementById('filename').value = tncfile.name;
   } else {
     document.getElementById('output').innerHTML = 'No file selected';
   }
@@ -651,6 +653,7 @@ document.getElementById('import-docx').addEventListener('change', (e) => {
 
 //left control panel
 document.getElementById('resetBtn').addEventListener('click', () => {
+  document.getElementById('import-tnc').value = ''
   tinymce.get('mytextarea').setContent('')
   tncRegionDropdown.value = '#'
   document.getElementById('import-check').checked = false;

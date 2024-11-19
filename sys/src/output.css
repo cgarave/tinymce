@@ -2199,6 +2199,10 @@ video {
   --tw-bg-opacity: 0.2;
 }
 
+.bg-opacity-10 {
+  --tw-bg-opacity: 0.1;
+}
+
 .decoration-slice {
   -webkit-box-decoration-break: slice;
           box-decoration-break: slice;
