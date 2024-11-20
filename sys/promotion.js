@@ -322,7 +322,7 @@ tncRegionDropdown.addEventListener('change', () => {
         if(importedContent.match(/<h2 class="m-4 font-semibold text-body-1">(.*?)<\/h2>/g)){
           let matches = importedContent.match(/<h2 class="m-4 font-semibold text-body-1">(.*?)<\/h2>/g)
           // fsptcEn = matches[0].replace('<h2 class="m-4 font-semibold text-body-1">', '').replace('</h2>', '')
-          // fsptcLocal = matches[1].replace('<h2 class="m-4 font-semibold text-body-1">', '').replace('</h2>', '')
+          // testfsptcLocal = matches[1].replace('<h2 class="m-4 font-semibold text-body-1">', '').replace('</h2>', '')
           fsptcEn = matches[0]
           fsptcLocal = matches[1]
         }
@@ -366,13 +366,13 @@ tncRegionDropdown.addEventListener('change', () => {
           }
         }
 
-        // let replacedFullProm = y.match(/<h2 class="m-4 font-semibold text-body-1">(.*?)<\/h2>/g)
+        let replacedFullProm = y.match(/<h2 class="m-4 font-semibold text-body-1">(.*?)<\/h2>/g)
         
-        // if(replacedFullProm){
-        //   //y = y.replace(replacedFullProm[0], '<h2 class="m-4 font-semibold text-body-1">' + fsptcEn + '</h2>')
-        //   y = y.replace(replacedFullProm[0], fsptcEn).replace(replacedFullProm[1], fsptcLocal)
+        if(replacedFullProm){
+          //y = y.replace(replacedFullProm[0], '<h2 class="m-4 font-semibold text-body-1">' + fsptcEn + '</h2>')
+          y = y.replace(replacedFullProm[0], fsptcEn).replace(replacedFullProm[1], fsptcLocal)
           
-        // }
+        }
         
         
       }
