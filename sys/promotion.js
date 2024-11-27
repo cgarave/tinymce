@@ -35,9 +35,9 @@ tinymce.init({
       // Get the selected content
       
       document.getElementById('redBtn').addEventListener('click', () => {
-        // const selectedText = editor.selection.getContent({format: 'html'});
-        // const selectedNode = editor.selection.getNode();
-        // editor.selection.setContent('<span style="color: red;">' + selectedText + '</span>')
+        const selectedText = editor.selection.getContent({format: 'html'});
+        const selectedNode = editor.selection.getNode();
+        editor.selection.setContent('<span style="color: red;">' + selectedText + '</span>')
       })
     });
   },
