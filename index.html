@@ -37,8 +37,8 @@
             <ul class="flex flex-row gap-x-2">
                 <li class="bg-[#2C1A5A] text-white font-medium rounded-[4px] px-2 text-xs">
                     <select id="automation-dropdown" class="bg-transparent border-none outline-none w-44 h-full hover:cursor-pointer">
-                        <option value="tnc">Terms and Conditions</option>
-                        <option value="newsletter">Newsletter</option>
+                        <option value="index.html" selected>Terms and Conditions</option>
+                        <option value="newsletter.html">Newsletter</option>
                     </select>
                 </li>
                 <li>
@@ -53,10 +53,10 @@
     </header>
 
     <!--PROMOTION AUTOMATION-->
-    <div id="tnc" class="block">
         <div class="px-3 mb-4 flex justify-between items-center">
             <div class="flex flex-row gap-x-2 items-center">
                 <input id="filename" type="text" class="rounded-[4px] p-2 h-10 w-80 outline-none font-medium text-xs" placeholder="HTML Filename" autocomplete="off">
+                <button id="generateFilename" class="bg-[#4816C3] rounded-[4px] p-2 font-medium text-xs text-white h-fit flex flex-row gap-x-1 items-center hover:bg-[#591DEF]">Generate Filename</button>
                 <button id="importBtn" class="bg-[#4816C3] rounded-[4px] p-2 font-medium text-xs text-white h-fit flex flex-row gap-x-1 items-center hover:bg-[#591DEF] hidden">
                     <svg  xmlns="http://www.w3.org/2000/svg"  width="16"  height="16"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-code"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 8l-4 4l4 4" /><path d="M17 8l4 4l-4 4" /><path d="M14 4l-4 16" /></svg>
                     IMPORT
@@ -147,7 +147,7 @@
                         <li><a href="https://superadminict888.sharepoint.com/:v:/s/Webteam526/Eb8FxG29nhtDtzas8w0mcyMBDpV7EEs94TBI6hDShk-sLA?e=bkztcS" class="underline italic" target="_blank">Adding tables</a></li>
                         <li><a href="https://superadminict888.sharepoint.com/:v:/s/Webteam526/EdUexoR_slxPv1c5idAmfNQBLuobYAgH4_tBPFcDqBkhKQ?e=QgxNIQ" class="underline italic" target="_blank">Adding links to text</a></li>
                         <li><a href="https://superadminict888.sharepoint.com/:v:/s/Webteam526/ERQiw37pM6pIl5qwWxwH5EUBh3fC3pxjN09QtgsNKpkDpA?e=5k2Jbo" class="underline italic" target="_blank">Adding images using link</a></li>
-                        <li><a href="https://superadminict888.sharepoint.com/:v:/s/Webteam526/EZDCPkYW9ahCkBeyQ2R0ZOIB28g9aaYzXvndqWwGrn9Urw?e=8UCwb6" class="underline italic" target="_blank">Uploading HTML file</a></li>
+                        <li><a href="https://superadminict888.sharepoint.com/:v:/s/Webteam526/EZDCPkYW9ahCkBeyQ2R0ZOIB28g9aaYzXvndqWwGrn9Urw?e=8UCwb6" class="underline italic" target="_blank">Edit an existing TNC file</a></li>
                     </ol>
                     <p class="font-bold text-sm mt-2">Keyboard shortcuts</p>
                     <ol class="flex flex-row gap-x-2 ">
@@ -265,87 +265,7 @@
             <p>v0.2111424</p>
         </footer>
         </div>
-        
-    </div>
     <!--PROMOTION AUTOMATION-->
-
-    <!--NEWSLETTER AUTOMATION-->
-    <div id="newsletter">
-        <div class="px-3 mb-4 flex justify-between items-center">
-            <div class="flex flex-row gap-x-2 items-center">
-                <input id="newsletter-filename" type="text" class="rounded-[4px] p-2 h-10 w-80 outline-none font-medium text-xs" placeholder="HTML Filename" autocomplete="off">
-            </div>
-            <ol class="flex gap-x-2">
-                <li id="newsletter-region" class="bg-[#2C1A5A] text-white font-medium p-2 rounded-[4px] text-xs">
-                    <select id="newsletter-regions-dropdown" class="bg-transparent border-none outline-none w-44 h-full hover:cursor-pointer">
-                        <option value="#">Select region</option>
-                        <option value="zh-cn">China - CN</option>
-                        <option value="zh-my">Malaysia - MY</option>
-                        <option value="vi-vn">Vietnam - VN</option>
-                        <option value="th-th">Thailand - TH</option>
-                        <option value="ko-kr">Korea - KR</option>
-                        <option value="id-id">Indonesia - ID</option>
-                        <option value="km-kh">Cambodia - KH</option>
-                        <option value="ja-jp">Japan - JP</option>
-                        <option value="hi-in">India - IN</option>
-                    </select>
-                </li>
-                <li>
-                    <button id="download-newsletter" class="bg-[#4816C3] rounded-[4px] p-2 font-medium text-xs text-white h-fit flex flex-row gap-x-1 hover:bg-[#591DEF]">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                                stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                class="icon icon-tabler icons-tabler-outline icon-tabler-download">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" />
-                                <path d="M7 11l5 5l5 -5" />
-                                <path d="M12 4l0 12" />
-                        </svg>
-                        DOWNLOAD
-                    </button>
-                </li>
-            </ol>
-        </div>
-        <div class="flex flex-row px-3 gap-x-3">
-            <div id="component-card" class="w-fit h-fit flex flex-col gap-y-4 p-4 text-xs bg-violet-900 bg-opacity-20 border-2 border-violet-600 rounded-lg">
-                <h1 id="component-h1" class="text-white font-bold">Component 1</h1>
-                <div class="flex flex-col gap-y-1 w-96">
-                    <label for="html-title" class="text-white font-medium">HTML Title</label>
-                    <input type="text" id="html-title" class="p-4 rounded-md" placeholder="">
-                </div>
-                <div class="flex flex-col gap-y-1 w-96">
-                    <label for="game-banner" class="text-white font-medium">Game Banner</label>
-                    <input type="text" id="game-banner" class="p-4 rounded-md" placeholder="">
-                </div>
-                <div class="flex flex-col gap-y-1 w-96">
-                    <label for="game-icon" class="text-white font-medium">Game Icon</label>
-                    <input type="text" id="game-icon" class="p-4 rounded-md" placeholder="">
-                </div>
-                <div class="flex flex-col gap-y-1 w-96">
-                    <label for="game-title" class="text-white font-medium">Game Title</label>
-                    <input type="text" id="game-title" class="p-4 rounded-md" placeholder="">
-                </div>
-                <div class="flex flex-col gap-y-1 w-96">
-                    <label for="game-sub" class="text-white font-medium">Game Subtext</label>
-                    <input type="text" id="game-sub" class="p-4 rounded-md" placeholder="">
-                </div>
-                <div class="flex flex-col gap-y-1 w-96">
-                    <label for="game-link" class="text-white font-medium">Button Link</label>
-                    <input type="text" id="game-link" class="p-4 rounded-md" placeholder="">
-                </div>
-                <div class="flex flex-col gap-y-1 w-96">
-                    <label for="game-preview" class="text-white font-medium">Game Preview</label>
-                    <input type="text" id="game-preview" class="p-4 rounded-md" placeholder="">
-                </div>
-            </div>
-            <!--Newsletter Previews-->
-            <div id="newsletter-preview">
-                <div id="newsletter-desktop" class="w-[600px] h-[750px] overflow-scroll text-center text-[14px]"></div>
-                <div id="newsletter-mobile" class="w-[420px]"></div>
-            </div>
-        </div>
-        
-    </div>
-    <!--NEWSLETTER AUTOMATION-->
 
     <div id="update-card" class="hidden flex flex-col gap-y-1 w-80 h-fit bg-[#2C1A5A] border-2 border-[#4816C3] rounded-md absolute top-14 right-0 mr-3 p-1"></div>
     <!--Import div-->
@@ -361,8 +281,8 @@
 
 </body>
 
-<!-- <script src="script.js"></script> -->
- <script src="sys/homepage.js"></script>
+<!--Scripts-->
+<script src="sys/homepage.js"></script>
 <script src="sys/promotion.js"></script>
 <script src="sys/newsletter.js"></script>
 <script src="sys/updates.js"></script>

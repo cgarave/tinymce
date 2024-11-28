@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Newsletter</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="sys/style.css">
+    <link href="sys/src/output.css" rel="stylesheet">
+</head>
+<body class="bg-[#100C1A] h-screen overflow-hidden">
+    <header id="header">
+        <nav class="flex flex-row justify-between items-center p-3 border-b border-[#332654] mb-4">
+            <ul>
+                <li id="automation-name" class="text-white font-semibold text-lg">Newsletter</li>
+            </ul>
+            <ul class="flex flex-row gap-x-2">
+                <li class="bg-[#2C1A5A] text-white font-medium rounded-[4px] px-2 text-xs">
+                    <select id="automation-dropdown" class="bg-transparent border-none outline-none w-44 h-full hover:cursor-pointer">
+                        <option value="index.html">Terms and Conditions</option>
+                        <option value="newsletter.html" selected>Newsletter</option>
+                    </select>
+                </li>
+                <li>
+                    <button id="whats-new" class="bg-[#2C1A5A] text-white font-medium p-2 rounded-[4px] text-xs relative">
+                        <div class="bg-red-700 w-2 h-2 rounded-full absolute -top-1 -right-1 animate-ping"></div>
+                        <div class="bg-red-600 w-2 h-2 rounded-full absolute -top-1 -right-1"></div>
+                        What's new?
+                    </button>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <!--NEWSLETTER AUTOMATION-->
+    <div class="px-3 mb-4 flex justify-between items-center">
+        <div class="flex flex-row gap-x-2 items-center">
+            <input id="newsletter-filename" type="text" class="rounded-[4px] p-2 h-10 w-80 outline-none font-medium text-xs" placeholder="HTML Filename" autocomplete="off">
+        </div>
+        <ol class="flex gap-x-2">
+            <li id="newsletter-region" class="bg-[#2C1A5A] text-white font-medium p-2 rounded-[4px] text-xs">
+                <select id="newsletter-regions-dropdown" class="bg-transparent border-none outline-none w-44 h-full hover:cursor-pointer">
+                    <option value="#">Select region</option>
+                    <option value="zh-cn">China - CN</option>
+                    <option value="zh-my">Malaysia - MY</option>
+                    <option value="vi-vn">Vietnam - VN</option>
+                    <option value="th-th">Thailand - TH</option>
+                    <option value="ko-kr">Korea - KR</option>
+                    <option value="id-id">Indonesia - ID</option>
+                    <option value="km-kh">Cambodia - KH</option>
+                    <option value="ja-jp">Japan - JP</option>
+                    <option value="hi-in">India - IN</option>
+                </select>
+            </li>
+            <li>
+                <button id="download-newsletter" class="bg-[#4816C3] rounded-[4px] p-2 font-medium text-xs text-white h-fit flex flex-row gap-x-1 hover:bg-[#591DEF]">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="icon icon-tabler icons-tabler-outline icon-tabler-download">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" />
+                            <path d="M7 11l5 5l5 -5" />
+                            <path d="M12 4l0 12" />
+                    </svg>
+                    DOWNLOAD
+                </button>
+            </li>
+        </ol>
+    </div>
+    <div class="flex flex-row px-3 gap-x-3">
+        <div id="component-card" class="w-fit h-fit flex flex-col gap-y-4 p-4 text-xs bg-violet-900 bg-opacity-20 border-2 border-violet-600 rounded-lg">
+            <h1 id="component-h1" class="text-white font-bold">Component 1</h1>
+            <div class="flex flex-col gap-y-1 w-96">
+                <label for="html-title" class="text-white font-medium">HTML Title</label>
+                <input type="text" id="html-title" class="p-4 rounded-md" placeholder="">
+            </div>
+            <div class="flex flex-col gap-y-1 w-96">
+                <label for="game-banner" class="text-white font-medium">Game Banner</label>
+                <input type="text" id="game-banner" class="p-4 rounded-md" placeholder="">
+            </div>
+            <div class="flex flex-col gap-y-1 w-96">
+                <label for="game-icon" class="text-white font-medium">Game Icon</label>
+                <input type="text" id="game-icon" class="p-4 rounded-md" placeholder="">
+            </div>
+            <div class="flex flex-col gap-y-1 w-96">
+                <label for="game-title" class="text-white font-medium">Game Title</label>
+                <input type="text" id="game-title" class="p-4 rounded-md" placeholder="">
+            </div>
+            <div class="flex flex-col gap-y-1 w-96">
+                <label for="game-sub" class="text-white font-medium">Game Subtext</label>
+                <input type="text" id="game-sub" class="p-4 rounded-md" placeholder="">
+            </div>
+            <div class="flex flex-col gap-y-1 w-96">
+                <label for="game-link" class="text-white font-medium">Button Link</label>
+                <input type="text" id="game-link" class="p-4 rounded-md" placeholder="">
+            </div>
+            <div class="flex flex-col gap-y-1 w-96">
+                <label for="game-preview" class="text-white font-medium">Game Preview</label>
+                <input type="text" id="game-preview" class="p-4 rounded-md" placeholder="">
+            </div>
+        </div>
+        <!--Newsletter Previews-->
+        <div id="newsletter-preview">
+            <div id="newsletter-desktop" class="w-[600px] h-[750px] overflow-scroll text-center text-[14px]"></div>
+            <div id="newsletter-mobile" class="w-[420px]"></div>
+        </div>
+    </div>
+        
+    <!--NEWSLETTER AUTOMATION-->
+</body>
+
+<!--Scripts-->
+<script src="sys/homepage.js"></script>
+<script src="sys/newsletter.js"></script>
+<script src="sys/updates.js"></script>
+</html>

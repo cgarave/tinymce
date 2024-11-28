@@ -29,7 +29,7 @@ tinymce.init({
                                    .replaceAll('<ol class="list-lower-roman pl-8 mb-4">', '<ol class="list-lower-roman pl-8 mb-4" style="list-style-type: lower-roman;">')
                                    .replaceAll('<ol class="list-upper-roman pl-8 mb-4">', '<ol class="list-upper-roman pl-8 mb-4" style="list-style-type: upper-roman;">')
 
-      console.log('BeforeSetContent:', event.content);
+      //console.log('BeforeSetContent:', event.content);
     }),
     editor.on('NodeChange', function () {
       // Get the selected content
@@ -170,6 +170,15 @@ const templates = {
                   <div id="closeSExpansion" class="hidden" style="visibility: hidden;">1</div>`,
 }
 
+//generate APS to HTML filename
+const month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+const generateFilenameBtn = document.getElementById('generateFilename')
+generateFilenameBtn.addEventListener('click', () => {
+  let APScode = document.getElementById('filename').value
+  console.log(APScode);
+  
+})
+
 //Import Area Button
 let htmlContent = ''
 const showImportArea = document.getElementById('importBtn').onclick = () => {document.getElementById('importArea').classList.remove('hidden')}
@@ -196,6 +205,7 @@ tncRegionDropdown.addEventListener('change', () => {
   
   switch(selectedRegion){
     case 'zh-cn':
+      document.getElementById('filename').value = 'china_'
       templates.TNC = templates.TNC.replace('REGION', 'zh-cn')
       templates.TNC = templates.TNC.replace('LOCALIZED-SC', '主要规则')
       templates.TNC = templates.TNC.replace('LOCALIZED-FP', '完整优惠标准规则')
@@ -208,6 +218,7 @@ tncRegionDropdown.addEventListener('change', () => {
       document.getElementById('import-check').checked = false;
       break;
     case 'zh-my':
+      document.getElementById('filename').value = 'MY_'
       templates.TNC = templates.TNC.replace('REGION', 'zh-cn')
       templates.TNC = templates.TNC.replace('LOCALIZED-SC', '主要规则')
       templates.TNC = templates.TNC.replace('LOCALIZED-FP', '完整优惠标准规则')
@@ -220,6 +231,7 @@ tncRegionDropdown.addEventListener('change', () => {
       document.getElementById('import-check').checked = false;
       break;
     case 'vi-vn':
+      document.getElementById('filename').value = 'Vietnam_'
       templates.TNC = templates.TNC.replace('REGION', 'vi-vn')
       templates.TNC = templates.TNC.replace('LOCALIZED-SC', 'Điều Kiện Tóm Lược')
       templates.TNC = templates.TNC.replace('LOCALIZED-FP', 'Điều Khoản và Điều Kiện Hoàn Chỉnh')
@@ -232,6 +244,7 @@ tncRegionDropdown.addEventListener('change', () => {
       document.getElementById('import-check').checked = false;
       break;
     case 'th-th':
+      document.getElementById('filename').value = 'Thailand_'
       templates.TNC = templates.TNC.replace('REGION', 'th-th')
       templates.TNC = templates.TNC.replace('LOCALIZED-SC', 'ข้อกำหนดและเงื่อนไขฉบับย่อ')
       templates.TNC = templates.TNC.replace('LOCALIZED-FP', 'ข้อกำหนดและเงื่อนไขแบบเฉพาะเจาะจง')
@@ -244,6 +257,7 @@ tncRegionDropdown.addEventListener('change', () => {
       document.getElementById('import-check').checked = false;
       break;
     case 'ko-kr':
+      document.getElementById('filename').value = 'Korea_'
       templates.TNC = templates.TNC.replace('REGION', 'ko-kr')
       templates.TNC = templates.TNC.replace('LOCALIZED-SC', '약관 주요내용')
       templates.TNC = templates.TNC.replace('LOCALIZED-FP', '본 프로모션 이용약관')
@@ -256,6 +270,7 @@ tncRegionDropdown.addEventListener('change', () => {
       document.getElementById('import-check').checked = false;
       break;
     case 'id-id':
+      document.getElementById('filename').value = 'Indonesia_'
       templates.TNC = templates.TNC.replace('REGION', 'id-id')
       templates.TNC = templates.TNC.replace('LOCALIZED-SC', 'Syarat dan Kondisi Penting')
       templates.TNC = templates.TNC.replace('LOCALIZED-FP', 'Syarat dan Kondisi Spesifik promosi Lengkap')
@@ -268,6 +283,7 @@ tncRegionDropdown.addEventListener('change', () => {
       document.getElementById('import-check').checked = false;
       break
     case 'km-kh':
+      document.getElementById('filename').value = 'Cambodia_'
       templates.TNC = templates.TNC.replace('REGION', 'km-kh')
       templates.TNC = templates.TNC.replace('LOCALIZED-SC', 'លក្ខខណ្ឌសំខាន់ៗ')
       templates.TNC = templates.TNC.replace('LOCALIZED-FP', 'លក្ខខណ្ឌ និងកិច្ចព្រមព្រៀងជាក់លាក់នៃការផ្តល់រង្វាន់ទាំងអស')
@@ -280,6 +296,7 @@ tncRegionDropdown.addEventListener('change', () => {
       document.getElementById('import-check').checked = false;
       break;
     case 'ja-jp':
+      document.getElementById('filename').value = 'Japan_'
       templates.TNC = templates.TNC.replace('REGION', 'ja-jp')
       templates.TNC = templates.TNC.replace('LOCALIZED-SC', 'キャンペーン概要')
       templates.TNC = templates.TNC.replace('LOCALIZED-FP', '全てのプロモーション－特定の利用規約')
@@ -292,6 +309,7 @@ tncRegionDropdown.addEventListener('change', () => {
       document.getElementById('import-check').checked = false;
       break;
     case 'hi-in':
+      document.getElementById('filename').value = 'India_'
       templates.TNC = templates.TNC.replace('REGION', 'hi-in')
       templates.TNC = templates.TNC.replace('LOCALIZED-SC', 'टमहत्वपूर्ण स्थितियां')
       templates.TNC = templates.TNC.replace('LOCALIZED-FP', 'पूर्ण प्रमोशन-विशिष्ट नियम और शर्तें')
@@ -617,7 +635,7 @@ document.getElementById('import-tnc').addEventListener('change', async(e) => {
     const content = await readFile(tncfile);
     tinymce.get('mytextarea').setContent(content);
     document.getElementById('import-check').checked = true;
-    document.getElementById('filename').value = tncfile.name;
+    document.getElementById('filename').value = tncfile.name.replace('.html', '');
   } else {
     document.getElementById('output').innerHTML = 'No file selected';
   }
