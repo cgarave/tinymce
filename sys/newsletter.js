@@ -213,3 +213,6 @@ const footerPP = {
     HIIN: `<a href="" name="privacy-policy-link" style="text-decoration: none;">`,
 }
 
+
+
+

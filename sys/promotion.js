@@ -29,7 +29,7 @@ tinymce.init({
                                    .replaceAll('<ol class="list-lower-roman pl-8 mb-4">', '<ol class="list-lower-roman pl-8 mb-4" style="list-style-type: lower-roman;">')
                                    .replaceAll('<ol class="list-upper-roman pl-8 mb-4">', '<ol class="list-upper-roman pl-8 mb-4" style="list-style-type: upper-roman;">')
 
-      //console.log('BeforeSetContent:', event.content);
+      console.log('BeforeSetContent:', event.content);
     }),
     editor.on('NodeChange', function () {
       // Get the selected content
@@ -481,6 +481,18 @@ tncRegionDropdown.addEventListener('change', () => {
                         .replaceAll('<div id="content-hi-in" class="tnc-content-wrap hidden" style="visibility: hidden;">1</div>', '<div id="content-hi-in" class="tnc-content-wrap">')
                         .replaceAll('<div class="contentwrap tnc-content-format hidden" style="visibility: hidden; display: none;">1</div>', '<div class="contentwrap tnc-content-format">')
                         .replaceAll('<div class="contentwrap tnc-content-format hidden" style="visibility: hidden;">1</div>', '<div class="contentwrap tnc-content-format">')
+
+                        // LINKS
+                        .replace(/:href="https:\/\/www.188asia.com\/[^/]*\/([^>]*)">/g,':href="`/${gv.lan}/$1`">')
+                        .replace(/:href="https:\/\/www.188bet.com\/[^/]*\/([^>]*)">/g,':href="`/${gv.lan}/$1`">')
+                        .replace(/:href="https:\/\/www.my188promo.com\/[^/]*\/([^>]*)">/g,':href="`/${gv.lan}/$1`">')
+                        .replace(/:href="https:\/\/www.188family.com\/[^/]*\/([^>]*)">/g,':href="`/${gv.lan}/$1`">')
+                        .replace(/:href="https:\/\/www.188sukses.com\/[^/]*\/([^>]*)">/g,':href="`/${gv.lan}/$1`">')
+                        .replace(/<a href="https:\/\/www.188asia.com\/[^/]*\/([^>]*)">/g,'<a :href="`/${gv.lan}/$1`">')
+                        .replace(/<a href="https:\/\/www.188bet.com\/[^/]*\/([^>]*)">/g,'<a :href="`/${gv.lan}/$1`">')
+                        .replace(/<a href="https:\/\/www.my188promo.com\/[^/]*\/([^>]*)">/g,'<a :href="`/${gv.lan}/$1`">')
+                        .replace(/<a href="https:\/\/www.188family.com\/[^/]*\/([^>]*)">/g,'<a :href="`/${gv.lan}/$1`">')
+                        .replace(/<a href="https:\/\/www.188sukses.com\/[^/]*\/([^>]*)">/g,'<a :href="`/${gv.lan}/$1`">')
 
                         // .replaceAll(/<p id="fpstc-en" style="font-weight: 600;">(.*?)<\/p>/g, '')
                         // .replaceAll(/<p id="fpstc-local" style="font-weight: 600;">(.*?)<\/p>/g, '')
