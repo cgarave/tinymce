@@ -171,11 +171,21 @@ const templates = {
 }
 
 //generate APS to HTML filename
-const month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+let fileNameAPS = document.getElementById('filename');
+const stringMonth = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 const generateFilenameBtn = document.getElementById('generateFilename')
 generateFilenameBtn.addEventListener('click', () => {
-  let APScode = document.getElementById('filename').value
-  console.log(APScode);
+  let input = document.getElementById('filename').value
+  let indexOf_ = input.indexOf('_')
+  //let promoType = input.slice(indexOf_ + 1, indexOf_ + 5) + '_'
+  let country = input.substr(0, indexOf_ + 1)
+  let promoType = input.substr(indexOf_ + 1, 4)
+  let year = input.substr(indexOf_ + 5, 4)
+  let day = input.substr(indexOf_ + 9, 2)
+  let month = input.substr(indexOf_ + 11, 2)
+  let promoNumber = input.substr(indexOf_ + 13, 3)
+  
+  fileNameAPS.value = country + promoType + '_' + day + '_' + stringMonth[month - 1] + '_' + year + '_' + promoNumber
   
 })
 
