@@ -70,8 +70,30 @@ tinymce.init({
     { value: 'Email', title: 'Email' },
   ],
   templates: [{
-      title: 'MY Localized',
-      content: ``
+      title: 'Game Icons Live Casino',
+      content: `<table class="game" style="background-color: #eeeeee;">
+                  <tbody>
+                    <tr>
+                      <td colspan="3">Recommend Games</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <img src="https://doc-cdn.docb18a2.com/star4-content/images/casino/pragmatic/spaceman/spaceman-4x3-sm.webp" alt="game" width="50px">
+                      </td>
+                      <td>Spaceman&trade;</td>
+                      <td>
+                        <a href="https://www.188bet.com/en-gb/casino">Play Now</a>
+                      </td>
+                    </tr>
+                  </tbody>
+                <tfoot class="game" style="display:none">
+                <tr>
+                  <td>Yeah</td>
+                  <td>Yeah</td>
+                  <td>Yeah</td>
+                </tr>
+                </tfoot>
+              </table>`
   }],
   
 });
