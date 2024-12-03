@@ -76,6 +76,7 @@ tinymce.init({
                     <tr>
                       <td colspan="3">Recommend Games</td>
                     </tr>
+
                     <tr>
                       <td>
                         <img src="https://doc-cdn.docb18a2.com/star4-content/images/casino/pragmatic/spaceman/spaceman-4x3-sm.webp" alt="game" width="50px">
@@ -85,6 +86,7 @@ tinymce.init({
                         <a href="https://www.188bet.com/en-gb/casino">Play Now</a>
                       </td>
                     </tr>
+                    
                   </tbody>
                 <tfoot class="game" style="display:none">
                 <tr>
