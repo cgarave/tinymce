@@ -70,7 +70,7 @@ tinymce.init({
     { value: 'Email', title: 'Email' },
   ],
   templates: [{
-      title: 'Game Icons Live Casino',
+      title: '(Unstable) Game Icons Live Casino',
       content: `<table class="game" style="background-color: #eeeeee;">
                   <tbody>
                     <tr>
@@ -546,8 +546,8 @@ tncRegionDropdown.addEventListener('change', () => {
                         .replace(/<a href="https:\/\/www.188family.com\/[^/]*\/([^>]*)">/g,'<a :href="`/${gv.lan}/$1`">')
                         .replace(/<a href="https:\/\/www.188sukses.com\/[^/]*\/([^>]*)">/g,'<a :href="`/${gv.lan}/$1`">')
 
-                        // .replaceAll(/<p id="fpstc-en" style="font-weight: 600;">(.*?)<\/p>/g, '')
-                        // .replaceAll(/<p id="fpstc-local" style="font-weight: 600;">(.*?)<\/p>/g, '')
+                        // .replaceAll(/<p id="fpstc-en" style="font-weight: 600;">(.*?)<\/p>/g, '') clean up
+                        // .replaceAll(/<p id="fpstc-local" style="font-weight: 600;">(.*?)<\/p>/g, '') clean up
 
                         // .replaceAll('<div id="SExpansion" class="hidden" style="visibility: hidden;">1</div>', SExpansion.EN.replace('Full Promotion Specific Terms and Conditions', fsptcEn))
                         // .replaceAll('<div id="SExpansion-CN" class="hidden" style="visibility: hidden;">1</div>', SExpansion.CN.replace('完整优惠标准规则', fsptcLocal))

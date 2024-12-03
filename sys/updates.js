@@ -6,8 +6,7 @@ const update = {
     text: `
             <p class="p-2 bg-[#4816C3] text-xs rounded-sm text-white">Introduced an HTML upload function that makes it easier for users to edit their existing T&C files.</p>
             <p class="p-2 bg-[#4816C3] text-xs rounded-sm text-white">Made changes to the UI for easier navigation.</p>
-            <p class="p-2 bg-[#4816C3] text-xs rounded-sm text-white">Added the ability to edit Full Promotion Specific Terms and Conditions text title</p>
-            <p class="p-2 bg-[#4816C3] text-xs rounded-sm text-white">Added reset editor feature</p>
+            <p class="p-2 bg-[#4816C3] text-xs rounded-sm text-white">Added Convert APS button</p>
             `
 }
 const updateCard = document.getElementById('update-card').innerHTML = update.text;
