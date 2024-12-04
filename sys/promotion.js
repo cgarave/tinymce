@@ -71,29 +71,22 @@ tinymce.init({
   ],
   templates: [{
       title: '(Unstable) Game Icons Live Casino',
-      content: `<table class="game" style="background-color: #eeeeee;">
+      content: `<table class="live-game" style="background-color: #eeeeee;">
                   <tbody>
                     <tr>
                       <td colspan="3">Recommend Games</td>
                     </tr>
-
-                    <tr>
+                    <tr class="live-game-img">
                       <td>
                         <img src="https://doc-cdn.docb18a2.com/star4-content/images/casino/pragmatic/spaceman/spaceman-4x3-sm.webp" alt="game" width="50px">
                       </td>
-                      <td>Spaceman&trade;</td>
-                      <td>
+                      <td class="live-game-title">Spaceman&trade;</td>
+                      <td class="live-game-link">
                         <a href="https://www.188bet.com/en-gb/casino">Play Now</a>
                       </td>
-                    </tr>
-                    
+                    </tr>             
                   </tbody>
                 <tfoot class="game" style="display:none">
-                <tr>
-                  <td>Yeah</td>
-                  <td>Yeah</td>
-                  <td>Yeah</td>
-                </tr>
                 </tfoot>
               </table>`
   }],
@@ -562,6 +555,8 @@ tncRegionDropdown.addEventListener('change', () => {
 
                         .replace('mt-40', '')
                         //.replaceAll('<br />', '')
+
+
       if (x.match(/<p id="fpstc-en" style="font-weight: 600;">(.*?)<\/p>/g)){
         x = x.replaceAll('<div id="SExpansion" class="hidden" style="visibility: hidden;">1</div>', SExpansion.EN.replace('Full Promotion Specific Terms and Conditions', fsptcEn))
              .replaceAll(/<p id="fpstc-en" style="font-weight: 600;">(.*?)<\/p>/g, '')
@@ -611,6 +606,13 @@ tncRegionDropdown.addEventListener('change', () => {
         .replaceAll('<ol class="list-decimal pl-8 mb-4" style="list-style-type: lower-alpha;">', '<ol class="list-lower-alpha pl-8 mb-4" style="list-style-type: lower-alpha;">')
         .replaceAll('<ol class="list-decimal pl-8 mb-4" class="list-lower-alpha pl-8 mb-4">', '<ol class="list-lower-alpha pl-8 mb-4" style="list-style-type: lower-alpha;">')
         .replaceAll('<ol class="list-decimal pl-8 mb-4" style="list-style-type: lower-roman;">', '<ol class="list-lower-roman pl-8 mb-4" style="list-style-type: lower-roman;">')
+
+        //replacing game icons
+        .replace(/<table class="live-game" style="background-color: #eeeeee;">\s*<tbody>\s*<tr>\s*<td colspan="3">Recommend Games<\/td>\s*<\/tr>/g, '<SCard class="my-4 bg-secondary"><SSectionHeading dark divider contained title-tag="h4"><span class="text-subtitle-1">Recommend Games</span></SSectionHeading><SList><SListItem dark class="md:hover:bg-secondary--darken-4"></SListItem>')
+        .replace(/<tr class="live-game-img">\s*<td>\s*<img src="(.*?)" alt="game" width="50px">\s*<\/td>/g, '<template #prependAvatar><SAvatar src="$1" size="40" class="!rounded-lg ml-6" />')
+        .replace(/<td class="live-game-title">(.*?)<\/td>/g, '</template>$1<template #appendAction>')
+        .replace(/<td class="live-game-link">\s*<a href="(.*?)">Play Now<\/a>\s*<\/td>\s*<\/tr>\s*<\/tbody>\s*<tfoot class="game" style="display:none">\s*<\/tfoot>\s*<\/table>/g, '<GameLauncher v-slot="{openGame}" product="live" game="$1"><SButton @click="openGame()" v-if="breakpoints.smAndUp" color="text-light--high" class="bg-primary--darken-5 hover:text-light--high mr-6">Play Now</SButton><SButton @click="openGame()" v-else dark icon-only flat rounded class="mr-6"><SIcon>icon-arrow-right</SIcon></SButton></GameLauncher></template></SListItem></SList></SCard>')
+
         //replacing tables
         .replaceAll('<div class="border rounded mb-4 table-responsive">', '')
         .replaceAll(/<table(.*?)>/g, '<div class="border rounded mb-4 table-responsive"><table class="w-full border-collapse border-spacing-0 text-center">')
