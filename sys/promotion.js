@@ -70,23 +70,59 @@ tinymce.init({
     { value: 'Email', title: 'Email' },
   ],
   templates: [{
-      title: '(Unstable) Game Icons Live Casino',
+      title: '(Experimental) Game Icons Live Casino',
       content: `<table class="live-game" style="background-color: #eeeeee;">
                   <tbody>
                     <tr>
-                      <td colspan="3">Recommend Games</td>
+                      <td colspan="3">Recommend Live Casino Games</td>
                     </tr>
                     <tr class="live-game-img">
                       <td>
-                        <img src="https://doc-cdn.docb18a2.com/star4-content/images/casino/pragmatic/spaceman/spaceman-4x3-sm.webp" alt="game" width="50px">
+                        <img src="https://doc-cdn.stcb18x1.com/star4-content/images/live/agiledeal/agi-zodiac-racing-4x3-sm.webp" alt="game icon" width="50px" />
                       </td>
-                      <td class="live-game-title">Spaceman&trade;</td>
+                      <td class="live-game-title">Game Title</td>
                       <td class="live-game-link">
                         <a href="https://www.188bet.com/en-gb/casino">Play Now</a>
                       </td>
-                    </tr>             
+                    </tr>
+                    <tr class="live-game-img">
+                      <td>
+                        <img src="https://doc-cdn.stcb18x1.com/star4-content/images/live/agiledeal/agi-zodiac-racing-4x3-sm.webp" alt="game icon" width="50px" />
+                      </td>
+                      <td class="live-game-title">Game Title 2</td>
+                      <td class="live-game-link">
+                        <a href="https://www.188bet.com/en-gb/casino">Play Now</a>
+                      </td>
+                    </tr>
+                    <tr class="live-game-img">
+                      <td>
+                        <img src="https://doc-cdn.stcb18x1.com/star4-content/images/live/agiledeal/agi-zodiac-racing-4x3-sm.webp" alt="game icon" width="50px" />
+                      </td>
+                      <td class="live-game-title">Game Title 3</td>
+                      <td class="live-game-link">
+                        <a href="https://www.188bet.com/en-gb/casino">Play Now</a>
+                      </td>
+                    </tr>
+                    <tr class="live-game-img">
+                      <td>
+                        <img src="https://doc-cdn.stcb18x1.com/star4-content/images/live/agiledeal/agi-zodiac-racing-4x3-sm.webp" alt="game icon" width="50px" />
+                      </td>
+                      <td class="live-game-title">Game Title 4</td>
+                      <td class="live-game-link">
+                        <a href="https://www.188bet.com/en-gb/casino">Play Now</a>
+                      </td>
+                    </tr>   
+                    <tr class="live-game-img">
+                      <td>
+                        <img src="https://doc-cdn.stcb18x1.com/star4-content/images/live/agiledeal/agi-zodiac-racing-4x3-sm.webp" alt="game icon" width="50px" />
+                      </td>
+                      <td class="live-game-title">Game Title 5</td>
+                      <td class="live-game-link">
+                        <a href="https://www.188bet.com/en-gb/casino">Play Now</a>
+                      </td>
+                    </tr>      
                   </tbody>
-                <tfoot class="game" style="display:none">
+                <tfoot class="game" style="display: none;">
                 </tfoot>
               </table>`
   }],
@@ -483,7 +519,6 @@ tncRegionDropdown.addEventListener('change', () => {
                           .replaceAll('href', ':href')
                           .replaceAll('<div id="script1" class="hidden" style="visibility: hidden; display: none;">1</div>', script1) 
                           .replaceAll('<div id="script2" class="hidden" style="visibility: hidden; display: none;">1</div>', script2)  
-                          //.replaceAll('<br />', '')
                           //.replace(/<a :href="(.*?)">/g, '<a :href="`$1`">')
 
         //.replaceAll('<h4 class="my-4 font-semibold text-red-500" style="color: red;">Dont remove as this will be replaced with SCard</h4>', scardContents[0])
@@ -608,10 +643,13 @@ tncRegionDropdown.addEventListener('change', () => {
         .replaceAll('<ol class="list-decimal pl-8 mb-4" style="list-style-type: lower-roman;">', '<ol class="list-lower-roman pl-8 mb-4" style="list-style-type: lower-roman;">')
 
         //replacing game icons
-        .replace(/<table class="live-game" style="background-color: #eeeeee;">\s*<tbody>\s*<tr>\s*<td colspan="3">Recommend Games<\/td>\s*<\/tr>/g, '<SCard class="my-4 bg-secondary"><SSectionHeading dark divider contained title-tag="h4"><span class="text-subtitle-1">Recommend Games</span></SSectionHeading><SList><SListItem dark class="md:hover:bg-secondary--darken-4"></SListItem>')
-        .replace(/<tr class="live-game-img">\s*<td>\s*<img src="(.*?)" alt="game" width="50px">\s*<\/td>/g, '<template #prependAvatar><SAvatar src="$1" size="40" class="!rounded-lg ml-6" />')
-        .replace(/<td class="live-game-title">(.*?)<\/td>/g, '</template>$1<template #appendAction>')
-        .replace(/<td class="live-game-link">\s*<a href="(.*?)">Play Now<\/a>\s*<\/td>\s*<\/tr>\s*<\/tbody>\s*<tfoot class="game" style="display:none">\s*<\/tfoot>\s*<\/table>/g, '<GameLauncher v-slot="{openGame}" product="live" game="$1"><SButton @click="openGame()" v-if="breakpoints.smAndUp" color="text-light--high" class="bg-primary--darken-5 hover:text-light--high mr-6">Play Now</SButton><SButton @click="openGame()" v-else dark icon-only flat rounded class="mr-6"><SIcon>icon-arrow-right</SIcon></SButton></GameLauncher></template></SListItem></SList></SCard>')
+        //.replace(/<table class="live-game" style="background-color: #eeeeee;">\s*<tbody>\s*<tr>\s*<td colspan="3">(.*?)<\/td>\s*<\/tr>/g, '<SCard class="my-4 bg-secondary"><SSectionHeading dark divider contained title-tag="h4"><span class="text-subtitle-1">$1</span></SSectionHeading><SList><SListItem dark class="md:hover:bg-secondary--darken-4"></SListItem>')
+        //.replace(/<tr class="live-game-img">\s*<td>\s*<img src="(.*?)" alt="game" width="50px" \/>\s*<\/td>/g, '<template #prependAvatar><SAvatar src="$1" size="40" class="!rounded-lg ml-6" />')
+        //.replace(/<td class="live-game-title">(.*?)<\/td>/g, '</template>$1<template #appendAction>')
+        //.replace(/<td class="live-game-link">\s*<a href="(.*?)">Play Now<\/a>\s*<\/td>\s*<\/tr>\s*<\/tbody>\s*<tfoot class="game" style="display: none;">\s*<\/tfoot>\s*<\/table>/g, '<GameLauncher v-slot="{openGame}" product="live" game="$1"><SButton @click="openGame()" v-if="breakpoints.smAndUp" color="text-light--high" class="bg-primary--darken-5 hover:text-light--high mr-6">Play Now</SButton><SButton @click="openGame()" v-else dark icon-only flat rounded class="mr-6"><SIcon>icon-arrow-right</SIcon></SButton></GameLauncher></template></SListItem></SList></SCard>')
+        .replace(/<table class="live-game" style="background-color: #eeeeee;">\s*<tbody>\s*<tr>\s*<td colspan="3">Recommend Live Casino Games<\/td>\s*<\/tr>/g, '<SCard class="my-4 bg-secondary"><SSectionHeading dark divider contained title-tag="h4"><span class="text-subtitle-1">Recommend Live Casino Games</span></SSectionHeading>')
+        .replace(/<tr class="live-game-img">\s*<td>\s*<img src="(.*?)" alt="game icon" width="50px" \/>\s*<\/td>\s*<td class="live-game-title">(.*?)<\/td>\s*<td class="live-game-link">\s*<a href="(.*?)">Play Now<\/a>\s*<\/td>\s*<\/tr>/g, '<SList><SListItem dark class="md:hover:bg-secondary--darken-4"></SListItem><template #prependAvatar><SAvatar src="$1" size="40" class="!rounded-lg ml-6" /></template>$2<template #appendAction><GameLauncher v-slot="{openGame}" product="live" game="$3"><SButton @click="openGame()" v-if="breakpoints.smAndUp" color="text-light--high" class="bg-primary--darken-5 hover:text-light--high mr-6">Play Now</SButton><SButton @click="openGame()" v-else dark icon-only flat rounded class="mr-6"><SIcon>icon-arrow-right</SIcon></SButton></GameLauncher></template></SListItem></SList>')
+        .replace(/<\/tbody>\s*<tfoot class="game" style="display: none;">\s*<\/tfoot>\s*<\/table>/g, '</SCard>')
 
         //replacing tables
         .replaceAll('<div class="border rounded mb-4 table-responsive">', '')
@@ -654,14 +692,6 @@ tncRegionDropdown.addEventListener('change', () => {
 document.getElementById('promotionGuide-button').onclick = () => {
   document.getElementById('instruction-container').classList.toggle('hidden')
 }
-
-//Guide for new users
-// setTimeout(() => {
-//   if(!document.getElementById('instruction-container').classList.contains('hidden') ){
-//     document.getElementById('promotionGuide-button').click();
-//   }
-// }, 8000)
-
 
 //import HTML file
 
@@ -723,4 +753,5 @@ document.getElementById('resetBtn').addEventListener('click', () => {
   tinymce.get('mytextarea').setContent('')
   tncRegionDropdown.value = '#'
   document.getElementById('import-check').checked = false;
+  document.getElementById('filename').value = '';
 })
