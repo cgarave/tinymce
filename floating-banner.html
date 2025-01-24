@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Floating Banner</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="sys/style.css">
+    <link href="sys/src/output.css" rel="stylesheet">
+</head>
+<body class="bg-[#100C1A] h-screen overflow-hidden">
+    <header id="header">
+        <nav class="flex flex-row justify-between items-center p-3 border-b border-[#332654] mb-4">
+            <ul>
+                <li id="automation-name" class="text-white font-semibold text-lg">Floating Banner Automation</li>
+            </ul>
+            <ul class="flex flex-row gap-x-2">
+                <li class="bg-[#2C1A5A] text-white font-medium rounded-[4px] px-2 text-xs">
+                    <select id="automation-dropdown" class="bg-transparent border-none outline-none w-44 h-full hover:cursor-pointer">
+                        <option value="index.html">Terms and Conditions</option>
+                        <option value="newsletter.html">Newsletter</option>
+                        <option value="floating-banner.html" selected>Floating Banner</option>
+                    </select>
+                </li>
+                <li>
+                    <button id="whats-new" class="bg-[#2C1A5A] text-white font-medium p-2 rounded-[4px] text-xs relative">
+                        <div class="bg-red-700 w-2 h-2 rounded-full absolute -top-1 -right-1 animate-ping"></div>
+                        <div class="bg-red-600 w-2 h-2 rounded-full absolute -top-1 -right-1"></div>
+                        Changelog
+                    </button>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <!--FLOATING BANNER AUTOMATION-->
+    <div class="px-3 mb-4 flex items-center gap-x-2">
+        <div class="flex flex-row gap-x-2 items-center">
+            <input id="game-name" type="text" class="rounded-[4px] p-2 h-10 w-80 outline-none font-medium text-xs" placeholder="Game Name" autocomplete="off">
+        </div>
+        <div class="flex flex-row gap-x-2 items-center">
+            <input id="game-code" type="text" class="rounded-[4px] p-2 h-10 w-80 outline-none font-medium text-xs" placeholder="Game Code" autocomplete="off">
+        </div>
+        <ol class="flex gap-x-2 h-10">
+            <li class="bg-[#2C1A5A] text-white font-medium p-2 rounded-[4px] text-xs">
+                <select id="game-category" class="bg-transparent border-none outline-none w-44 h-full hover:cursor-pointer">
+                    <option value="#">Select game category</option>
+                    <option value="casino">Casino</option>
+                    <option value="live">Live Casino</option>
+                    <option value="chess">Chess</option>
+                    <option value="lotto">Lotto</option>
+                </select>
+            </li>
+            <li class="bg-[#2C1A5A] text-white font-medium p-2 rounded-[4px] text-xs">
+                <select id="game-provider" class="bg-transparent border-none outline-none w-44 h-full hover:cursor-pointer">
+                    <option value="#">Select game provider</option>
+                    <optgroup label="Casino">
+                        <option value="advantplay">Advant Play</option>
+                        <option value="betsoft">Betsoft</option>
+                        <option value="bigtimegaming">Big Time Gaming</option>
+                        <option value="evolution">Evolution</option>
+                        <option value="galaxsys">Galaxsys</option>
+                        <option value="genesis">Genesis</option>
+                        <option value="habanero">Habanero</option>
+                        <option value="isoftbet">Isoftbet</option>
+                        <option value="jili">Jili</option>
+                        <option value="leap">Leap</option>
+                        <option value="microgaming">Microgaming</option>
+                        <option value="netent">Netent</option>
+                        <option value="nolimitcity">Nolimit City</option>
+                        <option value="pgsoft">Pocket Games Soft</option>
+                        <option value="playngo">Play N Go</option>
+                        <option value="playtech">PlayTech</option>
+                        <option value="pragmatic">Pragmatic Play</option>
+                        <option value="quickspin">Quick Spin</option>
+                        <option value="redtiger">Red Tiger</option>
+                        <option value="skywind">SkyWind</option>
+                        <option value="spribe">Spribe</option>
+                    </optgroup>
+                    <optgroup label="Live Casino">
+                        <option value="aesexy">Aesexy</option>
+                        <option value="agiledeal">Agile Deal</option>
+                        <option value="asiagaming">Asia Gaming</option>
+                        <option value="db">DB</option>
+                        <option value="dblive">DB Live</option>
+                        <option value="evolution">Evolution</option>
+                        <option value="ezugi">Ezugi</option>
+                        <option value="n2live">N2 Live</option>
+                        <option value="oncasino">ON Casino</option>
+                        <option value="pragmatic">Pragmatic Play</option>
+                        <option value="sexybaccarat">Sexy Baccarat</option>
+                        <option value="wmcasino">WM Casino</option>
+                        <option value="worldentertainment">World Entertainment</option>
+                        <option value="zodiacracing">Zodiac Racing</option>
+                    </optgroup>
+                    <optgroup label="Chess">
+                        <option value="jili">Jili</option>
+                        <option value="jili">Kaiyuan</option>
+                        <option value="kingmidas">King Midas</option>
+                        <option value="mpoker">Millionaire Poker</option>
+                        <option value="v8poker">V8 Poker</option>
+                    </optgroup>
+                    <optgroup label="Lotto">
+                        <option value="7star">7 Star</option>
+                        <option value="agiledeal">Agile Deal</option>
+                        <option value="australia">Australia</option>
+                        <option value="australialucky28">Australia Lucky 28</option>
+                        <option value="canada">Canada</option>
+                        <option value="india-lottery">India Lottery</option>
+                        <option value="keno">Keno</option>
+                        <option value="lotto">Lotto</option>
+                        <option value="lucky28">Lucky 28</option>
+                        <option value="lucky5">Lucky 5</option>
+                        <option value="p3">P3</option>
+                        <option value="pk10">PK10</option>
+                        <option value="rapid5d">Rapid 5D</option>
+                        <option value="sea-lottery">Sea Lottery</option>
+                        <option value="sode">Sode</option>
+                        <option value="super-lottery">Super Lottery</option>
+                        <option value="tc-gaming">TC Gaming</option>
+                        <option value="tcg_cn">TCG CN</option>
+                        <option value="tcg_sea">TCG SEA</option>
+                        <option value="tcg_vn">TCG VN</option>
+                        <option value="xj">XJ</option>
+                    </optgroup>
+                </select>
+            </li>
+        </ol>
+    </div>
+    <div class="px-3 flex flex-col gap-y-2">
+        <h1 id="advert-name" class="font-semibold text-sm text-amber-500">Advert Name: </h1>
+        <div class="flex flex-row gap-x-2 w-full">
+            <textarea name="" id="outputArea" class="rounded-[4px] w-1/2 h-52 p-2 bg-[#2C1A5A2F] text-yellow-600 text-xs resize-none" readonly></textarea>
+            <textarea name="" id="outputAL" class="rounded-[4px] w-1/2 h-52 p-2 bg-[#2C1A5A2F] text-yellow-600 text-xs resize-none" readonly></textarea>
+        </div>
+
+        <div id="preview" class="w-40"></div>
+    </div>
+    <!--FLOATING BANNER AUTOMATION-->
+    <div id="update-card" class="hidden flex flex-col gap-y-1 w-80 h-fit bg-[#2C1A5A] border-2 border-[#4816C3] rounded-md absolute top-14 right-0 mr-3 p-1"></div>
+</body>
+
+<!--Scripts-->
+<script src="sys/homepage.js"></script>
+<script src="sys/floating-banner.js"></script>
+<script src="sys/updates.js"></script>
+</html>

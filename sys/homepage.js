@@ -10,6 +10,9 @@ automationDropdown.addEventListener('change', () => {
         case 'newsletter.html': 
             window.location.href = selection;
             break;
+        case 'floating-banner.html': 
+            window.location.href = selection;
+            break;
     }
 })
 
