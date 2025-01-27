@@ -82,7 +82,7 @@ tinymce.init({
                       </td>
                       <td class="live-game-title">Game Title</td>
                       <td class="live-game-link">
-                        <a href="https://www.188bet.com/en-gb/casino">Play Now</a>
+                        <a href="live_game_code">Game Code</a>
                       </td>
                     </tr>
                     <tr class="live-game-img">
@@ -91,7 +91,7 @@ tinymce.init({
                       </td>
                       <td class="live-game-title">Game Title 2</td>
                       <td class="live-game-link">
-                        <a href="https://www.188bet.com/en-gb/casino">Play Now</a>
+                        <a href="live_game_code">Game Code</a>
                       </td>
                     </tr>
                     <tr class="live-game-img">
@@ -100,7 +100,7 @@ tinymce.init({
                       </td>
                       <td class="live-game-title">Game Title 3</td>
                       <td class="live-game-link">
-                        <a href="https://www.188bet.com/en-gb/casino">Play Now</a>
+                        <a href="live_game_code">Game Code</a>
                       </td>
                     </tr>
                     <tr class="live-game-img">
@@ -109,7 +109,7 @@ tinymce.init({
                       </td>
                       <td class="live-game-title">Game Title 4</td>
                       <td class="live-game-link">
-                        <a href="https://www.188bet.com/en-gb/casino">Play Now</a>
+                        <a href="live_game_code">Game Code</a>
                       </td>
                     </tr>   
                     <tr class="live-game-img">
@@ -118,13 +118,70 @@ tinymce.init({
                       </td>
                       <td class="live-game-title">Game Title 5</td>
                       <td class="live-game-link">
-                        <a href="https://www.188bet.com/en-gb/casino">Play Now</a>
+                        <a href="live_game_code">Game Code</a>
                       </td>
                     </tr>      
                   </tbody>
-                <tfoot class="game" style="display: none;">
+                <tfoot class="live" style="display: none;">
                 </tfoot>
-              </table>`
+              </table>`,
+  },
+  {
+    title: 'Game Icons Casino',
+    content: `<table class="casino-game" style="background-color: #eeeeee;">
+                  <tbody>
+                    <tr>
+                      <td colspan="3">Recommend Casino Games</td>
+                    </tr>
+                    <tr class="casino-game-img">
+                      <td>
+                        <img src="https://doc-cdn.stcb18x1.com/star4-content/images/casino/pragmatic/chests-of-cai-shen/chests-of-cai-shen-4x3-sm.webp" alt="game icon" width="50px" />
+                      </td>
+                      <td class="casino-game-title">Game Title</td>
+                      <td class="casino-game-link">
+                        <a href="https://www.188bet.com/en-gb/casino">Casino Link</a>
+                      </td>
+                    </tr>
+                    <tr class="casino-game-img">
+                      <td>
+                        <img src="https://doc-cdn.stcb18x1.com/star4-content/images/casino/pragmatic/chests-of-cai-shen/chests-of-cai-shen-4x3-sm.webp" alt="game icon" width="50px" />
+                      </td>
+                      <td class="casino-game-title">Game Title 2</td>
+                      <td class="casino-game-link">
+                        <a href="https://www.188bet.com/en-gb/casino">Casino Link</a>
+                      </td>
+                    </tr>
+                    <tr class="casino-game-img">
+                      <td>
+                        <img src="https://doc-cdn.stcb18x1.com/star4-content/images/casino/pragmatic/chests-of-cai-shen/chests-of-cai-shen-4x3-sm.webp" alt="game icon" width="50px" />
+                      </td>
+                      <td class="casino-game-title">Game Title 3</td>
+                      <td class="casino-game-link">
+                        <a href="https://www.188bet.com/en-gb/casino">Casino Link</a>
+                      </td>
+                    </tr>
+                    <tr class="casino-game-img">
+                      <td>
+                        <img src="https://doc-cdn.stcb18x1.com/star4-content/images/casino/pragmatic/chests-of-cai-shen/chests-of-cai-shen-4x3-sm.webp" alt="game icon" width="50px" />
+                      </td>
+                      <td class="casino-game-title">Game Title 4</td>
+                      <td class="casino-game-link">
+                        <a href="https://www.188bet.com/en-gb/casino">Casino Link</a>
+                      </td>
+                    </tr>   
+                    <tr class="casino-game-img">
+                      <td>
+                        <img src="https://doc-cdn.stcb18x1.com/star4-content/images/casino/pragmatic/chests-of-cai-shen/chests-of-cai-shen-4x3-sm.webp" alt="game icon" width="50px" />
+                      </td>
+                      <td class="casino-game-title">Game Title 5</td>
+                      <td class="casino-game-link">
+                        <a href="https://www.188bet.com/en-gb/casino">Casino Link</a>
+                      </td>
+                    </tr>      
+                  </tbody>
+                <tfoot class="casino" style="display: none;">
+                </tfoot>
+              </table>`,
   }],
   
 });
@@ -642,16 +699,15 @@ tncRegionDropdown.addEventListener('change', () => {
         .replaceAll('<ol class="list-decimal pl-8 mb-4" class="list-lower-alpha pl-8 mb-4">', '<ol class="list-lower-alpha pl-8 mb-4" style="list-style-type: lower-alpha;">')
         .replaceAll('<ol class="list-decimal pl-8 mb-4" style="list-style-type: lower-roman;">', '<ol class="list-lower-roman pl-8 mb-4" style="list-style-type: lower-roman;">')
 
-        //replacing game icons
-        //.replace(/<table class="live-game" style="background-color: #eeeeee;">\s*<tbody>\s*<tr>\s*<td colspan="3">(.*?)<\/td>\s*<\/tr>/g, '<SCard class="my-4 bg-secondary"><SSectionHeading dark divider contained title-tag="h4"><span class="text-subtitle-1">$1</span></SSectionHeading><SList><SListItem dark class="md:hover:bg-secondary--darken-4"></SListItem>')
-        //.replace(/<tr class="live-game-img">\s*<td>\s*<img src="(.*?)" alt="game" width="50px" \/>\s*<\/td>/g, '<template #prependAvatar><SAvatar src="$1" size="40" class="!rounded-lg ml-6" />')
-        //.replace(/<td class="live-game-title">(.*?)<\/td>/g, '</template>$1<template #appendAction>')
-        //.replace(/<td class="live-game-link">\s*<a href="(.*?)">Play Now<\/a>\s*<\/td>\s*<\/tr>\s*<\/tbody>\s*<tfoot class="game" style="display: none;">\s*<\/tfoot>\s*<\/table>/g, '<GameLauncher v-slot="{openGame}" product="live" game="$1"><SButton @click="openGame()" v-if="breakpoints.smAndUp" color="text-light--high" class="bg-primary--darken-5 hover:text-light--high mr-6">Play Now</SButton><SButton @click="openGame()" v-else dark icon-only flat rounded class="mr-6"><SIcon>icon-arrow-right</SIcon></SButton></GameLauncher></template></SListItem></SList></SCard>')
-//scard is breaking my automationnnnnnnn
-        // .replace(/<table class="live-game" style="background-color: #eeeeee;">\s*<tbody>\s*<tr>\s*<td colspan="3">Recommend Live Casino Games<\/td>\s*<\/tr>/g, '<SCard class="my-4 bg-secondary"><SSectionHeading dark divider contained title-tag="h4"><span class="text-subtitle-1">Recommend Live Casino Games</span></SSectionHeading>')
-        // .replace(/<tr class="live-game-img">\s*<td>\s*<img src="(.*?)" alt="game icon" width="50px" \/>\s*<\/td>\s*<td class="live-game-title">(.*?)<\/td>\s*<td class="live-game-link">\s*<a href="(.*?)">Play Now<\/a>\s*<\/td>\s*<\/tr>/g, '<SList><SListItem dark class="md:hover:bg-secondary--darken-4"></SListItem><template #prependAvatar><SAvatar src="$1" size="40" class="!rounded-lg ml-6" /></template>$2<template #appendAction><GameLauncher v-slot="{openGame}" product="live" game="$3"><SButton @click="openGame()" v-if="breakpoints.smAndUp" color="text-light--high" class="bg-primary--darken-5 hover:text-light--high mr-6">Play Now</SButton><SButton @click="openGame()" v-else dark icon-only flat rounded class="mr-6"><SIcon>icon-arrow-right</SIcon></SButton></GameLauncher></template></SListItem></SList>')
-        // .replace(/<\/tbody>\s*<tfoot class="game" style="display: none;">\s*<\/tfoot>\s*<\/table>/g, '</SCard>')
-        //.replace(/<\/tbody>\s*<\/table>/g, '</SCard>')
+        //replacing live game icons
+        .replace(/<table class="live-game" style="background-color: #eeeeee;">\s*<tbody>\s*<tr>\s*<td colspan="3">Recommend Live Casino Games<\/td>\s*<\/tr>/g, '<!--LIVE CASINO ICONS: START--><SCard class="my-4 bg-secondary"><SSectionHeading dark divider contained title-tag="h4"><span class="text-subtitle-1">Recommend Live Casino Games</span></SSectionHeading><SList>')
+        .replace(/<tr class="live-game-img">\s*<td>\s*<img src="(.*?)" alt="game icon" width="50px" \/>\s*<\/td>\s*<td class="live-game-title">(.*?)<\/td>\s*<td class="live-game-link">\s*<a href="(.*?)">Game Code<\/a>\s*<\/td>\s*<\/tr>/g, '<SListItem dark class="md:hover:bg-secondary--darken-4"><template #prependAvatar><SAvatar src="$1" size="40" class="!rounded-lg ml-6" /></template>$2<template #appendAction><GameLauncher v-slot="{openGame}" product="live" game="$3"><SButton @click="openGame()" v-if="breakpoints.smAndUp" color="text-light--high" class="bg-primary--darken-5 hover:text-light--high mr-6">Play Now</SButton><SButton @click="openGame()" v-else dark icon-only flat rounded class="mr-6"><SIcon>icon-arrow-right</SIcon></SButton></GameLauncher></template></SListItem>')
+        .replace(/<\/tbody>\s*<tfoot class="live" style="display: none;">\s*<\/tfoot>\s*<\/table>/g, '</Slist></SCard><!--LIVE CASINO ICONS: END-->')
+
+        //replacing casino game icons
+        .replace(/<table class="casino-game" style="background-color: #eeeeee;">\s*<tbody>\s*<tr>\s*<td colspan="3">Recommend Casino Games<\/td>\s*<\/tr>/g, '<!--CASINO ICONS: START--><SCard class="my-4 bg-secondary"><SSectionHeading dark divider contained title-tag="h4"><span class="text-subtitle-1">Recommend Casino Games</span></SSectionHeading><SList>')
+        .replace(/<tr class="casino-game-img">\s*<td>\s*<img src="(.*?)" alt="game icon" width="50px" \/>\s*<\/td>\s*<td class="casino-game-title">(.*?)<\/td>\s*<td class="casino-game-link">\s*<a href="(.*?)">Casino Link<\/a>\s*<\/td>\s*<\/tr>/g, '<SListItem dark class="md:hover:bg-secondary--darken-4"><template #prependAvatar><SAvatar src="$1" size="40" class="!rounded-lg ml-6" /></template>$2<template #appendAction><SButton v-if="breakpoints.smAndUp" button-type="link" color="text-light--high" class="bg-primary--darken-5 hover:text-light--high mr-6" :href="`$3`">Play Now</SButton><SButton v-else dark icon-only flat rounded class="mr-6" :href="`$3`"><SIcon>icon-arrow-right</SIcon></SButton></template></SListItem>')
+        .replace(/<\/tbody>\s*<tfoot class="casino" style="display: none;">\s*<\/tfoot>\s*<\/table>/g, '</Slist></SCard><!--CASINO ICONS: END-->')
 
         //replacing tables
         .replaceAll('<div class="border rounded mb-4 table-responsive">', '')
