@@ -127,7 +127,7 @@ tinymce.init({
               </table>`,
   },
   {
-    title: 'Game Icons Casino',
+    title: '(Experimental) Game Icons Casino',
     content: `<table class="casino-game" style="background-color: #eeeeee;">
                   <tbody>
                     <tr>

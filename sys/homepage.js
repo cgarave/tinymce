@@ -13,6 +13,9 @@ automationDropdown.addEventListener('change', () => {
         case 'floating-banner.html': 
             window.location.href = selection;
             break;
+        case 'landing-page.html': 
+            window.location.href = selection;
+            break;
     }
 })
 
