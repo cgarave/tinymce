@@ -4,12 +4,12 @@ let region = ''
 
 let landingPageInputBox = `<div class="flex flex-col gap-y-2">
                             <input type="text" id="landingTitle" class="rounded-[4px] p-2 h-10 w-80 outline-none font-medium text-xs" placeholder="Title" autocomplete="off">
-                            <textarea id="landingGameCodes" class="rounded-[4px] w-80 h-96 p-2 text-xs resize-none"></textarea>
+                            <textarea id="landingGameCodes" class="rounded-[4px] w-full h-36 p-2 text-xs resize-none"></textarea>
                         </div>`
 
 let qualifyGames1 = `<div class="flex flex-col gap-y-2">
-                            <div class="bg-[#2C1A5A] text-white font-medium p-2 rounded-[4px] text-xs">
-                                <select name="" id="provider1" class="bg-transparent border-none outline-none w-44 h-full w-full hover:cursor-pointer">
+                            <div class="bg-[#2C1A5A] text-white font-medium p-2 rounded-[4px] text-xs w-80">
+                                <select name="" id="provider1" class="bg-transparent border-none outline-none h-full w-full hover:cursor-pointer">
                                     <option value="#">Select Provider</option>
                                     <option value="Netent">Netent</option>
                                     <option value="Big Time Gaming">Big Time Gaming</option>
@@ -17,12 +17,12 @@ let qualifyGames1 = `<div class="flex flex-col gap-y-2">
                                     <option value="Red Tiger">Red Tiger</option>
                                 </select>
                             </div>
-                            <textarea id="qualifyGameCodes1" class="rounded-[4px] w-80 h-96 p-2 text-xs resize-none"></textarea>
+                            <textarea id="qualifyGameCodes1" class="rounded-[4px] w-full h-36 p-2 text-xs resize-none"></textarea>
                      </div>`
 
 let qualifyGames2 = `<div class="flex flex-col gap-y-2">
-                            <div class="bg-[#2C1A5A] text-white font-medium p-2 rounded-[4px] text-xs">
-                                <select name="" id="provider1" class="bg-transparent border-none outline-none w-44 h-full w-full hover:cursor-pointer">
+                            <div class="bg-[#2C1A5A] text-white font-medium p-2 rounded-[4px] text-xs w-80">
+                                <select name="" id="provider1" class="bg-transparent border-none outline-none h-full w-full hover:cursor-pointer">
                                     <option value="#">Select Provider</option>
                                     <option value="Netent">Netent</option>
                                     <option value="Big Time Gaming">Big Time Gaming</option>
@@ -30,11 +30,11 @@ let qualifyGames2 = `<div class="flex flex-col gap-y-2">
                                     <option value="Red Tiger">Red Tiger</option>
                                 </select>
                             </div>
-                            <textarea id="qualifyGameCodes1" class="rounded-[4px] w-80 h-96 p-2 text-xs resize-none"></textarea>
+                            <textarea id="qualifyGameCodes1" class="rounded-[4px] mb-4 w-full h-36 p-2 text-xs resize-none"></textarea>
                      </div>
                      <div class="flex flex-col gap-y-2">
-                            <div class="bg-[#2C1A5A] text-white font-medium p-2 rounded-[4px] text-xs">
-                                <select name="" id="provider2" class="bg-transparent border-none outline-none w-44 h-full w-full hover:cursor-pointer">
+                            <div class="bg-[#2C1A5A] text-white font-medium p-2 rounded-[4px] text-xs w-80">
+                                <select name="" id="provider2" class="bg-transparent border-none outline-none h-full w-full hover:cursor-pointer">
                                     <option value="#">Select Provider</option>
                                     <option value="Netent">Netent</option>
                                     <option value="Big Time Gaming">Big Time Gaming</option>
@@ -42,12 +42,12 @@ let qualifyGames2 = `<div class="flex flex-col gap-y-2">
                                     <option value="Red Tiger">Red Tiger</option>
                                 </select>
                             </div>
-                            <textarea id="qualifyGameCodes2" class="rounded-[4px] w-80 h-96 p-2 text-xs resize-none"></textarea>
+                            <textarea id="qualifyGameCodes2" class="rounded-[4px] mb-4 w-full h-36 p-2 text-xs resize-none"></textarea>
                      </div>`
 
 let qualifyGames3 = `<div class="flex flex-col gap-y-2">
-                            <div class="bg-[#2C1A5A] text-white font-medium p-2 rounded-[4px] text-xs">
-                                <select name="" id="provider1" class="bg-transparent border-none outline-none w-44 h-full w-full hover:cursor-pointer">
+                            <div class="bg-[#2C1A5A] text-white font-medium p-2 rounded-[4px] text-xs w-80">
+                                <select name="" id="provider1" class="bg-transparent border-none outline-none h-full w-full hover:cursor-pointer">
                                     <option value="#">Select Provider</option>
                                     <option value="Netent">Netent</option>
                                     <option value="Big Time Gaming">Big Time Gaming</option>
@@ -55,11 +55,11 @@ let qualifyGames3 = `<div class="flex flex-col gap-y-2">
                                     <option value="Red Tiger">Red Tiger</option>
                                 </select>
                             </div>
-                            <textarea id="qualifyGameCodes1" class="rounded-[4px] w-80 h-96 p-2 text-xs resize-none"></textarea>
+                            <textarea id="qualifyGameCodes1" class="rounded-[4px] mb-4 w-full h-36 p-2 text-xs resize-none"></textarea>
                      </div>
                      <div class="flex flex-col gap-y-2">
-                            <div class="bg-[#2C1A5A] text-white font-medium p-2 rounded-[4px] text-xs">
-                                <select name="" id="provider2" class="bg-transparent border-none outline-none w-44 h-full w-full hover:cursor-pointer">
+                            <div class="bg-[#2C1A5A] text-white font-medium p-2 rounded-[4px] text-xs w-80">
+                                <select name="" id="provider2" class="bg-transparent border-none outline-none h-full w-full hover:cursor-pointer">
                                     <option value="#">Select Provider</option>
                                     <option value="Netent">Netent</option>
                                     <option value="Big Time Gaming">Big Time Gaming</option>
@@ -67,11 +67,11 @@ let qualifyGames3 = `<div class="flex flex-col gap-y-2">
                                     <option value="Red Tiger">Red Tiger</option>
                                 </select>
                             </div>
-                            <textarea id="qualifyGameCodes2" class="rounded-[4px] w-80 h-96 p-2 text-xs resize-none"></textarea>
+                            <textarea id="qualifyGameCodes2" class="rounded-[4px] mb-4 w-full h-36 p-2 text-xs resize-none"></textarea>
                      </div>
                      <div class="flex flex-col gap-y-2">
-                            <div class="bg-[#2C1A5A] text-white font-medium p-2 rounded-[4px] text-xs">
-                                <select name="" id="provider3" class="bg-transparent border-none outline-none w-44 h-full w-full hover:cursor-pointer">
+                            <div class="bg-[#2C1A5A] text-white font-medium p-2 rounded-[4px] text-xs w-80">
+                                <select name="" id="provider3" class="bg-transparent border-none outline-none h-full w-full hover:cursor-pointer">
                                     <option value="#">Select Provider</option>
                                     <option value="Netent">Netent</option>
                                     <option value="Big Time Gaming">Big Time Gaming</option>
@@ -79,12 +79,12 @@ let qualifyGames3 = `<div class="flex flex-col gap-y-2">
                                     <option value="Red Tiger">Red Tiger</option>
                                 </select>
                             </div>
-                            <textarea id="qualifyGameCodes3" class="rounded-[4px] w-80 h-96 p-2 text-xs resize-none"></textarea>
+                            <textarea id="qualifyGameCodes3" class="rounded-[4px] mb-4 w-full h-36 p-2 text-xs resize-none"></textarea>
                      </div>`
 
 let qualifyGames4 = `<div class="flex flex-col gap-y-2">
-                            <div class="bg-[#2C1A5A] text-white font-medium p-2 rounded-[4px] text-xs">
-                                <select name="" id="provider1" class="bg-transparent border-none outline-none w-44 h-full w-full hover:cursor-pointer">
+                            <div class="bg-[#2C1A5A] text-white font-medium p-2 rounded-[4px] text-xs w-80">
+                                <select name="" id="provider1" class="bg-transparent border-none outline-none h-full w-full hover:cursor-pointer">
                                     <option value="#">Select Provider</option>
                                     <option value="Netent">Netent</option>
                                     <option value="Big Time Gaming">Big Time Gaming</option>
@@ -92,11 +92,11 @@ let qualifyGames4 = `<div class="flex flex-col gap-y-2">
                                     <option value="Red Tiger">Red Tiger</option>
                                 </select>
                             </div>
-                            <textarea id="qualifyGameCodes1" class="rounded-[4px] w-80 h-96 p-2 text-xs resize-none"></textarea>
+                            <textarea id="qualifyGameCodes1" class="rounded-[4px] mb-4 w-full h-36 p-2 text-xs resize-none"></textarea>
                      </div>
                      <div class="flex flex-col gap-y-2">
-                            <div class="bg-[#2C1A5A] text-white font-medium p-2 rounded-[4px] text-xs">
-                                <select name="" id="provider2" class="bg-transparent border-none outline-none w-44 h-full w-full hover:cursor-pointer">
+                            <div class="bg-[#2C1A5A] text-white font-medium p-2 rounded-[4px] text-xs w-80">
+                                <select name="" id="provider2" class="bg-transparent border-none outline-none h-full w-full hover:cursor-pointer">
                                     <option value="#">Select Provider</option>
                                     <option value="Netent">Netent</option>
                                     <option value="Big Time Gaming">Big Time Gaming</option>
@@ -104,11 +104,11 @@ let qualifyGames4 = `<div class="flex flex-col gap-y-2">
                                     <option value="Red Tiger">Red Tiger</option>
                                 </select>
                             </div>
-                            <textarea id="qualifyGameCodes2" class="rounded-[4px] w-80 h-96 p-2 text-xs resize-none"></textarea>
+                            <textarea id="qualifyGameCodes2" class="rounded-[4px] mb-4 w-full h-36 p-2 text-xs resize-none"></textarea>
                      </div>
                      <div class="flex flex-col gap-y-2">
-                            <div class="bg-[#2C1A5A] text-white font-medium p-2 rounded-[4px] text-xs">
-                                <select name="" id="provider3" class="bg-transparent border-none outline-none w-44 h-full w-full hover:cursor-pointer">
+                            <div class="bg-[#2C1A5A] text-white font-medium p-2 rounded-[4px] text-xs w-80">
+                                <select name="" id="provider3" class="bg-transparent border-none outline-none h-full w-full hover:cursor-pointer">
                                     <option value="#">Select Provider</option>
                                     <option value="Netent">Netent</option>
                                     <option value="Big Time Gaming">Big Time Gaming</option>
@@ -116,11 +116,11 @@ let qualifyGames4 = `<div class="flex flex-col gap-y-2">
                                     <option value="Red Tiger">Red Tiger</option>
                                 </select>
                             </div>
-                            <textarea id="qualifyGameCodes3" class="rounded-[4px] w-80 h-96 p-2 text-xs resize-none"></textarea>
+                            <textarea id="qualifyGameCodes3" class="rounded-[4px] mb-4 w-full h-36 p-2 text-xs resize-none"></textarea>
                      </div>
                      <div class="flex flex-col gap-y-2">
-                            <div class="bg-[#2C1A5A] text-white font-medium p-2 rounded-[4px] text-xs">
-                                <select name="" id="provider4" class="bg-transparent border-none outline-none w-44 h-full w-full hover:cursor-pointer">
+                            <div class="bg-[#2C1A5A] text-white font-medium p-2 rounded-[4px] text-xs w-80">
+                                <select name="" id="provider4" class="bg-transparent border-none outline-none h-full w-full hover:cursor-pointer">
                                     <option value="#">Select Provider</option>
                                     <option value="Netent">Netent</option>
                                     <option value="Big Time Gaming">Big Time Gaming</option>
@@ -128,7 +128,7 @@ let qualifyGames4 = `<div class="flex flex-col gap-y-2">
                                     <option value="Red Tiger">Red Tiger</option>
                                 </select>
                             </div>
-                            <textarea id="qualifyGameCodes4" class="rounded-[4px] w-80 h-96 p-2 text-xs resize-none"></textarea>
+                            <textarea id="qualifyGameCodes4" class="rounded-[4px] mb-4 w-full h-36 p-2 text-xs resize-none"></textarea>
                      </div>`
 
 const regionsDropdown = document.getElementById('regions-dropdown')
@@ -162,16 +162,21 @@ regionsDropdown.addEventListener('change', () => {
     }
 })
 
+
 document.getElementById('page-type').addEventListener('change', () => {
     type = document.getElementById('page-type').value;
     if(type == '0'){
         document.getElementById('input-container').innerHTML = landingPageInputBox;
+        document.getElementById('landingGameCodes').addEventListener('input', (e) => {
+            e.target.value = e.target.value.replace(/\s+/g, ',').trim();
+        })
+
         document.getElementById('download').addEventListener('click', () => {
             region = document.getElementById('regions-dropdown').value;
             let title = document.getElementById('landingTitle').value;
             let gameCodes = document.getElementById('landingGameCodes').value;
 
-            gameCodes = gameCodes.toLowerCase().replace(/\s+/g, ',').trim(); //removing spaces and replacing with ,
+            //gameCodes = gameCodes.toLowerCase().replace(/\s+/g, ',').trim(); //removing spaces and replacing with ,
 
             let landingPage = `       
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script><script> $(function() {$("#webteam-ss").attr("href","https://doc.188contents.com/contents/Components/webteam/webteam.css?" + $.now());});</script>
@@ -203,13 +208,16 @@ document.getElementById('page-type').addEventListener('change', () => {
         })
     } else if(type === '1'){
         document.getElementById('input-container').innerHTML = qualifyGames1;
+        document.getElementById('qualifyGameCodes1').addEventListener('input', (e) => {
+            e.target.value = e.target.value.replace(/\s+/g, ',').trim();
+        })
         document.getElementById('download').addEventListener('click', () => {
             region = document.getElementById('regions-dropdown').value;
 
             let title1 = document.getElementById('provider1').value;
             let gameCodes1 = document.getElementById('qualifyGameCodes1').value;
 
-            gameCodes1 = gameCodes1.toLowerCase().replace(/\s+/g, ',').trim(); //removing spaces and replacing with ,
+            //gameCodes1 = gameCodes1.toLowerCase().replace(/\s+/g, ',').trim(); //removing spaces and replacing with ,
 
             let provider1 = `       
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script><script> $(function() {$("#webteam-ss").attr("href","https://doc.188contents.com/contents/Components/webteam/webteam.css?" + $.now());});</script>
@@ -241,6 +249,14 @@ document.getElementById('page-type').addEventListener('change', () => {
         })
     } else if(type === '2'){
         document.getElementById('input-container').innerHTML = qualifyGames2;
+
+        document.getElementById('qualifyGameCodes1').addEventListener('input', (e) => {
+            e.target.value = e.target.value.replace(/\s+/g, ',').trim();
+        })
+        document.getElementById('qualifyGameCodes2').addEventListener('input', (e) => {
+            e.target.value = e.target.value.replace(/\s+/g, ',').trim();
+        })
+
         document.getElementById('download').addEventListener('click', () => {
             region = document.getElementById('regions-dropdown').value;
 
@@ -249,8 +265,8 @@ document.getElementById('page-type').addEventListener('change', () => {
             let title2 = document.getElementById('provider2').value;
             let gameCodes2 = document.getElementById('qualifyGameCodes2').value;
 
-            gameCodes1 = gameCodes1.toLowerCase().replace(/\s+/g, ',').trim(); //removing spaces and replacing with ,
-            gameCodes2 = gameCodes2.toLowerCase().replace(/\s+/g, ',').trim(); //removing spaces and replacing with ,
+            //gameCodes1 = gameCodes1.toLowerCase().replace(/\s+/g, ',').trim(); //removing spaces and replacing with ,
+            //gameCodes2 = gameCodes2.toLowerCase().replace(/\s+/g, ',').trim(); //removing spaces and replacing with ,
 
             let provider2 = `       
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script><script> $(function() {$("#webteam-ss").attr("href","https://doc.188contents.com/contents/Components/webteam/webteam.css?" + $.now());});</script>
@@ -288,6 +304,17 @@ document.getElementById('page-type').addEventListener('change', () => {
         })
     } else if(type === '3'){
         document.getElementById('input-container').innerHTML = qualifyGames3;
+
+        document.getElementById('qualifyGameCodes1').addEventListener('input', (e) => {
+            e.target.value = e.target.value.replace(/\s+/g, ',').trim();
+        })
+        document.getElementById('qualifyGameCodes2').addEventListener('input', (e) => {
+            e.target.value = e.target.value.replace(/\s+/g, ',').trim();
+        })
+        document.getElementById('qualifyGameCodes3').addEventListener('input', (e) => {
+            e.target.value = e.target.value.replace(/\s+/g, ',').trim();
+        })
+
         document.getElementById('download').addEventListener('click', () => {
             region = document.getElementById('regions-dropdown').value;
 
@@ -298,9 +325,9 @@ document.getElementById('page-type').addEventListener('change', () => {
             let title3 = document.getElementById('provider3').value;
             let gameCodes3 = document.getElementById('qualifyGameCodes3').value;
 
-            gameCodes1 = gameCodes1.toLowerCase().replace(/\s+/g, ',').trim(); //removing spaces and replacing with ,
-            gameCodes2 = gameCodes2.toLowerCase().replace(/\s+/g, ',').trim(); //removing spaces and replacing with ,
-            gameCodes3 = gameCodes3.toLowerCase().replace(/\s+/g, ',').trim(); //removing spaces and replacing with ,
+            //gameCodes1 = gameCodes1.toLowerCase().replace(/\s+/g, ',').trim(); //removing spaces and replacing with ,
+            //gameCodes2 = gameCodes2.toLowerCase().replace(/\s+/g, ',').trim(); //removing spaces and replacing with ,
+            //gameCodes3 = gameCodes3.toLowerCase().replace(/\s+/g, ',').trim(); //removing spaces and replacing with ,
 
             let provider3 = `       
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script><script> $(function() {$("#webteam-ss").attr("href","https://doc.188contents.com/contents/Components/webteam/webteam.css?" + $.now());});</script>
@@ -344,6 +371,20 @@ document.getElementById('page-type').addEventListener('change', () => {
         })
     } else if(type === '4'){
         document.getElementById('input-container').innerHTML = qualifyGames4;
+
+        document.getElementById('qualifyGameCodes1').addEventListener('input', (e) => {
+            e.target.value = e.target.value.replace(/\s+/g, ',').trim();
+        })
+        document.getElementById('qualifyGameCodes2').addEventListener('input', (e) => {
+            e.target.value = e.target.value.replace(/\s+/g, ',').trim();
+        })
+        document.getElementById('qualifyGameCodes3').addEventListener('input', (e) => {
+            e.target.value = e.target.value.replace(/\s+/g, ',').trim();
+        })
+        document.getElementById('qualifyGameCodes4').addEventListener('input', (e) => {
+            e.target.value = e.target.value.replace(/\s+/g, ',').trim();
+        })
+
         document.getElementById('download').addEventListener('click', () => {
             region = document.getElementById('regions-dropdown').value;
 
@@ -356,10 +397,10 @@ document.getElementById('page-type').addEventListener('change', () => {
             let title4 = document.getElementById('provider4').value;
             let gameCodes4 = document.getElementById('qualifyGameCodes4').value;
 
-            gameCodes1 = gameCodes1.toLowerCase().replace(/\s+/g, ',').trim(); //removing spaces and replacing with ,
-            gameCodes2 = gameCodes2.toLowerCase().replace(/\s+/g, ',').trim(); //removing spaces and replacing with ,
-            gameCodes3 = gameCodes3.toLowerCase().replace(/\s+/g, ',').trim(); //removing spaces and replacing with ,
-            gameCodes4 = gameCodes4.toLowerCase().replace(/\s+/g, ',').trim(); //removing spaces and replacing with ,
+            //gameCodes1 = gameCodes1.toLowerCase().replace(/\s+/g, ',').trim(); //removing spaces and replacing with ,
+            //gameCodes2 = gameCodes2.toLowerCase().replace(/\s+/g, ',').trim(); //removing spaces and replacing with ,
+            //gameCodes3 = gameCodes3.toLowerCase().replace(/\s+/g, ',').trim(); //removing spaces and replacing with ,
+            //gameCodes4 = gameCodes4.toLowerCase().replace(/\s+/g, ',').trim(); //removing spaces and replacing with ,
 
             let provider4 = `       
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script><script> $(function() {$("#webteam-ss").attr("href","https://doc.188contents.com/contents/Components/webteam/webteam.css?" + $.now());});</script>

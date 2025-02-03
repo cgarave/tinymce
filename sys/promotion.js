@@ -303,19 +303,10 @@ generateFilenameBtn.addEventListener('click', () => {
 let htmlContent = ''
 const showImportArea = document.getElementById('importBtn').onclick = () => {document.getElementById('importArea').classList.remove('hidden')}
 const cancelImport = document.getElementById('cancelImport').onclick = () => {
-  document.getElementById('htmlContent').value = ''
   document.getElementById('importArea').classList.add('hidden')
 }
-const importCode = document.getElementById('importCode').onclick = () => {
-  htmlContent = document.getElementById('htmlContent').value
-  tinymce.get('mytextarea').setContent(htmlContent)
 
-  document.getElementById('importArea').classList.add('hidden')
-  document.getElementById('import-check').checked = true;
 
-  //console.log(scardContents);
-  
-}
 
 //Region handler
 const tncRegionDropdown = document.getElementById('tnc-regions-dropdown');
@@ -622,6 +613,7 @@ tncRegionDropdown.addEventListener('change', () => {
                         // LINKS
                         .replace(/:href="https:\/\/www.188asia.com\/[^/]*\/([^>]*)">/g,':href="`/${gv.lan}/$1`">')
                         .replace(/:href="https:\/\/www.188bet.com\/[^/]*\/([^>]*)">/g,':href="`/${gv.lan}/$1`">')
+                        .replace(/:href="`https:\/\/www.188bet.com\/[^/]*\/([^>]*)`">/g,':href="`/${gv.lan}/$1`">')
                         .replace(/:href="https:\/\/www.my188promo.com\/[^/]*\/([^>]*)">/g,':href="`/${gv.lan}/$1`">')
                         .replace(/:href="https:\/\/www.188family.com\/[^/]*\/([^>]*)">/g,':href="`/${gv.lan}/$1`">')
                         .replace(/:href="https:\/\/www.188sukses.com\/[^/]*\/([^>]*)">/g,':href="`/${gv.lan}/$1`">')

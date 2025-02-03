@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="sys/style.css">
     <link href="sys/src/output.css" rel="stylesheet">
 </head>
-<body class="bg-[#100C1A] h-screen overflow-hidden">
+<body class="bg-[#100C1A] h-screen overflow-scroll">
     <header id="header">
         <nav class="flex flex-row justify-between items-center p-3 border-b border-[#332654] mb-4">
             <ul>
@@ -21,6 +21,7 @@
                         <option value="newsletter.html">Newsletter</option>
                         <option value="floating-banner.html">Floating Banner</option>
                         <option value="landing-page.html" selected>Landing Page</option>
+                        <option value="widgets.html">Widgets</option>
                     </select>
                 </li>
                 <li>
@@ -57,12 +58,12 @@
             <li class="bg-[#2C1A5A] text-white font-medium p-2 rounded-[4px] text-xs">
                 <select name="" id="page-type" class="bg-transparent border-none outline-none w-44 h-full hover:cursor-pointer">
                     <option value="#">Select type</option>
-                    <option value="0">Landing Page</option>
+                    <option value="0">Custom Title</option>
                     <optgroup label="Qualify Games">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
+                        <option value="1">1 Provider</option>
+                        <option value="2">2 Providers</option>
+                        <option value="3">3 Providers</option>
+                        <option value="4">4 Providers</option>
                     </optgroup>
                 </select>
             </li>
@@ -81,12 +82,8 @@
             </li>
         </ol>
     </div>
-    <div class="px-3 flex flex-col gap-y-2">
-        <div id="input-container" class="flex flex-row gap-x-2 w-full">
-            
-        </div>
-
-        <div id="landing-page-preview"></div>
+    <div id="input-container" class="px-3 flex flex-col gap-y-2 w-full">
+    
     </div>
     <!--LANDING PAGE AUTOMATION-->
     <div id="update-card" class="hidden flex flex-col gap-y-1 w-80 h-fit bg-[#2C1A5A] border-2 border-[#4816C3] rounded-md absolute top-14 right-0 mr-3 p-1"></div>

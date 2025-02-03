@@ -16,6 +16,9 @@ automationDropdown.addEventListener('change', () => {
         case 'landing-page.html': 
             window.location.href = selection;
             break;
+        case 'widgets.html': 
+            window.location.href = selection;
+            break;
     }
 })
 

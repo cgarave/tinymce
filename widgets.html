@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="sys/style.css">
+    <link href="sys/src/output.css" rel="stylesheet">
+</head>
+<body class="bg-[#100C1A] h-screen overflow-hidden">
+    <header id="header">
+        <nav class="flex flex-row justify-between items-center p-3 border-b border-[#332654] mb-4">
+            <ul>
+                <li id="automation-name" class="text-white font-semibold text-lg">Widgets Automation</li>
+            </ul>
+            <ul class="flex flex-row gap-x-2">
+                <li class="bg-[#2C1A5A] text-white font-medium rounded-[4px] px-2 text-xs">
+                    <select id="automation-dropdown" class="bg-transparent border-none outline-none w-44 h-full hover:cursor-pointer">
+                        <option value="index.html">Terms and Conditions</option>
+                        <option value="newsletter.html">Newsletter</option>
+                        <option value="floating-banner.html">Floating Banner</option>
+                        <option value="landing-page.html">Landing Page</option>
+                        <option value="widgets.html" selected>Widgets</option>
+                    </select>
+                </li>
+                <li>
+                    <button id="whats-new" class="bg-[#2C1A5A] text-white font-medium p-2 rounded-[4px] text-xs relative">
+                        <div class="bg-red-700 w-2 h-2 rounded-full absolute -top-1 -right-1 animate-ping"></div>
+                        <div class="bg-red-600 w-2 h-2 rounded-full absolute -top-1 -right-1"></div>
+                        Changelog
+                    </button>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <!--LANDING PAGE AUTOMATION-->
+    <div class="px-3 mb-4 flex flex-col">
+        <div class="flex flex-row gap-x-2 items-center mb-4">
+            <input id="widget-en-title" type="text" class="rounded-[4px] p-2 h-10 w-80 outline-none font-medium text-xs" placeholder="Widget EN title" autocomplete="off">
+            <input id="widget-local-title" type="text" class="rounded-[4px] p-2 h-10 w-80 outline-none font-medium text-xs" placeholder="Widget Local title" autocomplete="off">
+            <div class="bg-[#2C1A5A] text-white font-medium p-2 rounded-[4px] text-xs">
+                <select id="product" class="bg-transparent border-none outline-none w-44 h-full hover:cursor-pointer">
+                    <option value="#">Select product</option>
+                    <option value="casino">Casino</option>
+                    <option value="live">Live Casino</option>
+                    <option value="chess">Chess</option>
+                    <option value="lotto">Lotto</option>
+                </select>
+            </div>
+        </div>
+        <textarea name="" id="game-code-input" class=" rounded-[4px] w-full h-52 mb-4 p-2 text-xs resize-none" placeholder="paste all game codes here"></textarea>
+        <div class="flex flex-row gap-x-2">
+            <textarea name="" id="generatedCodeEN" class="rounded-[4px] w-1/2 h-52 p-2 bg-[#2C1A5A2F] text-yellow-600 text-xs resize-none cursor-pointer" readonly>en-gb (click here to copy)</textarea>
+            <textarea name="" id="generatedCodeLocal" class="rounded-[4px] w-1/2 h-52 p-2 bg-[#2C1A5A2F] text-yellow-600 text-xs resize-none cursor-pointer" readonly>local (click here to copy)</textarea>
+        </div>
+    </div>
+    <!--LANDING PAGE AUTOMATION-->
+    <div id="update-card" class="hidden flex flex-col gap-y-1 w-80 h-fit bg-[#2C1A5A] border-2 border-[#4816C3] rounded-md absolute top-14 right-0 mr-3 p-1"></div>
+</body>
+
+<!--Scripts-->
+<script src="sys/homepage.js"></script>
+<script src="sys/widgets.js"></script>
+<script src="sys/updates.js"></script>
+</html>
