@@ -10,6 +10,8 @@ const update = {
             <p class="p-2 bg-[#4816C3] text-xs rounded-sm text-white">Added new automation: Floating Banner Automation</p>
             <p class="p-2 bg-[#4816C3] text-xs rounded-sm text-white">Added new automation: Landing Page/Qualify Games Automation</p>
             <p class="p-2 bg-[#4816C3] text-xs rounded-sm text-white">Added Live Casino/Casino icons to TNC Automation. Users now have the ability to add icons on their TNCs.</p>
+            <p class="p-2 bg-[#4816C3] text-xs rounded-sm text-white">UI changes to Landing Page automation.</p>
+            <p class="p-2 bg-[#4816C3] text-xs rounded-sm text-white">Added widgets advert automation.</p>
             `
 }
 const updateCard = document.getElementById('update-card').innerHTML = update.text;

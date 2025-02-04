@@ -182,6 +182,45 @@ tinymce.init({
                 <tfoot class="casino" style="display: none;">
                 </tfoot>
               </table>`,
+  },
+  {
+    title: '3 Game Icons Casino',
+    content: `<table class="casino-game" style="background-color: #eeeeee;">
+                  <tbody>
+                    <tr>
+                      <td colspan="3">Recommend Casino Games</td>
+                    </tr>
+                    <tr class="casino-game-img">
+                      <td>
+                        <img src="https://doc-cdn.stcb18x1.com/star4-content/images/casino/pragmatic/chests-of-cai-shen/chests-of-cai-shen-4x3-sm.webp" alt="game icon" width="50px" />
+                      </td>
+                      <td class="casino-game-title">Game Title</td>
+                      <td class="casino-game-link">
+                        <a href="https://www.188bet.com/en-gb/casino">Casino Link</a>
+                      </td>
+                    </tr>
+                    <tr class="casino-game-img">
+                      <td>
+                        <img src="https://doc-cdn.stcb18x1.com/star4-content/images/casino/pragmatic/chests-of-cai-shen/chests-of-cai-shen-4x3-sm.webp" alt="game icon" width="50px" />
+                      </td>
+                      <td class="casino-game-title">Game Title 2</td>
+                      <td class="casino-game-link">
+                        <a href="https://www.188bet.com/en-gb/casino">Casino Link</a>
+                      </td>
+                    </tr>
+                    <tr class="casino-game-img">
+                      <td>
+                        <img src="https://doc-cdn.stcb18x1.com/star4-content/images/casino/pragmatic/chests-of-cai-shen/chests-of-cai-shen-4x3-sm.webp" alt="game icon" width="50px" />
+                      </td>
+                      <td class="casino-game-title">Game Title 3</td>
+                      <td class="casino-game-link">
+                        <a href="https://www.188bet.com/en-gb/casino">Casino Link</a>
+                      </td>
+                    </tr>    
+                  </tbody>
+                <tfoot class="casino" style="display: none;">
+                </tfoot>
+              </table>`,
   }],
   
 });
@@ -739,9 +778,9 @@ tncRegionDropdown.addEventListener('change', () => {
     return y;
 }
 
-document.getElementById('promotionGuide-button').onclick = () => {
-  document.getElementById('instruction-container').classList.toggle('hidden')
-}
+// document.getElementById('promotionGuide-button').onclick = () => {
+//   document.getElementById('instruction-container').classList.toggle('hidden')
+// }
 
 //import HTML file
 
@@ -799,6 +838,7 @@ document.getElementById('import-docx').addEventListener('change', (e) => {
 
 //left control panel
 document.getElementById('resetBtn').addEventListener('click', () => {
+  console.log('hello');
   document.getElementById('import-tnc').value = ''
   tinymce.get('mytextarea').setContent('')
   tncRegionDropdown.value = '#'
