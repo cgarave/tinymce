@@ -107,21 +107,37 @@ function updateInputs(){
         document.getElementById('outputArea').textContent = casino;
         document.getElementById('outputAL').textContent = casinoAL;
         document.getElementById('preview').innerHTML = preview;
+        document.getElementsByTagName('optgroup')[0].classList.remove('hidden');
+        document.getElementsByTagName('optgroup')[1].classList.add('hidden');
+        document.getElementsByTagName('optgroup')[2].classList.add('hidden');
+        document.getElementsByTagName('optgroup')[3].classList.add('hidden');
     } else if(gameCategory === 'live'){
         document.getElementById('advert-name').textContent = `Advert Name: lcsn-fb-${gameName}-${requestedDate}`
         document.getElementById('outputArea').textContent = livecasino;
         document.getElementById('outputAL').textContent = livecasinoAL;
         document.getElementById('preview').innerHTML = preview;
+        document.getElementsByTagName('optgroup')[0].classList.add('hidden');
+        document.getElementsByTagName('optgroup')[1].classList.remove('hidden');
+        document.getElementsByTagName('optgroup')[2].classList.add('hidden');
+        document.getElementsByTagName('optgroup')[3].classList.add('hidden');
     } else if(gameCategory === 'chess'){
         document.getElementById('advert-name').textContent = `Advert Name: chess-fb-${gameName}-${requestedDate}`
         document.getElementById('outputArea').textContent = chess;
         document.getElementById('outputAL').textContent = chessAL;
         document.getElementById('preview').innerHTML = previewChess;
+        document.getElementsByTagName('optgroup')[0].classList.add('hidden');
+        document.getElementsByTagName('optgroup')[1].classList.add('hidden');
+        document.getElementsByTagName('optgroup')[2].classList.remove('hidden');
+        document.getElementsByTagName('optgroup')[3].classList.add('hidden');
     } else if(gameCategory === 'lotto'){
         document.getElementById('advert-name').textContent = `Advert Name: lotto-fb-${gameName}-${requestedDate}`
         document.getElementById('outputArea').textContent = lotto;
         document.getElementById('outputAL').textContent = lottoAL;
         document.getElementById('preview').innerHTML = preview;
+        document.getElementsByTagName('optgroup')[0].classList.add('hidden');
+        document.getElementsByTagName('optgroup')[1].classList.add('hidden');
+        document.getElementsByTagName('optgroup')[2].classList.add('hidden');
+        document.getElementsByTagName('optgroup')[3].classList.remove('hidden');
     }
                     
 }

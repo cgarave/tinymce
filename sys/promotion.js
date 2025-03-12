@@ -44,6 +44,7 @@ tinymce.init({
   
   
   
+  
   paste_as_text: false, 
   newline_behavior: 'block',
   height: '68vh',
