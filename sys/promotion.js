@@ -1,848 +1,1233 @@
-let scardLength = ''
-//TinyMCE settings
-tinymce.init({
-  selector: '#mytextarea',
-  table_resize_bars: false, //disable resize bars
-  object_resizing: 'img', //disable table resizing
-  visualblocks_default_state: false, //display visual blocks by default
-  resize_img_proportional: false,
+//These are templates that will be set to the two editors
+const ENtemplate = `<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script><script>$(function () { $("#webteam-ss").attr("href", "https://doc.188contents.com/contents/Components/webteam/webteam.css?" + $.now()); });</script>
+                    <div id="content-en-gb" class="tnc-content-wrap non-editable">
+                        <div class="contentwrap tnc-content-format non-editable">
+                            <h2 class="mb-4 font-semibold text-body-1 mceEditable">Significant Conditions</h2>
+                            <div class="mceEditable">
+                                <p>Write/Paste Significant Contents here</p>
+                            </div>
+                            <SExpansionPanel class="last:rounded-b-lg border-0" header-class="bg-transparent" content-class="last:rounded-b-lg">
+                                <template #header>
+                                    <h2 class="m-4 font-semibold text-body-1 mceEditable">Full Promotion Specific Terms and Conditions</h2>
+                                </template>
+                                <template #content>
+                                    <div class="full-promotion-content mceEditable">
+                                        <p>Write/Paste Full Promotion contents here</p>
+                                    </div>
+                                </template>
+                            </SExpansionPanel>
+                        </div>
+                        <IncludeContent :url="promoDetail.termsTpl"></IncludeContent>
+                    </div>`
 
-  encoding: 'xml',
-  element_format: 'xhtml',
-  invalid_elements: 'b, i',
-  entity_encoding: 'raw',
+const ENSCtemplate =   `<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script><script>$(function () { $("#webteam-ss").attr("href", "https://doc.188contents.com/contents/Components/webteam/webteam.css?" + $.now()); });</script>
+                        <div id="content-en-gb" class="tnc-content-wrap non-editable">
+                            <div class="contentwrap tnc-content-format non-editable">
+                                <h2 class="mb-4 font-semibold text-body-1 mceEditable">Significant Conditions</h2>
+                                <div class="mceEditable">
+                                    <p>Write/Paste Significant Contents here</p>
+                                </div>
+                            </div>
+                            <IncludeContent :url="promoDetail.termsTpl"></IncludeContent>
+                        </div>`
 
-  setup: function(editor) {
-    editor.on('BeforeSetContent', function(event) {
+const ENFPtemplate = `<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script><script>$(function () { $("#webteam-ss").attr("href", "https://doc.188contents.com/contents/Components/webteam/webteam.css?" + $.now()); });</script>
+                      <div id="content-en-gb" class="tnc-content-wrap non-editable">
+                          <div class="contentwrap tnc-content-format non-editable">
+                              <SExpansionPanel class="last:rounded-b-lg border-0" header-class="bg-transparent" content-class="last:rounded-b-lg">
+                                  <template #header>
+                                      <h2 class="m-4 font-semibold text-body-1 mceEditable">Full Promotion Specific Terms and Conditions</h2>
+                                  </template>
+                                  <template #content>
+                                      <div class="full-promotion-content mceEditable">
+                                        <p>Write/Paste Full Promotion contents here</p>
+                                      </div>
+                                  </template>
+                              </SExpansionPanel>
+                          </div>
+                          <IncludeContent :url="promoDetail.termsTpl"></IncludeContent>
+                      </div>`
 
-      //Copy SCard
-      const scardcontentMatches = event.content.match(/<SCard[^>]*>.*?<\/SCard>/gs);
-      scardLength = scardcontentMatches //return all SCard as an array
+const CNtemplate = `<div id="content-zh-cn" class="tnc-content-wrap non-editable">
+                        <div class="contentwrap tnc-content-format non-editable">
+                            <h2 class="mb-4 font-semibold text-body-1 mceEditable">主要规则</h2>
+                            <div class="mceEditable">
+                                <p>Write/Paste Localized Significant Contents here</p>
+                            </div>
+                            <SExpansionPanel class="last:rounded-b-lg border-0" header-class="bg-transparent" content-class="last:rounded-b-lg">
+                                <template #header>
+                                    <h2 class="m-4 font-semibold text-body-1 mceEditable">完整优惠标准规则</h2>
+                                </template>
+                                <template #content>
+                                    <div class="full-promotion-content mceEditable">
+                                        <p>Write/Paste Localized Full Promotion contents here</p>
+                                    </div>
+                                </template>
+                            </SExpansionPanel>
+                        </div>
+                        <IncludeContent :url="promoDetail.termsTpl"></IncludeContent>
+                    </div>`
 
-      // Example: Replace :href with some specific handling
-      event.content = event.content.replace(/:href/g, 'href')
-                                   .replace(/<SCard[^>]*>.*?<\/SCard>/gs, '<h4 class="my-4 font-semibold text-red-500" style="color: red;">Dont remove as this will be replaced with SCard</h4>').trim()
-                              
-                                   .replace(/<a :href="(.*?)">/g, '<a :href="`$1`">')
-                                   .replaceAll('<ol class="list-lower-alpha pl-8 mb-4">', '<ol class="list-lower-alpha pl-8 mb-4" style="list-style-type: lower-alpha;">')
-                                   .replaceAll('<ol class="list-upper-alpha pl-8 mb-4">', '<ol class="list-upper-alpha pl-8 mb-4" style="list-style-type: upper-alpha;">')
-                                   .replaceAll('<ol class="list-lower-roman pl-8 mb-4">', '<ol class="list-lower-roman pl-8 mb-4" style="list-style-type: lower-roman;">')
-                                   .replaceAll('<ol class="list-upper-roman pl-8 mb-4">', '<ol class="list-upper-roman pl-8 mb-4" style="list-style-type: upper-roman;">')
+const CNSCtemplate = `<div id="content-zh-cn" class="tnc-content-wrap non-editable">
+                        <div class="contentwrap tnc-content-format non-editable">
+                            <h2 class="mb-4 font-semibold text-body-1 mceEditable">主要规则</h2>
+                            <div class="mceEditable">
+                                 <p>Write/Paste Localized Significant Contents here</p>
+                            </div>
+                        </div>
+                        <IncludeContent :url="promoDetail.termsTpl"></IncludeContent>
+                    </div>`
 
-      //console.log('BeforeSetContent:', event.content);
-    }),
-    editor.on('NodeChange', function () {
-      // Get the selected content
-      
-      document.getElementById('redBtn').addEventListener('click', () => {
-        const selectedText = editor.selection.getContent({format: 'html'});
-        const selectedNode = editor.selection.getNode();
-        editor.selection.setContent('<span style="color: red;">' + selectedText + '</span>')
-      })
+const CNFPtemplate = `<div id="content-zh-cn" class="tnc-content-wrap non-editable">
+                        <div class="contentwrap tnc-content-format non-editable">
+                            <SExpansionPanel class="last:rounded-b-lg border-0" header-class="bg-transparent" content-class="last:rounded-b-lg">
+                                <template #header>
+                                    <h2 class="m-4 font-semibold text-body-1 mceEditable">完整优惠标准规则</h2>
+                                </template>
+                                <template #content>
+                                    <div class="full-promotion-content mceEditable">
+                                        <p>Write/Paste Localized Full Promotion contents here</p>
+                                    </div>
+                                </template>
+                            </SExpansionPanel>
+                        </div>
+                        <IncludeContent :url="promoDetail.termsTpl"></IncludeContent>
+                    </div>`
+
+const VNtemplate = `<div id="content-vi-vn" class="tnc-content-wrap non-editable">
+                        <div class="contentwrap tnc-content-format non-editable">
+                            <h2 class="mb-4 font-semibold text-body-1 mceEditable">Điều Kiện Tóm Lược</h2>
+                            <div class="mceEditable">
+                                <p>Write/Paste Localized Significant Contents here</p>
+                            </div>
+                            <SExpansionPanel class="last:rounded-b-lg border-0" header-class="bg-transparent" content-class="last:rounded-b-lg">
+                                <template #header>
+                                    <h2 class="m-4 font-semibold text-body-1 mceEditable">Điều Khoản và Điều Kiện Hoàn Chỉnh</h2>
+                                </template>
+                                <template #content>
+                                    <div class="full-promotion-content mceEditable">
+                                        <p>Write/Paste Localized Full Promotion contents here</p>
+                                    </div>
+                                </template>
+                            </SExpansionPanel>
+                        </div>
+                        <IncludeContent :url="promoDetail.termsTpl"></IncludeContent>
+                    </div>`
+
+const VNSCtemplate = `<div id="content-vi-vn" class="tnc-content-wrap non-editable">
+                        <div class="contentwrap tnc-content-format non-editable">
+                            <h2 class="mb-4 font-semibold text-body-1 mceEditable">Điều Kiện Tóm Lược</h2>
+                            <div class="mceEditable">
+                                <p>Write/Paste Localized Significant Contents here</p>
+                            </div>
+                        </div>
+                        <IncludeContent :url="promoDetail.termsTpl"></IncludeContent>
+                    </div>`
+
+const VNFPtemplate = `<div id="content-vi-vn" class="tnc-content-wrap non-editable">
+                        <div class="contentwrap tnc-content-format non-editable">
+                            <SExpansionPanel class="last:rounded-b-lg border-0" header-class="bg-transparent" content-class="last:rounded-b-lg">
+                                <template #header>
+                                    <h2 class="m-4 font-semibold text-body-1 mceEditable">Điều Khoản và Điều Kiện Hoàn Chỉnh</h2>
+                                </template>
+                                <template #content>
+                                    <div class="full-promotion-content mceEditable">
+                                        <p>Write/Paste Localized Full Promotion contents here</p>
+                                    </div>
+                                </template>
+                            </SExpansionPanel>
+                        </div>
+                        <IncludeContent :url="promoDetail.termsTpl"></IncludeContent>
+                    </div>`
+
+const THtemplate = `<div id="content-th-th" class="tnc-content-wrap non-editable">
+                        <div class="contentwrap tnc-content-format non-editable">
+                            <h2 class="mb-4 font-semibold text-body-1 mceEditable">ข้อกำหนดและเงื่อนไขฉบับย่อ</h2>
+                            <div class="mceEditable">
+                                <p>Write/Paste Localized Significant Contents here</p>
+                            </div>
+                            <SExpansionPanel class="last:rounded-b-lg border-0" header-class="bg-transparent" content-class="last:rounded-b-lg">
+                                <template #header>
+                                    <h2 class="m-4 font-semibold text-body-1 mceEditable">ข้อกำหนดและเงื่อนไขแบบเฉพาะเจาะจง</h2>
+                                </template>
+                                <template #content>
+                                    <div class="full-promotion-content mceEditable">
+                                        <p>Write/Paste Localized Full Promotion contents here</p>
+                                    </div>
+                                </template>
+                            </SExpansionPanel>
+                        </div>
+                        <IncludeContent :url="promoDetail.termsTpl"></IncludeContent>
+                    </div>`
+
+const THSCtemplate = `<div id="content-th-th" class="tnc-content-wrap non-editable">
+                        <div class="contentwrap tnc-content-format non-editable">
+                            <h2 class="mb-4 font-semibold text-body-1 mceEditable">ข้อกำหนดและเงื่อนไขฉบับย่อ</h2>
+                            <div class="mceEditable">
+                                <p>Write/Paste Localized Significant Contents here</p>
+                            </div>
+                        </div>
+                        <IncludeContent :url="promoDetail.termsTpl"></IncludeContent>
+                    </div>`
+
+const THFPtemplate = `<div id="content-th-th" class="tnc-content-wrap non-editable">
+                        <div class="contentwrap tnc-content-format non-editable">
+                            <SExpansionPanel class="last:rounded-b-lg border-0" header-class="bg-transparent" content-class="last:rounded-b-lg">
+                                <template #header>
+                                    <h2 class="m-4 font-semibold text-body-1 mceEditable">ข้อกำหนดและเงื่อนไขแบบเฉพาะเจาะจง</h2>
+                                </template>
+                                <template #content>
+                                    <div class="full-promotion-content mceEditable">
+                                        <p>Write/Paste Localized Full Promotion contents here</p>
+                                    </div>
+                                </template>
+                            </SExpansionPanel>
+                        </div>
+                        <IncludeContent :url="promoDetail.termsTpl"></IncludeContent>
+                    </div>`
+
+const KRtemplate = `<div id="content-ko-kr" class="tnc-content-wrap non-editable">
+                        <div class="contentwrap tnc-content-format non-editable">
+                            <h2 class="mb-4 font-semibold text-body-1 mceEditable">약관 주요내용</h2>
+                            <div class="mceEditable">
+                                <p>Write/Paste Localized Significant Contents here</p>
+                            </div>
+                            <SExpansionPanel class="last:rounded-b-lg border-0" header-class="bg-transparent" content-class="last:rounded-b-lg">
+                                <template #header>
+                                    <h2 class="m-4 font-semibold text-body-1 mceEditable">본 프로모션 이용약관</h2>
+                                </template>
+                                <template #content>
+                                    <div class="full-promotion-content mceEditable">
+                                        <p>Write/Paste Localized Full Promotion contents here</p>
+                                    </div>
+                                </template>
+                            </SExpansionPanel>
+                        </div>
+                        <IncludeContent :url="promoDetail.termsTpl"></IncludeContent>
+                    </div>`
+
+const KRSCtemplate = `<div id="content-ko-kr" class="tnc-content-wrap non-editable">
+                        <div class="contentwrap tnc-content-format non-editable">
+                            <h2 class="mb-4 font-semibold text-body-1 mceEditable">약관 주요내용</h2>
+                            <div class="mceEditable">
+                                <p>Write/Paste Localized Significant Contents here</p>
+                            </div>
+                        </div>
+                        <IncludeContent :url="promoDetail.termsTpl"></IncludeContent>
+                    </div>`
+
+const KRFPtemplate = `<div id="content-ko-kr" class="tnc-content-wrap non-editable">
+                        <div class="contentwrap tnc-content-format non-editable">
+                            <SExpansionPanel class="last:rounded-b-lg border-0" header-class="bg-transparent" content-class="last:rounded-b-lg">
+                                <template #header>
+                                    <h2 class="m-4 font-semibold text-body-1 mceEditable">본 프로모션 이용약관</h2>
+                                </template>
+                                <template #content>
+                                    <div class="full-promotion-content mceEditable">
+                                        <p>Write/Paste Localized Full Promotion contents here</p>
+                                    </div>
+                                </template>
+                            </SExpansionPanel>
+                        </div>
+                        <IncludeContent :url="promoDetail.termsTpl"></IncludeContent>
+                    </div>`
+
+const IDtemplate = `<div id="content-id-id" class="tnc-content-wrap non-editable">
+                        <div class="contentwrap tnc-content-format non-editable">
+                            <h2 class="mb-4 font-semibold text-body-1 mceEditable">Syarat dan Kondisi Penting</h2>
+                            <div class="mceEditable">
+                                <p>Write/Paste Localized Significant Contents here</p>
+                            </div>
+                            <SExpansionPanel class="last:rounded-b-lg border-0" header-class="bg-transparent" content-class="last:rounded-b-lg">
+                                <template #header>
+                                    <h2 class="m-4 font-semibold text-body-1 mceEditable">Syarat dan Kondisi Spesifik promosi Lengkap</h2>
+                                </template>
+                                <template #content>
+                                    <div class="full-promotion-content mceEditable">
+                                        <p>Write/Paste Localized Full Promotion contents here</p>
+                                    </div>
+                                </template>
+                            </SExpansionPanel>
+                        </div>
+                        <IncludeContent :url="promoDetail.termsTpl"></IncludeContent>
+                    </div>`
+
+const IDSCtemplate = `<div id="content-id-id" class="tnc-content-wrap non-editable">
+                        <div class="contentwrap tnc-content-format non-editable">
+                            <h2 class="mb-4 font-semibold text-body-1 mceEditable">Syarat dan Kondisi Penting</h2>
+                            <div class="mceEditable">
+                                <p>Write/Paste Localized Significant Contents here</p>
+                            </div>
+                        </div>
+                        <IncludeContent :url="promoDetail.termsTpl"></IncludeContent>
+                    </div>`
+
+const IDFPtemplate = `<div id="content-id-id" class="tnc-content-wrap non-editable">
+                        <div class="contentwrap tnc-content-format non-editable">
+                            <SExpansionPanel class="last:rounded-b-lg border-0" header-class="bg-transparent" content-class="last:rounded-b-lg">
+                                <template #header>
+                                    <h2 class="m-4 font-semibold text-body-1 mceEditable">Syarat dan Kondisi Spesifik promosi Lengkap</h2>
+                                </template>
+                                <template #content>
+                                    <div class="full-promotion-content mceEditable">
+                                        <p>Write/Paste Localized Full Promotion contents here</p>
+                                    </div>
+                                </template>
+                            </SExpansionPanel>
+                        </div>
+                        <IncludeContent :url="promoDetail.termsTpl"></IncludeContent>
+                    </div>`
+
+const KHtemplate = `<div id="content-km-kh" class="tnc-content-wrap non-editable">
+                        <div class="contentwrap tnc-content-format non-editable">
+                            <h2 class="mb-4 font-semibold text-body-1 mceEditable">លក្ខខណ្ឌសំខាន់ៗ</h2>
+                            <div class="mceEditable">
+                                <p>Write/Paste Localized Significant Contents here</p>
+                            </div>
+                            <SExpansionPanel class="last:rounded-b-lg border-0" header-class="bg-transparent" content-class="last:rounded-b-lg">
+                                <template #header>
+                                    <h2 class="m-4 font-semibold text-body-1 mceEditable">លក្ខខណ្ឌ និងកិច្ចព្រមព្រៀងជាក់លាក់នៃការផ្តល់រង្វាន់ទាំងអស</h2>
+                                </template>
+                                <template #content>
+                                    <div class="full-promotion-content mceEditable">
+                                        <p>Write/Paste Localized Full Promotion contents here</p>
+                                    </div>
+                                </template>
+                            </SExpansionPanel>
+                        </div>
+                        <IncludeContent :url="promoDetail.termsTpl"></IncludeContent>
+                    </div>`
+
+const KHSCtemplate = `<div id="content-km-kh" class="tnc-content-wrap non-editable">
+                        <div class="contentwrap tnc-content-format non-editable">
+                            <h2 class="mb-4 font-semibold text-body-1 mceEditable">លក្ខខណ្ឌសំខាន់ៗ</h2>
+                            <div class="mceEditable">
+                                <p>Write/Paste Localized Significant Contents here</p>
+                            </div>
+                        </div>
+                        <IncludeContent :url="promoDetail.termsTpl"></IncludeContent>
+                    </div>`
+const KHFPtemplate = `<div id="content-km-kh" class="tnc-content-wrap non-editable">
+                        <div class="contentwrap tnc-content-format non-editable">
+                            <SExpansionPanel class="last:rounded-b-lg border-0" header-class="bg-transparent" content-class="last:rounded-b-lg">
+                                <template #header>
+                                    <h2 class="m-4 font-semibold text-body-1 mceEditable">លក្ខខណ្ឌ និងកិច្ចព្រមព្រៀងជាក់លាក់នៃការផ្តល់រង្វាន់ទាំងអស</h2>
+                                </template>
+                                <template #content>
+                                    <div class="full-promotion-content mceEditable">
+                                        <p>Write/Paste Localized Full Promotion contents here</p>
+                                    </div>
+                                </template>
+                            </SExpansionPanel>
+                        </div>
+                        <IncludeContent :url="promoDetail.termsTpl"></IncludeContent>
+                    </div>`
+
+const JPtemplate = `<div id="content-ja-jp" class="tnc-content-wrap non-editable">
+                        <div class="contentwrap tnc-content-format non-editable">
+                            <h2 class="mb-4 font-semibold text-body-1 mceEditable">キャンペーン概要</h2>
+                            <div class="mceEditable">
+                                <p>Write/Paste Localized Significant Contents here</p>
+                            </div>
+                            <SExpansionPanel class="last:rounded-b-lg border-0" header-class="bg-transparent" content-class="last:rounded-b-lg">
+                                <template #header>
+                                    <h2 class="m-4 font-semibold text-body-1 mceEditable">全てのプロモーション－特定の利用規約</h2>
+                                </template>
+                                <template #content>
+                                    <div class="full-promotion-content mceEditable">
+                                        <p>Write/Paste Localized Full Promotion contents here</p>
+                                    </div>
+                                </template>
+                            </SExpansionPanel>
+                        </div>
+                        <IncludeContent :url="promoDetail.termsTpl"></IncludeContent>
+                    </div>`
+
+const JPSCtemplate = `<div id="content-ja-jp" class="tnc-content-wrap non-editable">
+                        <div class="contentwrap tnc-content-format non-editable">
+                            <h2 class="mb-4 font-semibold text-body-1 mceEditable">キャンペーン概要</h2>
+                            <div class="mceEditable">
+                                <p>Write/Paste Localized Significant Contents here</p>
+                            </div>
+                        </div>
+                        <IncludeContent :url="promoDetail.termsTpl"></IncludeContent>
+                    </div>`
+
+const JPFPtemplate = `<div id="content-ja-jp" class="tnc-content-wrap non-editable">
+                        <div class="contentwrap tnc-content-format non-editable">
+                            <SExpansionPanel class="last:rounded-b-lg border-0" header-class="bg-transparent" content-class="last:rounded-b-lg">
+                                <template #header>
+                                    <h2 class="m-4 font-semibold text-body-1 mceEditable">全てのプロモーション－特定の利用規約</h2>
+                                </template>
+                                <template #content>
+                                    <div class="full-promotion-content mceEditable">
+                                        <p>Write/Paste Localized Full Promotion contents here</p>
+                                    </div>
+                                </template>
+                            </SExpansionPanel>
+                        </div>
+                        <IncludeContent :url="promoDetail.termsTpl"></IncludeContent>
+                    </div>`
+
+const INtemplate = `<div id="content-hi-in" class="tnc-content-wrap non-editable">
+                        <div class="contentwrap tnc-content-format non-editable">
+                            <h2 class="mb-4 font-semibold text-body-1 mceEditable">टमहत्वपूर्ण स्थितियां</h2>
+                            <div class="mceEditable">
+                                <p>Write/Paste Localized Significant Contents here</p>
+                            </div>
+                            <SExpansionPanel class="last:rounded-b-lg border-0" header-class="bg-transparent" content-class="last:rounded-b-lg">
+                                <template #header>
+                                    <h2 class="m-4 font-semibold text-body-1 mceEditable">पूर्ण प्रमोशन-विशिष्ट नियम और शर्तें</h2>
+                                </template>
+                                <template #content>
+                                    <div class="full-promotion-content mceEditable">
+                                        <p>Write/Paste Localized Full Promotion contents here</p>
+                                    </div>
+                                </template>
+                            </SExpansionPanel>
+                        </div>
+                        <IncludeContent :url="promoDetail.termsTpl"></IncludeContent>
+                    </div>`
+
+const INSCtemplate = `<div id="content-hi-in" class="tnc-content-wrap non-editable">
+                        <div class="contentwrap tnc-content-format non-editable">
+                            <h2 class="mb-4 font-semibold text-body-1 mceEditable">टमहत्वपूर्ण स्थितियां</h2>
+                            <div class="mceEditable">
+                                <p>Write/Paste Localized Significant Contents here</p>
+                            </div>
+                        </div>
+                        <IncludeContent :url="promoDetail.termsTpl"></IncludeContent>
+                    </div>`
+
+const INFPtemplate = `<div id="content-hi-in" class="tnc-content-wrap non-editable">
+                        <div class="contentwrap tnc-content-format non-editable">
+                            <SExpansionPanel class="last:rounded-b-lg border-0" header-class="bg-transparent" content-class="last:rounded-b-lg">
+                                <template #header>
+                                    <h2 class="m-4 font-semibold text-body-1 mceEditable">पूर्ण प्रमोशन-विशिष्ट नियम और शर्तें</h2>
+                                </template>
+                                <template #content>
+                                    <div class="full-promotion-content mceEditable">
+                                        <p>Write/Paste Localized Full Promotion contents here</p>
+                                    </div>
+                                </template>
+                            </SExpansionPanel>
+                        </div>
+                        <IncludeContent :url="promoDetail.termsTpl"></IncludeContent>
+                    </div>`
+
+
+//This is for game components
+let gameCodes = document.getElementById('input-game-codes'); //variable that stores inputed game codes from the 'Component' buttons
+let gameTitle = document.getElementById('input-game-title');
+gameTitle.value = 'Recommended Games';
+let gameType = document.getElementById('input-game-type');
+let editedNumberInput = document.getElementById('input-number'); //variable that stores inputed game codes from the 'Component' buttons
+
+// Creating a custom plugin: use PluginManager.add then connect sa plugins and contextmenu
+tinymce.PluginManager.add('customcontextmenu', function(editor) {
+    editor.addMenuItem('editNumbering', {
+      text: 'Edit Numbering',
+      context: 'contextmenu',
+      onclick: function() {
+        const editNumberBtn = document.getElementById('editNumberBtn');
+        const cancelEditNumberBtn = document.getElementById('cancelEditNumberBtn');
+        const editedNumberContainer = document.getElementById('edit-numbering-container');
+        const selectedNode = editor.selection.getNode(); //returning selected Nodes gaya ng <p>, <li>, etc.
+        editedNumberContainer.classList.remove('hidden');
+        editNumberBtn.onclick = () => { //I used onclick instead of addEventListener kasi nasa loob na ito ng function. The button fires twice once clicked when addEventListener were used thus making weird errors
+            if (selectedNode.parentElement.nodeName === 'OL') {
+                // You can add additional logic here for when the parent node is an <ol>
+                editor.dom.setAttrib(selectedNode.parentElement, 'start', editedNumberInput.value);
+                editedNumberContainer.classList.add('hidden');
+                editedNumberInput.value = ''
+                console.log('The selected node is an ordered list (OL)');
+            } else if (selectedNode.parentElement.parentElement.nodeName === 'OL') {
+                // You can add additional logic here for when the parent node is an <ol>
+                editor.dom.setAttrib(selectedNode.parentElement.parentElement, 'start', editedNumberInput.value);
+                editedNumberContainer.classList.add('hidden');
+                editedNumberInput.value = ''
+            } else {
+                console.log(selectedNode.parentElement);
+                editedNumberInput.value = ''
+                editedNumberContainer.classList.add('hidden');
+            }
+        }
+        cancelEditNumberBtn.onclick = () => {
+            editedNumberInput.value = ''
+            editedNumberContainer.classList.add('hidden');
+        }
+      }
     });
-  },
-  
-  
-  
-  
-  paste_as_text: false, 
-  newline_behavior: 'block',
-  height: '68vh',
-  width: '100%',
-  resize: false,
-  content_style: `
+  });
+
+//tinymce init (this is where you customize the editor)
+tinymce.init({
+    selector: '#mytextarea, #mytextarea2', //selecting two editor
+    plugins: 'advlist lists code table image link paste noneditable textcolor contextmenu customcontextmenu',
+    toolbar: 'code table | numlist bullist | image link | indent outdent | alignleft aligncenter alignright alignjustify | forecolor bold italic underline strikethrough | insertComponent',
+    contextmenu: 'link editNumbering',
+    menubar: false,  // Disable the menubar entirely
+    //editable_class: 'mceEditable',  //editable class tinymce 7
+    //noneditable_class: 'non-editable', //non-editable class tinymce 7
+    noneditable_editable_class: 'mceEditable', //editable class tinymce 4 & 5
+    noneditable_noneditable_class: 'non-editable', //non-editable class tinymce 4 & 5
+    fix_list_elements: true,
+    advlist_bullet_styles: 'disc', //limit the bullet option to disc only
+    advlist_number_styles: 'default,lower-alpha,lower-roman', //limit the list option to three options only
+    paste_merge_formats: true,
+    paste_data_images: false, //disable paste of local image
+    image_description: false, //disable image description input
+    image_dimensions: false, //disable image dimension input
+    table_resize_bars: false, //disable resize bars
+    object_resizing: 'img', //disable table resizing
+    link_title: false, //disable link title
+    target_list: false, //disable link target
+    encoding: 'xml',
+    element_format: 'html',
+    entity_encoding: 'raw',
+    height: 700,
+    width: 1000,
+    statusbar: false, //disabling status bar
+    protect: [
+        //init codes
+        /<script src="https:\/\/ajax.googleapis.com\/ajax\/libs\/jquery\/3.6.0\/jquery.min.js"><\/script>/g,
+        /<script>\$\(function \(\) { \$\("#webteam-ss"\).attr\("href", "https:\/\/doc.188contents.com\/contents\/Components\/webteam\/webteam.css\?" \+ \$.now\(\)\); }\);<\/script>/g,
+        /<SExpansionPanel class="last:rounded-b-lg border-0" header-class="bg-transparent" content-class="last:rounded-b-lg">/g,
+        /<template #header>/g,
+        /<\/template>/g,
+        /<template #content>/g,
+        /<\/SExpansionPanel>/g,
+        /<IncludeContent :url="promoDetail.termsTpl"><\/IncludeContent>/g,
+
+        //where to find sportsbook free bet component
+        /<IncludeContent :init-collapse="isClaimed" :url="gv.domains.content \+ '\/templates\/promotions\/Indonesia\/202408\/188DAYBLUE-0824_where-to-find-your-sportsbook-free-bet.html'" \/><\/IncludeContent>/g,
+
+        //custom games
+        /<CustomGames product="casino" title="(.*?)" games="(.*?)" type="table" class="tnc-multiple-games" :limit="(.*?)"><\/CustomGames>/g,
+        /<CustomGames product="live"  title="(.*?)" games="(.*?)" show-game-subtitle type="table"><\/CustomGames>/g,
+
+        //init codes - import
+        /<sexpansionpanel class="last:rounded-b-lg border-0" header-class="bg-transparent" content-class="last:rounded-b-lg">/g,
+        /<template #header="">/g,
+        /<template #content="">/g,
+        /<\/sexpansionpanel>/g,
+        /<includecontent :url="promoDetail.termsTpl"><\/includecontent>/g,
+
+        //where to find sportsbook free bet component - import
+        /<includecontent :init-collapse="isClaimed" :url="gv.domains.content \+ '\/templates\/promotions\/Indonesia\/202408\/188DAYBLUE-0824_where-to-find-your-sportsbook-free-bet.html'">\s*<\/includecontent>/g, //without space
+
+        //custom games - import
+        //<customgames product="live" title="(.*?)" games="(.*?)" show-game-subtitle="" type="table">\s*<\/customgames>/g,
+        //<customgames product="live" title="(.*?)" games="(.*?)" show-game-subtitle="" type="table" class="tnc-multiple-games">\s*<\/customgames>/g,
+        //<customgames product="casino" title="(.*?)" games="(.*?)" type="table" class="tnc-multiple-games" :limit="(.*?)">\s*<\/customgames>/g,
+        /<customgames(.*?)>\s*<\/customgames>/g,
+
+        //vue href
+        /<a :href="(.*?)">/g,
+    ], 
+    link_list: [
+        { title: '[EN-GB]Promotion General Terms and Conditions', value: 'https://www.188bet.com/en-gb/promotions#promo_gen_terms' },
+        { title: '[EN-GB]Standard Terms and Conditions', value: 'https://www.188bet.com/en-gb/corporate-affairs/terms-and-conditions' },
+        { title: '[ZH-CN]Promotion General Terms and Conditions', value: 'https://www.188bet.com/zh-cn/promotions#promo_gen_terms' },
+        { title: '[ZH-CN]Standard Terms and Conditions', value: 'https://www.188bet.com/zh-cn/corporate-affairs/terms-and-conditions' },
+        { title: '[VI-VN]Promotion General Terms and Conditions', value: 'https://www.188bet.com/vi-vn/promotions#promo_gen_terms' },
+        { title: '[VI-VN]Standard Terms and Conditions', value: 'https://www.188bet.com/vi-vn/corporate-affairs/terms-and-conditions' },
+        { title: '[TH-TH]Promotion General Terms and Conditions', value: 'https://www.188bet.com/th-th/promotions#promo_gen_terms' },
+        { title: '[TH-TH]Standard Terms and Conditions', value: 'https://www.188bet.com/th-th/corporate-affairs/terms-and-conditions' },
+        { title: '[KO-KR]Promotion General Terms and Conditions', value: 'https://www.188bet.com/ko-kr/promotions#promo_gen_terms' },
+        { title: '[KO-KR]Standard Terms and Conditions', value: 'https://www.188bet.com/ko-kr/corporate-affairs/terms-and-conditions' },
+        { title: '[ID-ID]Promotion General Terms and Conditions', value: 'https://www.188bet.com/id-id/promotions#promo_gen_terms' },
+        { title: '[ID-ID]Standard Terms and Conditions', value: 'https://www.188bet.com/id-id/corporate-affairs/terms-and-conditions' },
+        { title: '[KM-KH]Promotion General Terms and Conditions', value: 'https://www.188bet.com/km-kh/promotions#promo_gen_terms' },
+        { title: '[KM-KH]Standard Terms and Conditions', value: 'https://www.188bet.com/km-kh/corporate-affairs/terms-and-conditions' },
+        { title: '[JA-JP]Promotion General Terms and Conditions', value: 'https://www.188bet.com/ja-jp/promotions#promo_gen_terms' },
+        { title: '[JA-JP]Standard Terms and Conditions', value: 'https://www.188bet.com/ja-jp/corporate-affairs/terms-and-conditions' },
+        { title: '[HI-IN]Promotion General Terms and Conditions', value: 'https://www.188bet.com/hi-in/promotions#promo_gen_terms' },
+        { title: '[HI-IN]Standard Terms and Conditions', value: 'https://www.188bet.com/hi-in/corporate-affairs/terms-and-conditions' },
+    ],
+    // valid_styles: {
+    //     'ol': 'list-style-type',
+    //     'p': 'text-align',
+    //     'div': 'text-align',
+    //     'span': 'color',
+    //     'img': 'margin, margin-left, margin-right'
+    // },
+    content_style: `
                   body {
                     padding: 20px;
-                    font-size: 12px
+                    font-size: 12px;
                   }
                   h2 {
                     font-size: 14px;
                   }
                   table {
                     width: 100%;
+                    text-align: center;
+                  }
+                  img {
+                    max-width: 700px;
+                    height: auto;
                   }`,
-  plugins: ["template paste autolink link image lists advlist charmap hr anchor",
-            "searchreplace wordcount visualblocks visualchars media nonbreaking",
-            "table contextmenu directionality template paste"], //insert 'code' to view source
-  toolbar: 'template undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image table mergetags | align lineheight | checklist bullist numlist startAtButton',
-  tinycomments_author: 'Author name',
-  mergetags_list: [
-    { value: 'First.Name', title: 'First Name' },
-    { value: 'Email', title: 'Email' },
-  ],
-  templates: [{
-      title: '(Experimental) Game Icons Live Casino',
-      content: `<table class="live-game" style="background-color: #eeeeee;">
-                  <tbody>
-                    <tr>
-                      <td colspan="3">Recommend Live Casino Games</td>
-                    </tr>
-                    <tr class="live-game-img">
-                      <td>
-                        <img src="https://doc-cdn.stcb18x1.com/star4-content/images/live/agiledeal/agi-zodiac-racing-4x3-sm.webp" alt="game icon" width="50px" />
-                      </td>
-                      <td class="live-game-title">Game Title</td>
-                      <td class="live-game-link">
-                        <a href="live_game_code">Game Code</a>
-                      </td>
-                    </tr>
-                    <tr class="live-game-img">
-                      <td>
-                        <img src="https://doc-cdn.stcb18x1.com/star4-content/images/live/agiledeal/agi-zodiac-racing-4x3-sm.webp" alt="game icon" width="50px" />
-                      </td>
-                      <td class="live-game-title">Game Title 2</td>
-                      <td class="live-game-link">
-                        <a href="live_game_code">Game Code</a>
-                      </td>
-                    </tr>
-                    <tr class="live-game-img">
-                      <td>
-                        <img src="https://doc-cdn.stcb18x1.com/star4-content/images/live/agiledeal/agi-zodiac-racing-4x3-sm.webp" alt="game icon" width="50px" />
-                      </td>
-                      <td class="live-game-title">Game Title 3</td>
-                      <td class="live-game-link">
-                        <a href="live_game_code">Game Code</a>
-                      </td>
-                    </tr>
-                    <tr class="live-game-img">
-                      <td>
-                        <img src="https://doc-cdn.stcb18x1.com/star4-content/images/live/agiledeal/agi-zodiac-racing-4x3-sm.webp" alt="game icon" width="50px" />
-                      </td>
-                      <td class="live-game-title">Game Title 4</td>
-                      <td class="live-game-link">
-                        <a href="live_game_code">Game Code</a>
-                      </td>
-                    </tr>   
-                    <tr class="live-game-img">
-                      <td>
-                        <img src="https://doc-cdn.stcb18x1.com/star4-content/images/live/agiledeal/agi-zodiac-racing-4x3-sm.webp" alt="game icon" width="50px" />
-                      </td>
-                      <td class="live-game-title">Game Title 5</td>
-                      <td class="live-game-link">
-                        <a href="live_game_code">Game Code</a>
-                      </td>
-                    </tr>      
-                  </tbody>
-                <tfoot class="live" style="display: none;">
-                </tfoot>
-              </table>`,
-  },
-  {
-    title: '(Experimental) Game Icons Casino',
-    content: `<table class="casino-game" style="background-color: #eeeeee;">
-                  <tbody>
-                    <tr>
-                      <td colspan="3">Recommend Casino Games</td>
-                    </tr>
-                    <tr class="casino-game-img">
-                      <td>
-                        <img src="https://doc-cdn.stcb18x1.com/star4-content/images/casino/pragmatic/chests-of-cai-shen/chests-of-cai-shen-4x3-sm.webp" alt="game icon" width="50px" />
-                      </td>
-                      <td class="casino-game-title">Game Title</td>
-                      <td class="casino-game-link">
-                        <a href="https://www.188bet.com/en-gb/casino">Casino Link</a>
-                      </td>
-                    </tr>
-                    <tr class="casino-game-img">
-                      <td>
-                        <img src="https://doc-cdn.stcb18x1.com/star4-content/images/casino/pragmatic/chests-of-cai-shen/chests-of-cai-shen-4x3-sm.webp" alt="game icon" width="50px" />
-                      </td>
-                      <td class="casino-game-title">Game Title 2</td>
-                      <td class="casino-game-link">
-                        <a href="https://www.188bet.com/en-gb/casino">Casino Link</a>
-                      </td>
-                    </tr>
-                    <tr class="casino-game-img">
-                      <td>
-                        <img src="https://doc-cdn.stcb18x1.com/star4-content/images/casino/pragmatic/chests-of-cai-shen/chests-of-cai-shen-4x3-sm.webp" alt="game icon" width="50px" />
-                      </td>
-                      <td class="casino-game-title">Game Title 3</td>
-                      <td class="casino-game-link">
-                        <a href="https://www.188bet.com/en-gb/casino">Casino Link</a>
-                      </td>
-                    </tr>
-                    <tr class="casino-game-img">
-                      <td>
-                        <img src="https://doc-cdn.stcb18x1.com/star4-content/images/casino/pragmatic/chests-of-cai-shen/chests-of-cai-shen-4x3-sm.webp" alt="game icon" width="50px" />
-                      </td>
-                      <td class="casino-game-title">Game Title 4</td>
-                      <td class="casino-game-link">
-                        <a href="https://www.188bet.com/en-gb/casino">Casino Link</a>
-                      </td>
-                    </tr>   
-                    <tr class="casino-game-img">
-                      <td>
-                        <img src="https://doc-cdn.stcb18x1.com/star4-content/images/casino/pragmatic/chests-of-cai-shen/chests-of-cai-shen-4x3-sm.webp" alt="game icon" width="50px" />
-                      </td>
-                      <td class="casino-game-title">Game Title 5</td>
-                      <td class="casino-game-link">
-                        <a href="https://www.188bet.com/en-gb/casino">Casino Link</a>
-                      </td>
-                    </tr>      
-                  </tbody>
-                <tfoot class="casino" style="display: none;">
-                </tfoot>
-              </table>`,
-  },
-  {
-    title: '3 Game Icons Casino',
-    content: `<table class="casino-game" style="background-color: #eeeeee;">
-                  <tbody>
-                    <tr>
-                      <td colspan="3">Recommend Casino Games</td>
-                    </tr>
-                    <tr class="casino-game-img">
-                      <td>
-                        <img src="https://doc-cdn.stcb18x1.com/star4-content/images/casino/pragmatic/chests-of-cai-shen/chests-of-cai-shen-4x3-sm.webp" alt="game icon" width="50px" />
-                      </td>
-                      <td class="casino-game-title">Game Title</td>
-                      <td class="casino-game-link">
-                        <a href="https://www.188bet.com/en-gb/casino">Casino Link</a>
-                      </td>
-                    </tr>
-                    <tr class="casino-game-img">
-                      <td>
-                        <img src="https://doc-cdn.stcb18x1.com/star4-content/images/casino/pragmatic/chests-of-cai-shen/chests-of-cai-shen-4x3-sm.webp" alt="game icon" width="50px" />
-                      </td>
-                      <td class="casino-game-title">Game Title 2</td>
-                      <td class="casino-game-link">
-                        <a href="https://www.188bet.com/en-gb/casino">Casino Link</a>
-                      </td>
-                    </tr>
-                    <tr class="casino-game-img">
-                      <td>
-                        <img src="https://doc-cdn.stcb18x1.com/star4-content/images/casino/pragmatic/chests-of-cai-shen/chests-of-cai-shen-4x3-sm.webp" alt="game icon" width="50px" />
-                      </td>
-                      <td class="casino-game-title">Game Title 3</td>
-                      <td class="casino-game-link">
-                        <a href="https://www.188bet.com/en-gb/casino">Casino Link</a>
-                      </td>
-                    </tr>    
-                  </tbody>
-                <tfoot class="casino" style="display: none;">
-                </tfoot>
-              </table>`,
-  }],
-  
+
+    setup: function (editor) {
+        //BeforeSetContent controls all the set contents before it appears on the editor
+        //This is useful when you want to change something upon importing of the file
+        editor.on('BeforeSetContent', function (event) {
+            event.content = event.content
+            .replaceAll('</ol><ul>', '')
+            .replaceAll('</ul><ol>', '')
+            .replaceAll('<p> </p>', '')
+
+            //this removes the span shits that occurs when a user copy/paste text from sharepoint link
+            .replace(/<span data-contrast="(.*?)">/g, '')
+            .replace(/<span data-fontsize="(.*?)">/g, '')
+            .replace(/<span data-ccp-props="(.*?)">/g, '')
+            .replace(/<span data-ccp-charstyle="(.*?)">/g, '')
+            .replace(/<span data-ccp-parastyle="(.*?)">/g, '')
+            .replace(/<span class="(.*?)" lang="(.*?)" xml:lang="(.*?)" data-contrast="(.*?)">/g, '')
+            .replace(/<span class="(.*?)">/g, '')
+            .replace(/<span class="(.*?)" data-ccp-props="(.*?)"> /g, '')
+            .replace(/<tr(.*?)>/g, '<tr>')
+            //.replace(/<td(.*?)>/g, '<td>')
+            
+            //finding imported component then replace it with the component style
+            .replace(/<includecontent :init-collapse="isClaimed" :url="gv.domains.content \+ '\/templates\/promotions\/Indonesia\/202408\/188DAYBLUE-0824_where-to-find-your-sportsbook-free-bet.html'">\s*<\/includecontent>/g, '<h5 class="non-editable" style="width: full; text-align: left; padding: 12px; background-color: #f5f5f5; border-left: 5px solid #5ba7ff;">Where to find your Sportbook Free Bet<IncludeContent :init-collapse="isClaimed" :url="gv.domains.content \+ \'\/templates\/promotions\/Indonesia\/202408\/188DAYBLUE-0824_where-to-find-your-sportsbook-free-bet.html\'" \/><\/IncludeContent></h5><br>')
+            .replace(/<customgames product="casino" title="(.*?)" games="(.*?)" type="(.*?)" class="(.*?)" :limit="(.*?)">\s*<\/customgames>/g, '<table id="casino-icons" class="non-editable"><tbody><tr><td>$1</td></tr><tr><td>$2</td></tr><tr><td>$3</td></tr></tbody></table><br>')
+            .replace(/<customgames product="live" title="(.*?)" games="(.*?)" type="(.*?)" class="(.*?)" :limit="(.*?)">\s*<\/customgames>/g, '<table id="live-casino-icons" class="non-editable"><tbody><tr><td>$1</td></tr><tr><td>$2</td></tr><tr><td>$3</td></tr></tbody></table><br>')
+            .replace(/<customgames product="live" title="(.*?)" games="(.*?)" show-game-subtitle="" type="(.*?)" class="(.*?)">\s*<\/customgames>/g, '<table id="live-casino-icons" class="non-editable"><tbody><tr><td>$1</td></tr><tr><td>$2</td></tr><tr><td>$3</td></tr></tbody></table><br>')
+            
+            //imported file links
+            .replace(/<a :href="`(.*?)`">/g, '<a href="`$1`">')
+            
+            //imported tables
+            .replaceAll('<div class="md:w-1/2 w-full m-auto">', '')
+            .replaceAll('<div class="md:w-1/3 w-full m-auto">', '')
+            .replace(/<div class="border rounded mb-4 table-responsive">\s*<table class="w-full border-collapse border-spacing-0 text-center">/g, '<table class="w-full border-collapse border-spacing-0 text-center">')
+            .replace(/<\/table>\s*<\/div>/g, '</table>')
+
+            //import
+            .replace(/<div id="(.*?)" class="tnc-content-wrap">/g, '<div id="$1" class="tnc-content-wrap non-editable">')
+            .replaceAll('<div class="contentwrap tnc-content-format">', '<div class="contentwrap tnc-content-format non-editable">')
+            .replaceAll('<h2 class="mb-4 font-semibold text-body-1">', '<h2 class="mb-4 font-semibold text-body-1 mceEditable">')
+            .replaceAll('<div class="">', '<div class="mceEditable">')
+            .replaceAll('<h2 class="m-4 font-semibold text-body-1">', '<h2 class="m-4 font-semibold text-body-1 mceEditable">')
+            .replaceAll('<div class="full-promotion-content">', '<div class="full-promotion-content mceEditable">')
+            console.log(event.content);
+        });
+
+        //This function is for tinymce 4 only. version 5 and above have a different function for adding custom toolbar buttons lol
+        editor.addButton('sbFreeBetComponent', {
+            text: 'Sportsbook Free Bet',  // Text on the button
+            tooltip: 'Insert Sportsbook Free Bet',
+            icon: false,  // Set an icon (optional)
+            onclick: function() {
+              // Action to perform when the button is clicked
+              editor.insertContent('<IncludeContent :init-collapse="isClaimed" :url="gv.domains.content \+ \'\/templates\/promotions\/Indonesia\/202408\/188DAYBLUE-0824_where-to-find-your-sportsbook-free-bet.html\'" \/><\/IncludeContent>');
+            }
+        });
+        editor.addButton('insertComponent', {
+            type: 'menubutton',  // Define the button as a dropdown menu
+            text: 'Insert Component',
+            icon: false,
+            menu: [
+              {
+                text: 'Sportsbook Free Bet',
+                tooltip: 'Insert sportsbook free bet component',
+                onclick: function() {
+                  editor.insertContent('<h5 class="non-editable" style="width: full; text-align: left; padding: 12px; background-color: #f5f5f5; border-left: 5px solid #5ba7ff;">Where to find your Sportbook Free Bet<IncludeContent :init-collapse="isClaimed" :url="gv.domains.content \+ \'\/templates\/promotions\/Indonesia\/202408\/188DAYBLUE-0824_where-to-find-your-sportsbook-free-bet.html\'" \/><\/IncludeContent></h5><br>');  // Insert content on selection
+                }
+              },
+              {
+                text: 'Recommended Casino Games',
+                tooltip: 'Insert recommended games component',
+                onclick: function() {
+                    const gameCodesInsertBtn = document.getElementById('gameCodesInsertBtn');
+                    const gameCodesInput = document.getElementById('input-game-codes-container');
+                    const cancelGameCodesBtn = document.getElementById('cancelGameCodesBtn');
+                    gameCodesInput.classList.remove('hidden');
+                    gameCodesInsertBtn.onclick = () => {
+                        document.getElementById('input-game-codes-container').classList.add('hidden');
+                        editor.insertContent(`<table id="casino-icons" class="non-editable"><tbody><tr><td>${gameTitle.value}</td></tr><tr><td>${gameCodes.value}</td></tr><tr><td>${gameType.value}</td></tr></tbody></table><br>`)
+                    }
+                    cancelGameCodesBtn.onclick = () => {
+                        gameCodesInput.classList.add('hidden');
+                    }
+                }
+              },
+              {
+                text: 'Recommended Live Casino Games',
+                tooltip: 'Insert recommended games component',
+                onclick: function() {
+                    const gameCodesInsertBtn = document.getElementById('gameCodesInsertBtn');
+                    const gameCodesInput = document.getElementById('input-game-codes-container');
+                    const cancelGameCodesBtn = document.getElementById('cancelGameCodesBtn');
+                    gameCodesInput.classList.remove('hidden');
+                    gameCodesInsertBtn.onclick = () => { //onclick resolves the issue of duplicating click event when insert button is clicked using addEventListener
+                        document.getElementById('input-game-codes-container').classList.add('hidden');
+                        editor.insertContent(`<table id="live-casino-icons" class="non-editable"><tbody><tr><td>${gameTitle.value}</td></tr><tr><td>${gameCodes.value}</td></tr><tr><td>${gameType.value}</td></tr></tbody></table><br>`)
+                    }
+                    cancelGameCodesBtn.onclick = () => {
+                        gameCodesInput.classList.add('hidden');
+                    }
+                }
+              }
+            ]
+        });
+        editor.on('keydown', function(event) { //this stop the user from using ctrl+A or cmd+A
+            if ((event.ctrlKey || event.metaKey) && event.keyCode === 65) {
+              event.preventDefault();
+              editor.selection.collapse();
+            }
+        });
+    },
 });
 
-//Sandwich method
-const script1 = `<div id="script1" class="hidden" style="visibility: hidden; display: none;">1</div><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>`;
-const script2 = `<div id="script2" class="hidden" style="visibility: hidden; display: none;">1</div><script> $(function () { $("#webteam-ss").attr("href", "https://doc.188contents.com/contents/Components/webteam/webteam.css?" + $.now()); });</script>`;
-const closeSExpansion = ` </template>
-                          </SExpansionPanel>
-                          </div>
-                          <IncludeContent :url="promoDetail.termsTpl"></IncludeContent>
-                          </div>
-                          <div id="closeSExpansion" class="hidden" style="visibility: hidden;">1</div>`;
-
-const SExpansion = {
-  EN: `<div id="SExpansion" class="hidden" style="visibility: hidden;">1</div>
-        <SExpansionPanel class="last:rounded-b-lg border-0" header-class="bg-transparent" content-class="last:rounded-b-lg">
-        <template #header>
-          <h2 class="m-4 font-semibold text-body-1">Full Promotion Specific Terms and Conditions</h2>
-        </template>
-        <template #content>`,
-  CN: `<div id="SExpansion-CN" class="hidden" style="visibility: hidden;">1</div>
-        <SExpansionPanel class="last:rounded-b-lg border-0" header-class="bg-transparent" content-class="last:rounded-b-lg">
-        <template #header>
-          <h2 class="m-4 font-semibold text-body-1">完整优惠标准规则</h2>
-        </template>
-        <template #content>`,
-  VN: `<div id="SExpansion-VN" class="hidden" style="visibility: hidden;">1</div>
-        <SExpansionPanel class="last:rounded-b-lg border-0" header-class="bg-transparent" content-class="last:rounded-b-lg">
-        <template #header>
-          <h2 class="m-4 font-semibold text-body-1">Điều Khoản và Điều Kiện Hoàn Chỉnh</h2>
-        </template>
-        <template #content>`,
-  TH: `<div id="SExpansion-TH" class="hidden" style="visibility: hidden;">1</div>
-        <SExpansionPanel class="last:rounded-b-lg border-0" header-class="bg-transparent" content-class="last:rounded-b-lg">
-        <template #header>
-          <h2 class="m-4 font-semibold text-body-1">ข้อกำหนดและเงื่อนไขแบบเฉพาะเจาะจง</h2>
-        </template>
-        <template #content>`,
-  KR: `<div id="SExpansion-KR" class="hidden" style="visibility: hidden;">1</div>
-        <SExpansionPanel class="last:rounded-b-lg border-0" header-class="bg-transparent" content-class="last:rounded-b-lg">
-        <template #header>
-          <h2 class="m-4 font-semibold text-body-1">본 프로모션 이용약관</h2>
-        </template>
-        <template #content>`,
-  ID: `<div id="SExpansion-ID" class="hidden" style="visibility: hidden;">1</div>
-        <SExpansionPanel class="last:rounded-b-lg border-0" header-class="bg-transparent" content-class="last:rounded-b-lg">
-        <template #header>
-          <h2 class="m-4 font-semibold text-body-1">Syarat dan Kondisi Spesifik promosi Lengkap</h2>
-        </template>
-        <template #content>`,
-  KH: `<div id="SExpansion-KH" class="hidden" style="visibility: hidden;">1</div>
-        <SExpansionPanel class="last:rounded-b-lg border-0" header-class="bg-transparent" content-class="last:rounded-b-lg">
-        <template #header>
-          <h2 class="m-4 font-semibold text-body-1">លក្ខខណ្ឌ និងកិច្ចព្រមព្រៀងជាក់លាក់នៃការផ្តល់រង្វាន់ទាំងអស</h2>
-        </template>
-        <template #content>`,
-  JP: `<div id="SExpansion-JP" class="hidden" style="visibility: hidden;">1</div>
-        <SExpansionPanel class="last:rounded-b-lg border-0" header-class="bg-transparent" content-class="last:rounded-b-lg">
-        <template #header>
-          <h2 class="m-4 font-semibold text-body-1">全てのプロモーション－特定の利用規約</h2>
-        </template>
-        <template #content>`,
-  IN: `<div id="SExpansion-IN" class="hidden" style="visibility: hidden;">1</div>
-        <SExpansionPanel class="last:rounded-b-lg border-0" header-class="bg-transparent" content-class="last:rounded-b-lg">
-        <template #header>
-          <h2 class="m-4 font-semibold text-body-1">पूर्ण प्रमोशन-विशिष्ट नियम और शर्तें</h2>
-        </template>
-        <template #content>`,
-}
-
-//Templates object
-const templates = {
-  TNC: `<div id="script1" class="hidden" style="visibility: hidden; display: none;">1</div>
-          <div id="script2" class="hidden" style="visibility: hidden; display: none;">1</div>
-          <div id="content-en-gb" class="tnc-content-wrap hidden" style="visibility: hidden; display: none;">1</div>
-              <div class="contentwrap tnc-content-format hidden" style="visibility: hidden; display: none;">1</div>
-                  <h2 class="mb-4 font-semibold text-body-1">Significant Conditions</h2>
-                  <p>Write/Paste Significant Contents here</p>
-                  <div id="SExpansion" class="hidden" style="visibility: hidden;">1</div>
-                      <div class="full-promotion-content">
-                          <p id="fpstc-en" style="font-weight: 600;">Full Promotion Specific Terms and Conditions</p>
-                          <p>Write/Paste Full Promotion contents here</p>
-                      </div>
-                  <div id="closeSExpansion" class="hidden" style="visibility: hidden;">1</div>
-
-          <div id="content-REGION" class="tnc-content-wrap hidden" style="visibility: hidden;">1</div>
-              <div class="contentwrap tnc-content-format hidden" style="visibility: hidden;">1</div>
-                  <h2 class="mb-4 font-semibold text-body-1 mt-40">LOCALIZED-SC</h2>
-                  <p>Write/Paste Localized Significant Contents here</p>
-                  <div id="LOCALIZED-SExpansion" class="hidden" style="visibility: hidden;">1</div>
-                      <div class="full-promotion-content">
-                          <p id="fpstc-local" style="font-weight: 600;">LOCALIZED-FP</p>
-                          <p>Write/Paste Localized Full Promotion contents here</p>
-                      </div>
-                  <div id="closeSExpansion" class="hidden" style="visibility: hidden;">1</div>`,
-}
+//close MCE popup v5-7
+// setTimeout(() => {
+//     document.querySelector('.tox-notification__dismiss').click(); //clicking x button for the first editor
+//     document.querySelector('.tox-notification__dismiss').click(); //clicking x button for the second editor
+// }, 1000)
+//close MCE popup v4
+setTimeout(() => {
+    document.querySelector('.mce-close').click();
+    document.querySelector('.mce-close').click();
+}, 800)
 
 //generate APS to HTML filename
 let fileNameAPS = document.getElementById('filename');
 const stringMonth = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 const generateFilenameBtn = document.getElementById('generateFilename')
 generateFilenameBtn.addEventListener('click', () => {
-  let input = document.getElementById('filename').value
-  let indexOf_ = input.indexOf('_')
-  //let promoType = input.slice(indexOf_ + 1, indexOf_ + 5) + '_'
-  let country = input.substr(0, indexOf_ + 1)
-  let promoType = input.substr(indexOf_ + 1, 4)
-  let year = input.substr(indexOf_ + 5, 4)
-  let day = input.substr(indexOf_ + 9, 2)
-  let month = input.substr(indexOf_ + 11, 2)
-  let promoNumber = input.substr(indexOf_ + 13, 3)
-  
-  fileNameAPS.value = country + promoType + '_' + day + '_' + stringMonth[month - 1] + '_' + year + '_' + promoNumber
-  
+    let input = document.getElementById('filename').value
+    let indexOf_ = input.indexOf('_')
+    //let promoType = input.slice(indexOf_ + 1, indexOf_ + 5) + '_'
+    let country = input.substr(0, indexOf_ + 1)
+    let promoType = input.substr(indexOf_ + 1, 4)
+    let year = input.substr(indexOf_ + 5, 4)
+    let day = input.substr(indexOf_ + 9, 2)
+    let month = input.substr(indexOf_ + 11, 2)
+    let promoNumber = input.substr(indexOf_ + 13, 3)
+
+    fileNameAPS.value = country + promoType + '_' + day + '_' + stringMonth[month - 1] + '_' + year + '_' + promoNumber
 })
 
-//Import Area Button
-let htmlContent = ''
-const showImportArea = document.getElementById('importBtn').onclick = () => {document.getElementById('importArea').classList.remove('hidden')}
-const cancelImport = document.getElementById('cancelImport').onclick = () => {
-  document.getElementById('importArea').classList.add('hidden')
-}
+//reset content button
+document.getElementById('resetBtn').addEventListener('click', () => {
+    document.getElementById('import-tnc').value = ''
+    tinymce.get('mytextarea').setContent('')
+    tinymce.get('mytextarea2').setContent('')
+    tncRegionDropdown.value = '#'
+    tncTemplateDropdown.value = '#'
+    document.getElementById('template-container').classList.add('hidden')
+    //document.getElementById('import-check').checked = false;
+    document.getElementById('filename').value = '';
+})
 
+//guide button
+document.getElementById('importBtn').addEventListener('click', () => {
+})
 
-
-//Region handler
-const tncRegionDropdown = document.getElementById('tnc-regions-dropdown');
+//dropdown region option
+var tncRegionDropdown = document.getElementById('tnc-regions-dropdown');
+var tncTemplateDropdown = document.getElementById('template-dropdown');
 tncRegionDropdown.addEventListener('change', () => {
+    const selectedRegion = tncRegionDropdown.value;
+    switch (selectedRegion) {
+        case 'zh-cn':
+            document.getElementById('filename').value = 'china_'
+            document.getElementById('template-container').classList.remove('hidden')
 
-  const selectedRegion = tncRegionDropdown.value;
-  
-  switch(selectedRegion){
-    case 'zh-cn':
-      document.getElementById('filename').value = 'china_'
-      templates.TNC = templates.TNC.replace('REGION', 'zh-cn')
-      templates.TNC = templates.TNC.replace('LOCALIZED-SC', '主要规则')
-      templates.TNC = templates.TNC.replace('LOCALIZED-FP', '完整优惠标准规则')
-      templates.TNC = templates.TNC.replace('LOCALIZED-SExpansion', 'SExpansion-CN')
-      tinymce.get('mytextarea').setContent(templates.TNC);
-      templates.TNC = templates.TNC.replace('zh-cn', 'REGION')
-      templates.TNC = templates.TNC.replace('主要规则', 'LOCALIZED-SC')
-      templates.TNC = templates.TNC.replace('完整优惠标准规则', 'LOCALIZED-FP')
-      templates.TNC = templates.TNC.replace('SExpansion-CN', 'LOCALIZED-SExpansion')
-      document.getElementById('import-check').checked = false;
-      break;
-    case 'zh-my':
-      document.getElementById('filename').value = 'MY_'
-      templates.TNC = templates.TNC.replace('REGION', 'zh-cn')
-      templates.TNC = templates.TNC.replace('LOCALIZED-SC', '主要规则')
-      templates.TNC = templates.TNC.replace('LOCALIZED-FP', '完整优惠标准规则')
-      templates.TNC = templates.TNC.replace('LOCALIZED-SExpansion', 'SExpansion-CN')
-      tinymce.get('mytextarea').setContent(templates.TNC);
-      templates.TNC = templates.TNC.replace('zh-cn', 'REGION')
-      templates.TNC = templates.TNC.replace('主要规则', 'LOCALIZED-SC')
-      templates.TNC = templates.TNC.replace('完整优惠标准规则', 'LOCALIZED-FP')
-      templates.TNC = templates.TNC.replace('SExpansion-CN', 'LOCALIZED-SExpansion')
-      document.getElementById('import-check').checked = false;
-      break;
-    case 'vi-vn':
-      document.getElementById('filename').value = 'Vietnam_'
-      templates.TNC = templates.TNC.replace('REGION', 'vi-vn')
-      templates.TNC = templates.TNC.replace('LOCALIZED-SC', 'Điều Kiện Tóm Lược')
-      templates.TNC = templates.TNC.replace('LOCALIZED-FP', 'Điều Khoản và Điều Kiện Hoàn Chỉnh')
-      templates.TNC = templates.TNC.replace('LOCALIZED-SExpansion', 'SExpansion-VN')
-      tinymce.get('mytextarea').setContent(templates.TNC);
-      templates.TNC = templates.TNC.replace('vi-vn', 'REGION')
-      templates.TNC = templates.TNC.replace('Điều Kiện Tóm Lược', 'LOCALIZED-SC')
-      templates.TNC = templates.TNC.replace('Điều Khoản và Điều Kiện Hoàn Chỉnh', 'LOCALIZED-FP')
-      templates.TNC = templates.TNC.replace('SExpansion-VN', 'LOCALIZED-SExpansion')
-      document.getElementById('import-check').checked = false;
-      break;
-    case 'th-th':
-      document.getElementById('filename').value = 'Thailand_'
-      templates.TNC = templates.TNC.replace('REGION', 'th-th')
-      templates.TNC = templates.TNC.replace('LOCALIZED-SC', 'ข้อกำหนดและเงื่อนไขฉบับย่อ')
-      templates.TNC = templates.TNC.replace('LOCALIZED-FP', 'ข้อกำหนดและเงื่อนไขแบบเฉพาะเจาะจง')
-      templates.TNC = templates.TNC.replace('LOCALIZED-SExpansion', 'SExpansion-TH')
-      tinymce.get('mytextarea').setContent(templates.TNC);
-      templates.TNC = templates.TNC.replace('th-th', 'REGION')
-      templates.TNC = templates.TNC.replace('ข้อกำหนดและเงื่อนไขฉบับย่อ', 'LOCALIZED-SC')
-      templates.TNC = templates.TNC.replace('ข้อกำหนดและเงื่อนไขแบบเฉพาะเจาะจง', 'LOCALIZED-FP')
-      templates.TNC = templates.TNC.replace('SExpansion-TH', 'LOCALIZED-SExpansion')
-      document.getElementById('import-check').checked = false;
-      break;
-    case 'ko-kr':
-      document.getElementById('filename').value = 'Korea_'
-      templates.TNC = templates.TNC.replace('REGION', 'ko-kr')
-      templates.TNC = templates.TNC.replace('LOCALIZED-SC', '약관 주요내용')
-      templates.TNC = templates.TNC.replace('LOCALIZED-FP', '본 프로모션 이용약관')
-      templates.TNC = templates.TNC.replace('LOCALIZED-SExpansion', 'SExpansion-KR')
-      tinymce.get('mytextarea').setContent(templates.TNC);
-      templates.TNC = templates.TNC.replace('ko-kr', 'REGION')
-      templates.TNC = templates.TNC.replace('약관 주요내용', 'LOCALIZED-SC')
-      templates.TNC = templates.TNC.replace('본 프로모션 이용약관', 'LOCALIZED-FP')
-      templates.TNC = templates.TNC.replace('SExpansion-KR', 'LOCALIZED-SExpansion')
-      document.getElementById('import-check').checked = false;
-      break;
-    case 'id-id':
-      document.getElementById('filename').value = 'Indonesia_'
-      templates.TNC = templates.TNC.replace('REGION', 'id-id')
-      templates.TNC = templates.TNC.replace('LOCALIZED-SC', 'Syarat dan Kondisi Penting')
-      templates.TNC = templates.TNC.replace('LOCALIZED-FP', 'Syarat dan Kondisi Spesifik promosi Lengkap')
-      templates.TNC = templates.TNC.replace('LOCALIZED-SExpansion', 'SExpansion-ID')
-      tinymce.get('mytextarea').setContent(templates.TNC);
-      templates.TNC = templates.TNC.replace('id-id', 'REGION')
-      templates.TNC = templates.TNC.replace('Syarat dan Kondisi Penting', 'LOCALIZED-SC')
-      templates.TNC = templates.TNC.replace('Syarat dan Kondisi Spesifik promosi Lengkap', 'LOCALIZED-FP')
-      templates.TNC = templates.TNC.replace('SExpansion-ID', 'LOCALIZED-SExpansion')
-      document.getElementById('import-check').checked = false;
-      break
-    case 'km-kh':
-      document.getElementById('filename').value = 'Cambodia_'
-      templates.TNC = templates.TNC.replace('REGION', 'km-kh')
-      templates.TNC = templates.TNC.replace('LOCALIZED-SC', 'លក្ខខណ្ឌសំខាន់ៗ')
-      templates.TNC = templates.TNC.replace('LOCALIZED-FP', 'លក្ខខណ្ឌ និងកិច្ចព្រមព្រៀងជាក់លាក់នៃការផ្តល់រង្វាន់ទាំងអស')
-      templates.TNC = templates.TNC.replace('LOCALIZED-SExpansion', 'SExpansion-KH')
-      tinymce.get('mytextarea').setContent(templates.TNC);
-      templates.TNC = templates.TNC.replace('km-kh', 'REGION')
-      templates.TNC = templates.TNC.replace('លក្ខខណ្ឌសំខាន់ៗ', 'LOCALIZED-SC')
-      templates.TNC = templates.TNC.replace('លក្ខខណ្ឌ និងកិច្ចព្រមព្រៀងជាក់លាក់នៃការផ្តល់រង្វាន់ទាំងអស', 'LOCALIZED-FP')
-      templates.TNC = templates.TNC.replace('SExpansion-KH', 'LOCALIZED-SExpansion')
-      document.getElementById('import-check').checked = false;
-      break;
-    case 'ja-jp':
-      document.getElementById('filename').value = 'Japan_'
-      templates.TNC = templates.TNC.replace('REGION', 'ja-jp')
-      templates.TNC = templates.TNC.replace('LOCALIZED-SC', 'キャンペーン概要')
-      templates.TNC = templates.TNC.replace('LOCALIZED-FP', '全てのプロモーション－特定の利用規約')
-      templates.TNC = templates.TNC.replace('LOCALIZED-SExpansion', 'SExpansion-JP')
-      tinymce.get('mytextarea').setContent(templates.TNC);
-      templates.TNC = templates.TNC.replace('ja-jp', 'REGION')
-      templates.TNC = templates.TNC.replace('キャンペーン概要', 'LOCALIZED-SC')
-      templates.TNC = templates.TNC.replace('全てのプロモーション－特定の利用規約', 'LOCALIZED-FP')
-      templates.TNC = templates.TNC.replace('SExpansion-JP', 'LOCALIZED-SExpansion')
-      document.getElementById('import-check').checked = false;
-      break;
-    case 'hi-in':
-      document.getElementById('filename').value = 'India_'
-      templates.TNC = templates.TNC.replace('REGION', 'hi-in')
-      templates.TNC = templates.TNC.replace('LOCALIZED-SC', 'टमहत्वपूर्ण स्थितियां')
-      templates.TNC = templates.TNC.replace('LOCALIZED-FP', 'पूर्ण प्रमोशन-विशिष्ट नियम और शर्तें')
-      templates.TNC = templates.TNC.replace('LOCALIZED-SExpansion', 'SExpansion-IN')
-      tinymce.get('mytextarea').setContent(templates.TNC);
-      templates.TNC = templates.TNC.replace('hi-in', 'REGION')
-      templates.TNC = templates.TNC.replace('टमहत्वपूर्ण स्थितियां', 'LOCALIZED-SC')
-      templates.TNC = templates.TNC.replace('पूर्ण प्रमोशन-विशिष्ट नियम और शर्तें', 'LOCALIZED-FP')
-      templates.TNC = templates.TNC.replace('SExpansion-IN', 'LOCALIZED-SExpansion')
-      document.getElementById('import-check').checked = false;
-      break;
-  }
-})
-  //import check function
-  document.getElementById('import-check').checked = false;
-  document.getElementById('download').addEventListener('click', (data) => {
-    if(document.getElementById('import-check').checked === true){
+            tncTemplateDropdown.addEventListener('change', () => {
+                const selectedTemplate = tncTemplateDropdown.value;
+                switch(selectedTemplate) {
+                    case 'SC':
+                        tinymce.get('mytextarea').setContent(ENSCtemplate);
+                        tinymce.get('mytextarea2').setContent(CNSCtemplate);
+                        break;
+                    case 'FP':
+                        tinymce.get('mytextarea').setContent(ENFPtemplate);
+                        tinymce.get('mytextarea2').setContent(CNFPtemplate);
+                        break;
+                    case 'SCFP':
+                        tinymce.get('mytextarea').setContent(ENtemplate);
+                        tinymce.get('mytextarea2').setContent(CNtemplate);
+                        break;
+                }
+            })
+            //document.getElementById('import-check').checked = false;
+            break;
+        case 'vi-vn':
+            document.getElementById('filename').value = 'Vietnam_'
+            document.getElementById('template-container').classList.remove('hidden')
 
-      let importedContent = tinymce.get('mytextarea').getContent()
-      let importedResult = ''
-      let y = ''
+            tncTemplateDropdown.addEventListener('change', () => {
+                const selectedTemplate = tncTemplateDropdown.value;
+                switch(selectedTemplate) {
+                    case 'SC':
+                        tinymce.get('mytextarea').setContent(ENSCtemplate);
+                        tinymce.get('mytextarea2').setContent(VNSCtemplate);
+                        break;
+                    case 'FP':
+                        tinymce.get('mytextarea').setContent(ENFPtemplate);
+                        tinymce.get('mytextarea2').setContent(VNFPtemplate);
+                        break;
+                    case 'SCFP':
+                        tinymce.get('mytextarea').setContent(ENtemplate);
+                        tinymce.get('mytextarea2').setContent(VNtemplate);
+                        break;
+                }
+            })
+            //document.getElementById('import-check').checked = false;
+            break;
+        case 'th-th':
+            document.getElementById('filename').value = 'Thailand_'
+            document.getElementById('template-container').classList.remove('hidden')
 
-      if(!importedContent.includes('<div id="script1" class="hidden" style="visibility: hidden; display: none;">1</div>')){
-        importedContent += '<div id="closeSExpansion" class="hidden" style="visibility: hidden;">1</div>'
+            tncTemplateDropdown.addEventListener('change', () => {
+                const selectedTemplate = tncTemplateDropdown.value;
+                switch(selectedTemplate) {
+                    case 'SC':
+                        tinymce.get('mytextarea').setContent(ENSCtemplate);
+                        tinymce.get('mytextarea2').setContent(THSCtemplate);
+                        break;
+                    case 'FP':
+                        tinymce.get('mytextarea').setContent(ENFPtemplate);
+                        tinymce.get('mytextarea2').setContent(THFPtemplate);
+                        break;
+                    case 'SCFP':
+                        tinymce.get('mytextarea').setContent(ENtemplate);
+                        tinymce.get('mytextarea2').setContent(THtemplate);
+                        break;
+                }
+            })
+            //document.getElementById('import-check').checked = false;
+            break;
+        case 'ko-kr':
+            document.getElementById('filename').value = 'Korea_'
+            document.getElementById('template-container').classList.remove('hidden')
 
-        let fsptcEn = ''
-        let fsptcLocal = ''
-        if(importedContent.match(/<h2 class="m-4 font-semibold text-body-1">(.*?)<\/h2>/g)){
-          let matches = importedContent.match(/<h2 class="m-4 font-semibold text-body-1">(.*?)<\/h2>/g)
-          // fsptcEn = matches[0].replace('<h2 class="m-4 font-semibold text-body-1">', '').replace('</h2>', '')
-          // testfsptcLocal = matches[1].replace('<h2 class="m-4 font-semibold text-body-1">', '').replace('</h2>', '')
-          fsptcEn = matches[0]
-          fsptcLocal = matches[1]
-        }
+            tncTemplateDropdown.addEventListener('change', () => {
+                const selectedTemplate = tncTemplateDropdown.value;
+                switch(selectedTemplate) {
+                    case 'SC':
+                        tinymce.get('mytextarea').setContent(ENSCtemplate);
+                        tinymce.get('mytextarea2').setContent(KRSCtemplate);
+                        break;
+                    case 'FP':
+                        tinymce.get('mytextarea').setContent(ENFPtemplate);
+                        tinymce.get('mytextarea2').setContent(KRFPtemplate);
+                        break;
+                    case 'SCFP':
+                        tinymce.get('mytextarea').setContent(ENtemplate);
+                        tinymce.get('mytextarea2').setContent(KRtemplate);
+                        break;
+                }
+            })
+            //document.getElementById('import-check').checked = false;
+            break;
+        case 'id-id':
+            document.getElementById('filename').value = 'Indonesia_'
+            document.getElementById('template-container').classList.remove('hidden')
 
-        y = importedContent.replaceAll('<div id="content-en-gb" class="tnc-content-wrap">', '<div id="script1" class="hidden" style="visibility: hidden; display: none;">1</div><div id="script2" class="hidden" style="visibility: hidden; display: none;">1</div><div id="content-en-gb" class="tnc-content-wrap">')
-                           .replaceAll('<div class="full-promotion-content">', '<div id="SExpansion" class="hidden" style="visibility: hidden;">1</div><div class="full-promotion-content">')
+            tncTemplateDropdown.addEventListener('change', () => {
+                const selectedTemplate = tncTemplateDropdown.value;
+                switch(selectedTemplate) {
+                    case 'SC':
+                        tinymce.get('mytextarea').setContent(ENSCtemplate);
+                        tinymce.get('mytextarea2').setContent(IDSCtemplate);
+                        break;
+                    case 'FP':
+                        tinymce.get('mytextarea').setContent(ENFPtemplate);
+                        tinymce.get('mytextarea2').setContent(IDFPtemplate);
+                        break;
+                    case 'SCFP':
+                        tinymce.get('mytextarea').setContent(ENtemplate);
+                        tinymce.get('mytextarea2').setContent(IDtemplate);
+                        break;
+                }
+            })
+            //document.getElementById('import-check').checked = false;
+            break;
+        case 'km-kh':
+            document.getElementById('filename').value = 'Cambodia_'
+            document.getElementById('template-container').classList.remove('hidden')
 
-                           .replaceAll('<div id="content-zh-cn" class="tnc-content-wrap">', '<div id="closeSExpansion" class="hidden" style="visibility: hidden;">1</div><div id="content-zh-cn" class="tnc-content-wrap">')
-                           .replaceAll('<div id="content-vi-vn" class="tnc-content-wrap">', '<div id="closeSExpansion" class="hidden" style="visibility: hidden;">1</div><div id="content-vi-vn" class="tnc-content-wrap">')
-                           .replaceAll('<div id="content-th-th" class="tnc-content-wrap">', '<div id="closeSExpansion" class="hidden" style="visibility: hidden;">1</div><div id="content-th-th" class="tnc-content-wrap">')
-                           .replaceAll('<div id="content-ko-kr" class="tnc-content-wrap">', '<div id="closeSExpansion" class="hidden" style="visibility: hidden;">1</div><div id="content-ko-kr" class="tnc-content-wrap">')
-                           .replaceAll('<div id="content-id-id" class="tnc-content-wrap">', '<div id="closeSExpansion" class="hidden" style="visibility: hidden;">1</div><div id="content-id-id" class="tnc-content-wrap">')
-                           .replaceAll('<div id="content-km-kh" class="tnc-content-wrap">', '<div id="closeSExpansion" class="hidden" style="visibility: hidden;">1</div><div id="content-km-kh" class="tnc-content-wrap">')
-                           .replaceAll('<div id="content-ja-jp" class="tnc-content-wrap">', '<div id="closeSExpansion" class="hidden" style="visibility: hidden;">1</div><div id="content-ja-jp" class="tnc-content-wrap">')
-                           .replaceAll('<div id="content-hi-in" class="tnc-content-wrap">', '<div id="closeSExpansion" class="hidden" style="visibility: hidden;">1</div><div id="content-hi-in" class="tnc-content-wrap">')
-                           .replace(/<\/div>\s*<\/div>\s*<div id="closeSExpansion" class="hidden" style="visibility: hidden;">1<\/div>/g, '<div id="closeSExpansion" class="hidden" style="visibility: hidden;">1</div>')
+            tncTemplateDropdown.addEventListener('change', () => {
+                const selectedTemplate = tncTemplateDropdown.value;
+                switch(selectedTemplate) {
+                    case 'SC':
+                        tinymce.get('mytextarea').setContent(ENSCtemplate);
+                        tinymce.get('mytextarea2').setContent(KHSCtemplate);
+                        break;
+                    case 'FP':
+                        tinymce.get('mytextarea').setContent(ENFPtemplate);
+                        tinymce.get('mytextarea2').setContent(KHFPtemplate);
+                        break;
+                    case 'SCFP':
+                        tinymce.get('mytextarea').setContent(ENtemplate);
+                        tinymce.get('mytextarea2').setContent(KHtemplate);
+                        break;
+                }
+            })
+            //document.getElementById('import-check').checked = false;
+            break;
+        case 'ja-jp':
+            document.getElementById('filename').value = 'Japan_'
+            document.getElementById('template-container').classList.remove('hidden')
 
-                           .replace(/<h2 class="m-4 font-semibold text-body-1">(.*?)<\/h2>/g, '') //en/local full prom cleanup
+            tncTemplateDropdown.addEventListener('change', () => {
+                const selectedTemplate = tncTemplateDropdown.value;
+                switch(selectedTemplate) {
+                    case 'SC':
+                        tinymce.get('mytextarea').setContent(ENSCtemplate);
+                        tinymce.get('mytextarea2').setContent(JPSCtemplate);
+                        break;
+                    case 'FP':
+                        tinymce.get('mytextarea').setContent(ENFPtemplate);
+                        tinymce.get('mytextarea2').setContent(JPFPtemplate);
+                        break;
+                    case 'SCFP':
+                        tinymce.get('mytextarea').setContent(ENtemplate);
+                        tinymce.get('mytextarea2').setContent(JPtemplate);
+                        break;
+                }
+            })
+            //document.getElementById('import-check').checked = false;
+            break;
+        case 'hi-in':
+            document.getElementById('filename').value = 'India_'
+            document.getElementById('template-container').classList.remove('hidden')
 
-                           //links
-                           .replaceAll('&#96;', '`')
-                           .replaceAll('href', ':href')
-                           //.replaceAll('<br />', '')
-
-                           .replaceAll('<div id="script1" class="hidden" style="visibility: hidden; display: none;">1</div>', script1)
-                           .replaceAll('<div id="script2" class="hidden" style="visibility: hidden; display: none;">1</div>', script2)
-                           .replaceAll('<div id="SExpansion" class="hidden" style="visibility: hidden;">1</div>', SExpansion.EN)
-                           .replaceAll('<div id="closeSExpansion" class="hidden" style="visibility: hidden;">1</div>', closeSExpansion);
-
-        
-        //Full prom
-        // let fullPromMatches = y.match(/<h2 class="m-4 font-semibold text-body-1">Full Promotion Specific Terms and Conditions<\/h2>/g);
-        // y = y.replace(fullPromMatches[1], 'hello')
-        
-        let matchScard = y.match(/<h4 class="my-4 font-semibold text-red-500" style="color: red;">Dont remove as this will be replaced with SCard<\/h4>/g)
-
-        if(matchScard){
-          for(let i = 0; i <= matchScard.length; i++){
-            y = y.replace(matchScard[i], scardLength[i])
-            //console.log(matchScard[i]);
-          }
-        }
-
-        let replacedFullProm = y.match(/<h2 class="m-4 font-semibold text-body-1">(.*?)<\/h2>/g)
-        
-        if(replacedFullProm){
-          //y = y.replace(replacedFullProm[0], '<h2 class="m-4 font-semibold text-body-1">' + fsptcEn + '</h2>')
-          y = y.replace(replacedFullProm[0], fsptcEn).replace(replacedFullProm[1], fsptcLocal)
-          
-        }
-        
-        
-      }
-
-      else if(importedContent.includes('<div id="script1" class="hidden" style="visibility: hidden; display: none;">1</div>')){
-
-        if (importedContent.match('content-zh-cn')) {
-          importedResult = importedContent.replace('LOCALIZED-SExpansion', 'SExpansion-CN')
-        }
-        else if (importedContent.match('content-vi-vn')) {
-          importedResult = importedContent.replace('LOCALIZED-SExpansion', 'SExpansion-VN')
-        }
-        else if (importedContent.match('content-th-th')) {
-          importedResult = importedContent.replace('LOCALIZED-SExpansion', 'SExpansion-TH')
-        }
-        else if (importedContent.match('content-ko-kr')) {
-          importedResult = importedContent.replace('LOCALIZED-SExpansion', 'SExpansion-KR')
-        }
-        else if (importedContent.match('content-id-id')) {
-          importedResult = importedContent.replace('LOCALIZED-SExpansion', 'SExpansion-ID')
-        }
-        else if (importedContent.match('content-km-kh')) {
-          importedResult = importedContent.replace('LOCALIZED-SExpansion', 'SExpansion-KH')
-        }
-        else if (importedContent.match('content-ja-jp')) {
-          importedResult = importedContent.replace('LOCALIZED-SExpansion', 'SExpansion-JP')
-        }
-        else if (importedContent.match('content-hi-in')) {
-          importedResult = importedContent.replace('LOCALIZED-SExpansion', 'SExpansion-IN')
-        }
-
-        let fsptcEn = ''
-        let fsptcLocal = ''
-        if(importedResult.match(/<h2 class="m-4 font-semibold text-body-1">(.*?)<\/h2>/g)){
-          let matches = importedResult.match(/<h2 class="m-4 font-semibold text-body-1">(.*?)<\/h2>/g)
-          fsptcEn = matches[0].replace('<h2 class="m-4 font-semibold text-body-1">', '').replace('</h2>', '')
-          fsptcLocal = matches[1].replace('<h2 class="m-4 font-semibold text-body-1">', '').replace('</h2>', '')
-        }
-       
-        
-  
-        y = importedResult.replace(/<h2 class="m-4 font-semibold text-body-1">(.*?)<\/h2>/g, '')  //en/local full prom cleanup
-                          .replace(/<\/div>\s*<\/div>\s*<div id="closeSExpansion" class="hidden" style="visibility: hidden;">1<\/div>/g, '<div id="closeSExpansion" class="hidden" style="visibility: hidden;">1</div>')
-                          //images
-                          .replace(/<img(.*?)\/>/g, '<img class="my-0 mx-auto h-auto rounded-lg" $1/>')
-                          
-                          .replaceAll('<ol class="list-decimal pl-8 mb-4" style="list-style-type: lower-alpha;">', '<ol class="list-lower-alpha pl-8 mb-4" style="list-style-type: lower-alpha;">')
-                          .replaceAll('<ol class="list-decimal pl-8 mb-4" style="list-style-type: lower-roman;">', '<ol class="list-lower-roman pl-8 mb-4" style="list-style-type: lower-roman;">')
-
-                          .replaceAll('<div id="SExpansion" class="hidden" style="visibility: hidden;">1</div>', SExpansion.EN.replace('Full Promotion Specific Terms and Conditions', fsptcEn))
-                          .replaceAll('<div id="SExpansion-CN" class="hidden" style="visibility: hidden;">1</div>', SExpansion.CN.replace('完整优惠标准规则', fsptcLocal))
-                          .replaceAll('<div id="SExpansion-VN" class="hidden" style="visibility: hidden;">1</div>', SExpansion.VN.replace('Điều Khoản và Điều Kiện Hoàn Chỉnh', fsptcLocal))
-                          .replaceAll('<div id="SExpansion-TH" class="hidden" style="visibility: hidden;">1</div>', SExpansion.TH.replace('ข้อกำหนดและเงื่อนไขแบบเฉพาะเจาะจง', fsptcLocal))
-                          .replaceAll('<div id="SExpansion-KR" class="hidden" style="visibility: hidden;">1</div>', SExpansion.KR.replace('본 프로모션 이용약관', fsptcLocal))
-                          .replaceAll('<div id="SExpansion-ID" class="hidden" style="visibility: hidden;">1</div>', SExpansion.ID.replace('Syarat dan Kondisi Spesifik promosi Lengkap', fsptcLocal))
-                          .replaceAll('<div id="SExpansion-KH" class="hidden" style="visibility: hidden;">1</div>', SExpansion.KH.replace('លក្ខខណ្ឌ និងកិច្ចព្រមព្រៀងជាក់លាក់នៃការផ្តល់រង្វាន់ទាំងអស', fsptcLocal))
-                          .replaceAll('<div id="SExpansion-JP" class="hidden" style="visibility: hidden;">1</div>', SExpansion.JP.replace('全てのプロモーション－特定の利用規約', fsptcLocal))
-                          .replaceAll('<div id="SExpansion-IN" class="hidden" style="visibility: hidden;">1</div>', SExpansion.IN.replace('पूर्ण प्रमोशन-विशिष्ट नियम और शर्तें', fsptcLocal))
-                          .replaceAll('<div id="closeSExpansion" class="hidden" style="visibility: hidden;">1</div>', closeSExpansion)
-
-                          //links
-                          .replaceAll('&#96;', '`')
-                          .replaceAll('href', ':href')
-                          .replaceAll('<div id="script1" class="hidden" style="visibility: hidden; display: none;">1</div>', script1) 
-                          .replaceAll('<div id="script2" class="hidden" style="visibility: hidden; display: none;">1</div>', script2)  
-                          //.replace(/<a :href="(.*?)">/g, '<a :href="`$1`">')
-
-        //.replaceAll('<h4 class="my-4 font-semibold text-red-500" style="color: red;">Dont remove as this will be replaced with SCard</h4>', scardContents[0])
-        let matchScard = y.match(/<h4 class="my-4 font-semibold text-red-500" style="color: red;">Dont remove as this will be replaced with SCard<\/h4>/g)
-
-        if(matchScard){
-          for(let i = 0; i <= matchScard.length; i++){
-            y = y.replace(matchScard[i], scardLength[i])
-            //console.log(matchScard[i]);
-          }
-        }
-      }
-
-      
-      let fileName = document.getElementById('filename').value;
-      let blob = new Blob([y], {type: 'text/html'});
-      let htmlFile = document.createElement('a');
-      htmlFile.download = `${fileName}.html`;
-      htmlFile.href = window.URL.createObjectURL(blob);
-      htmlFile.click();
-    } 
-    else if (document.getElementById('import-check').checked === false){
-
-      let content = previewContent(data)
-      let newContent = content;
-
-      //replacing all contents, removing preview contents before download
-      let x = newContent.replaceAll('<div id="script1" class="hidden" style="visibility: hidden; display: none;">1</div>', script1)
-                        .replaceAll('<div id="script2" class="hidden" style="visibility: hidden; display: none;">1</div>', script2)
-
-                        .replaceAll('<div id="content-en-gb" class="tnc-content-wrap hidden" style="visibility: hidden; display: none;">1</div>', '<div id="content-en-gb" class="tnc-content-wrap">')
-                        .replaceAll('<div id="content-REGION" class="tnc-content-wrap hidden" style="visibility: hidden;">1</div>', '<div id="content-REGION" class="tnc-content-wrap">')
-                        .replaceAll('<div id="content-zh-cn" class="tnc-content-wrap hidden" style="visibility: hidden;">1</div>', '<div id="content-zh-cn" class="tnc-content-wrap">')
-                        .replaceAll('<div id="content-vi-vn" class="tnc-content-wrap hidden" style="visibility: hidden;">1</div>', '<div id="content-vi-vn" class="tnc-content-wrap">')
-                        .replaceAll('<div id="content-th-th" class="tnc-content-wrap hidden" style="visibility: hidden;">1</div>', '<div id="content-th-th" class="tnc-content-wrap">')
-                        .replaceAll('<div id="content-ko-kr" class="tnc-content-wrap hidden" style="visibility: hidden;">1</div>', '<div id="content-ko-kr" class="tnc-content-wrap">')
-                        .replaceAll('<div id="content-id-id" class="tnc-content-wrap hidden" style="visibility: hidden;">1</div>', '<div id="content-id-id" class="tnc-content-wrap">')
-                        .replaceAll('<div id="content-km-kh" class="tnc-content-wrap hidden" style="visibility: hidden;">1</div>', '<div id="content-km-kh" class="tnc-content-wrap">')
-                        .replaceAll('<div id="content-ja-jp" class="tnc-content-wrap hidden" style="visibility: hidden;">1</div>', '<div id="content-ja-jp" class="tnc-content-wrap">')
-                        .replaceAll('<div id="content-hi-in" class="tnc-content-wrap hidden" style="visibility: hidden;">1</div>', '<div id="content-hi-in" class="tnc-content-wrap">')
-                        .replaceAll('<div class="contentwrap tnc-content-format hidden" style="visibility: hidden; display: none;">1</div>', '<div class="contentwrap tnc-content-format">')
-                        .replaceAll('<div class="contentwrap tnc-content-format hidden" style="visibility: hidden;">1</div>', '<div class="contentwrap tnc-content-format">')
-
-                        // LINKS
-                        .replace(/:href="https:\/\/www.188asia.com\/[^/]*\/([^>]*)">/g,':href="`/${gv.lan}/$1`">')
-                        .replace(/:href="https:\/\/www.188bet.com\/[^/]*\/([^>]*)">/g,':href="`/${gv.lan}/$1`">')
-                        .replace(/:href="`https:\/\/www.188bet.com\/[^/]*\/([^>]*)`">/g,':href="`/${gv.lan}/$1`">')
-                        .replace(/:href="https:\/\/www.my188promo.com\/[^/]*\/([^>]*)">/g,':href="`/${gv.lan}/$1`">')
-                        .replace(/:href="https:\/\/www.188family.com\/[^/]*\/([^>]*)">/g,':href="`/${gv.lan}/$1`">')
-                        .replace(/:href="https:\/\/www.188sukses.com\/[^/]*\/([^>]*)">/g,':href="`/${gv.lan}/$1`">')
-                        .replace(/<a href="https:\/\/www.188asia.com\/[^/]*\/([^>]*)">/g,'<a :href="`/${gv.lan}/$1`">')
-                        .replace(/<a href="https:\/\/www.188bet.com\/[^/]*\/([^>]*)">/g,'<a :href="`/${gv.lan}/$1`">')
-                        .replace(/<a href="https:\/\/www.my188promo.com\/[^/]*\/([^>]*)">/g,'<a :href="`/${gv.lan}/$1`">')
-                        .replace(/<a href="https:\/\/www.188family.com\/[^/]*\/([^>]*)">/g,'<a :href="`/${gv.lan}/$1`">')
-                        .replace(/<a href="https:\/\/www.188sukses.com\/[^/]*\/([^>]*)">/g,'<a :href="`/${gv.lan}/$1`">')
-
-                        // .replaceAll(/<p id="fpstc-en" style="font-weight: 600;">(.*?)<\/p>/g, '') clean up
-                        // .replaceAll(/<p id="fpstc-local" style="font-weight: 600;">(.*?)<\/p>/g, '') clean up
-
-                        // .replaceAll('<div id="SExpansion" class="hidden" style="visibility: hidden;">1</div>', SExpansion.EN.replace('Full Promotion Specific Terms and Conditions', fsptcEn))
-                        // .replaceAll('<div id="SExpansion-CN" class="hidden" style="visibility: hidden;">1</div>', SExpansion.CN.replace('完整优惠标准规则', fsptcLocal))
-                        // .replaceAll('<div id="SExpansion-VN" class="hidden" style="visibility: hidden;">1</div>', SExpansion.VN.replace('Điều Khoản và Điều Kiện Hoàn Chỉnh', fsptcLocal))
-                        // .replaceAll('<div id="SExpansion-TH" class="hidden" style="visibility: hidden;">1</div>', SExpansion.TH.replace('ข้อกำหนดและเงื่อนไขแบบเฉพาะเจาะจง', fsptcLocal))
-                        // .replaceAll('<div id="SExpansion-KR" class="hidden" style="visibility: hidden;">1</div>', SExpansion.KR.replace('본 프로모션 이용약관', fsptcLocal))
-                        // .replaceAll('<div id="SExpansion-ID" class="hidden" style="visibility: hidden;">1</div>', SExpansion.ID.replace('Syarat dan Kondisi Spesifik promosi Lengkap', fsptcLocal))
-                        // .replaceAll('<div id="SExpansion-KH" class="hidden" style="visibility: hidden;">1</div>', SExpansion.KH.replace('លក្ខខណ្ឌ និងកិច្ចព្រមព្រៀងជាក់លាក់នៃការផ្តល់រង្វាន់ទាំងអស', fsptcLocal))
-                        // .replaceAll('<div id="SExpansion-JP" class="hidden" style="visibility: hidden;">1</div>', SExpansion.JP.replace('全てのプロモーション－特定の利用規約', fsptcLocal))
-                        // .replaceAll('<div id="SExpansion-IN" class="hidden" style="visibility: hidden;">1</div>', SExpansion.IN.replace('पूर्ण प्रमोशन-विशिष्ट नियम और शर्तें', fsptcLocal))
-                        //.replaceAll('<div id="closeSExpansion" class="hidden" style="visibility: hidden;">1</div>', closeSExpansion)
-
-                        .replace('mt-40', '')
-                        //.replaceAll('<br />', '')
-
-
-      if (x.match(/<p id="fpstc-en" style="font-weight: 600;">(.*?)<\/p>/g)){
-        x = x.replaceAll('<div id="SExpansion" class="hidden" style="visibility: hidden;">1</div>', SExpansion.EN.replace('Full Promotion Specific Terms and Conditions', fsptcEn))
-             .replaceAll(/<p id="fpstc-en" style="font-weight: 600;">(.*?)<\/p>/g, '')
-             .replaceAll('<div id="closeSExpansion" class="hidden" style="visibility: hidden;">1</div>', closeSExpansion)
-      }
-      if (x.match(/<p id="fpstc-local" style="font-weight: 600;">(.*?)<\/p>/g)){
-        x = x.replaceAll('<div id="SExpansion-CN" class="hidden" style="visibility: hidden;">1</div>', SExpansion.CN.replace('完整优惠标准规则', fsptcLocal))
-             .replaceAll('<div id="SExpansion-VN" class="hidden" style="visibility: hidden;">1</div>', SExpansion.VN.replace('Điều Khoản và Điều Kiện Hoàn Chỉnh', fsptcLocal))
-             .replaceAll('<div id="SExpansion-TH" class="hidden" style="visibility: hidden;">1</div>', SExpansion.TH.replace('ข้อกำหนดและเงื่อนไขแบบเฉพาะเจาะจง', fsptcLocal))
-             .replaceAll('<div id="SExpansion-KR" class="hidden" style="visibility: hidden;">1</div>', SExpansion.KR.replace('본 프로모션 이용약관', fsptcLocal))
-             .replaceAll('<div id="SExpansion-ID" class="hidden" style="visibility: hidden;">1</div>', SExpansion.ID.replace('Syarat dan Kondisi Spesifik promosi Lengkap', fsptcLocal))
-             .replaceAll('<div id="SExpansion-KH" class="hidden" style="visibility: hidden;">1</div>', SExpansion.KH.replace('លក្ខខណ្ឌ និងកិច្ចព្រមព្រៀងជាក់លាក់នៃការផ្តល់រង្វាន់ទាំងអស', fsptcLocal))
-             .replaceAll('<div id="SExpansion-JP" class="hidden" style="visibility: hidden;">1</div>', SExpansion.JP.replace('全てのプロモーション－特定の利用規約', fsptcLocal))
-             .replaceAll('<div id="SExpansion-IN" class="hidden" style="visibility: hidden;">1</div>', SExpansion.IN.replace('पूर्ण प्रमोशन-विशिष्ट नियम और शर्तें', fsptcLocal))
-             .replaceAll(/<p id="fpstc-local" style="font-weight: 600;">(.*?)<\/p>/g, '')
-      }
-
-      let fileName = document.getElementById('filename').value;
-      let blob = new Blob([x], {type: 'text/html'});
-      let htmlFile = document.createElement('a');
-      htmlFile.download = `${fileName}.html`;
-      htmlFile.href = window.URL.createObjectURL(blob);
-      htmlFile.click();
+            tncTemplateDropdown.addEventListener('change', () => {
+                const selectedTemplate = tncTemplateDropdown.value;
+                switch(selectedTemplate) {
+                    case 'SC':
+                        tinymce.get('mytextarea').setContent(ENSCtemplate);
+                        tinymce.get('mytextarea2').setContent(INSCtemplate);
+                        break;
+                    case 'FP':
+                        tinymce.get('mytextarea').setContent(ENFPtemplate);
+                        tinymce.get('mytextarea2').setContent(INFPtemplate);
+                        break;
+                    case 'SCFP':
+                        tinymce.get('mytextarea').setContent(ENtemplate);
+                        tinymce.get('mytextarea2').setContent(INtemplate);
+                        break;
+                }
+            })
+            //document.getElementById('import-check').checked = false;
+            break;
     }
-  }) 
+})
 
+//preview button
+document.getElementById('previewBtn').addEventListener('click', () => {
+    document.getElementById('preview-overlay').classList.toggle('hidden');
+    document.getElementById('preview-section').classList.toggle('hidden');
+    if(document.getElementById('preview-dropdown').value == '#'){
+        document.getElementById('tnc-container').innerHTML = '';
+    } else if (document.getElementById('preview-dropdown').value == 'prev-en-gb'){
+        previewContent('mytextarea');
+    } else if (document.getElementById('preview-dropdown').value == 'prev-localized'){
+        previewContent('mytextarea2');
+    }
+})
 
-  //Preview Content function
-  function previewContent(data){
-    let content = tinymce.get('mytextarea').getContent()
+//preview TNC
+function previewContent(lang) {
+    let editorContent = tinymce.get(lang).getContent();
     
-    //replaceAll is used to replace the default html content from tinymce.
-    let y = content.replaceAll(/<ol(.*?)>/g, '<ol class="list-decimal pl-8 mb-4"$1>')
-        
-        .replace(/<ul(.*?)>/g, '<ul class="list-disc pl-8 mb-4"$1>')
-        .replace(/<\/ol>\n<ol[^>]*>/g, "")
-        
-        //replacing Significant Conditions
-        .replaceAll('<p>Significant Conditions</p>', '<h2 class="mb-4 font-semibold text-body-1">Significant Conditions</h2>')
-        .replaceAll('<p><strong>Significant Conditions</strong></p>', '<h2 class="mb-4 font-semibold text-body-1">Significant Conditions</h2>')
+    editorContent = editorContent
+        .replaceAll('<SExpansionPanel class="last:rounded-b-lg border-0" header-class="bg-transparent" content-class="last:rounded-b-lg">', '')
+        .replaceAll('<template #header>', '')
+        .replaceAll('</template>', '')
+        .replaceAll('<template #content>', '')
+        .replaceAll('</SExpansionPanel>', '')
+        .replaceAll('<IncludeContent :url="promoDetail.termsTpl"></IncludeContent>', '')
+
+        //replacing Full Promotion
+        .replaceAll(/<h2 class="m-4 font-semibold text-body-1 mceEditable">/g, '<h2 class="mt-4 mb-4 font-semibold text-body-1 mceEditable">')
+        .replaceAll(/<h2 class="m-4 font-semibold text-body-1">/g, '<h2 class="mt-4 mb-4 font-semibold text-body-1">')
+
         //replacing list styles
+        .replaceAll('<ol>', '<ol class="list-decimal pl-8 mb-4">')
         .replaceAll('<ol style="list-style-type: lower-roman;">', '<ol class="list-lower-roman pl-8 mb-4" style="list-style-type: lower-roman;">')
         .replaceAll('<ol style="list-style-type: upper-roman;">', '<ol class="list-upper-roman pl-8 mb-4" style="list-style-type: upper-roman;">')
         .replaceAll('<ol style="list-style-type: lower-alpha;">', '<ol class="list-lower-alpha pl-8 mb-4" style="list-style-type: lower-alpha;">')
         .replaceAll('<ol style="list-style-type: upper-alpha;">', '<ol class="list-upper-alpha pl-8 mb-4" style="list-style-type: upper-alpha;">')
+        .replaceAll(/<ol start="(.*?)">/g, '<ol class="list-decimal pl-8 mb-4" start="$1">')
 
-        .replaceAll('<ol class="list-decimal pl-8 mb-4" style="list-style-type: lower-alpha;">', '<ol class="list-lower-alpha pl-8 mb-4" style="list-style-type: lower-alpha;">')
-        .replaceAll('<ol class="list-decimal pl-8 mb-4" class="list-lower-alpha pl-8 mb-4">', '<ol class="list-lower-alpha pl-8 mb-4" style="list-style-type: lower-alpha;">')
-        .replaceAll('<ol class="list-decimal pl-8 mb-4" style="list-style-type: lower-roman;">', '<ol class="list-lower-roman pl-8 mb-4" style="list-style-type: lower-roman;">')
-
-        //replacing live game icons
-        .replace(/<table class="live-game" style="background-color: #eeeeee;">\s*<tbody>\s*<tr>\s*<td colspan="3">Recommend Live Casino Games<\/td>\s*<\/tr>/g, '<!--LIVE CASINO ICONS: START--><SCard class="my-4 bg-secondary"><SSectionHeading dark divider contained title-tag="h4"><span class="text-subtitle-1">Recommend Live Casino Games</span></SSectionHeading><SList>')
-        .replace(/<tr class="live-game-img">\s*<td>\s*<img src="(.*?)" alt="game icon" width="50px" \/>\s*<\/td>\s*<td class="live-game-title">(.*?)<\/td>\s*<td class="live-game-link">\s*<a href="(.*?)">Game Code<\/a>\s*<\/td>\s*<\/tr>/g, '<SListItem dark class="md:hover:bg-secondary--darken-4"><template #prependAvatar><SAvatar src="$1" size="40" class="!rounded-lg ml-6" /></template>$2<template #appendAction><GameLauncher v-slot="{openGame}" product="live" game="$3"><SButton @click="openGame()" v-if="breakpoints.smAndUp" color="text-light--high" class="bg-primary--darken-5 hover:text-light--high mr-6">Play Now</SButton><SButton @click="openGame()" v-else dark icon-only flat rounded class="mr-6"><SIcon>icon-arrow-right</SIcon></SButton></GameLauncher></template></SListItem>')
-        .replace(/<\/tbody>\s*<tfoot class="live" style="display: none;">\s*<\/tfoot>\s*<\/table>/g, '</Slist></SCard><!--LIVE CASINO ICONS: END-->')
-
-        //replacing casino game icons
-        .replace(/<table class="casino-game" style="background-color: #eeeeee;">\s*<tbody>\s*<tr>\s*<td colspan="3">Recommend Casino Games<\/td>\s*<\/tr>/g, '<!--CASINO ICONS: START--><SCard class="my-4 bg-secondary"><SSectionHeading dark divider contained title-tag="h4"><span class="text-subtitle-1">Recommend Casino Games</span></SSectionHeading><SList>')
-        .replace(/<tr class="casino-game-img">\s*<td>\s*<img src="(.*?)" alt="game icon" width="50px" \/>\s*<\/td>\s*<td class="casino-game-title">(.*?)<\/td>\s*<td class="casino-game-link">\s*<a href="(.*?)">Casino Link<\/a>\s*<\/td>\s*<\/tr>/g, '<SListItem dark class="md:hover:bg-secondary--darken-4"><template #prependAvatar><SAvatar src="$1" size="40" class="!rounded-lg ml-6" /></template>$2<template #appendAction><SButton v-if="breakpoints.smAndUp" button-type="link" color="text-light--high" class="bg-primary--darken-5 hover:text-light--high mr-6" :href="`$3`">Play Now</SButton><SButton v-else dark icon-only flat rounded class="mr-6" :href="`$3`"><SIcon>icon-arrow-right</SIcon></SButton></template></SListItem>')
-        .replace(/<\/tbody>\s*<tfoot class="casino" style="display: none;">\s*<\/tfoot>\s*<\/table>/g, '</Slist></SCard><!--CASINO ICONS: END-->')
+        //replacing customGames
+        //.replace(/<table id="casino-icons">\s*<tbody>\s*<tr>\s*<td>(.*?)<\/td>\s*<\/tr>\s*<tr>\s*<td>(.*?)<\/td>\s*<\/tr>\s*<\/tbody>\s*<\/table>/g, '<div class="flex flex-col w-full text-center bg-neutral-100"><div>$1</div><div>$2</div></div>')
 
         //replacing tables
-        .replaceAll('<div class="border rounded mb-4 table-responsive">', '')
-        .replaceAll(/<table(.*?)>/g, '<div class="border rounded mb-4 table-responsive"><table class="w-full border-collapse border-spacing-0 text-center">')
-        .replaceAll('</table>', '</table></div>')
-        .replace(/<\/table>\s*<\/div>\s*<\/div>/g, '</table></div>') //checking whitespaces and ignoring it
+        .replace(/<table(.*?)>/g, '<table class="border w-full border-collapse border-spacing-0 text-center">')
         .replaceAll('<tbody>', '<tbody class="divide-y">')
-        //2 columns
-        .replaceAll('<td style="width: 50%;">', '<td class="w-1/2">') //2 columns with no text
-        .replaceAll('<td style="width: 50%; text-align: center;">', '<td class="w-1/2 text-center">') //if 2 columns with text aligned center
-        .replaceAll('<td style="width: 50%; text-align: left;">', '<td class="w-1/2 text-left">') //if 2 columns with text aligned left
-        .replaceAll('<td style="width: 50%; text-align: right;">', '<td class="w-1/2 text-right">') //if 2 columns with text aligned right
-        .replaceAll('<td style="width: 50%; text-align: justify;">', '<td class="w-1/2 text-justify">') //if 2 columns with text aligned justify
+        //.replace(/<td nowrap="nowrap" width="(.*?)">/g, '<td width="$1">')
+
+        //replacing paragraph
+        .replaceAll('<p style="text-align: center;">', '<p class="text-center" style="text-align: center;">')
+        .replaceAll('<p style="text-align: left;">', '<p class="text-left" style="text-align: left;">')
+        .replaceAll('<p style="text-align: right;">', '<p class="text-right" style="text-align: right;">')
+        .replaceAll('<p style="text-align: justify;">', '<p class="text-justify" style="text-align: justify;">')
+
+        //replacing list discs
+        .replace(/<ul(.*?)>/g, '<ul class="list-disc pl-8 mb-4"$1>')
+
         //images
-        .replace(/<img(.*?)\/>/g, '<img class="my-2 mx-auto h-auto rounded-lg" $1/>')
+        .replace(/<img(.*?)\/>/g, '<img class="my-2 mx-auto h-auto" $1/>')
+        .replace(/<img(.*?)>/g, '<img class="my-2 mx-auto h-auto" $1/>')
 
-        //cleanup
-        .replaceAll('<p><strong></strong></p>', '')
-        .replaceAll('<p></p>', '')
-        
-        if (document.getElementById('import-check').checked === false){ //this resolves the issue of not able to preview imported old templates
-          //this is to copy and store titles when full promotion title is replaced by the user   
-          //this resolves the issue of not able to preview when FSPTC is removed or not included
-          if(y.match(/<p id="fpstc-en" style="font-weight: 600;">(.*?)<\/p>/g)){
-            fsptcEnMatches = y.match(/<p id="fpstc-en" style="font-weight: 600;">(.*?)<\/p>/g)
-            fsptcEn = fsptcEnMatches[0].replace('<p id="fpstc-en" style="font-weight: 600;">', '').replace('</p>', '')
-          }
-          if(y.match(/<p id="fpstc-local" style="font-weight: 600;">(.*?)<\/p>/g)){
-            fsptcLocalMatches = y.match(/<p id="fpstc-local" style="font-weight: 600;">(.*?)<\/p>/g)
-            fsptcLocal = fsptcLocalMatches[0].replace('<p id="fpstc-local" style="font-weight: 600;">', '').replace('</p>', '')
-          }
-        }
-    
+        //preview import
+        .replaceAll('<sexpansionpanel class="last:rounded-b-lg border-0" header-class="bg-transparent" content-class="last:rounded-b-lg">', '')
+        .replaceAll('<template #header="">', '')
+        .replaceAll('<template #content="">', '')
+        .replaceAll('<template #content="">', '')
+        .replaceAll('</sexpansionpanel>', '')
+        .replaceAll('<includecontent :url="promoDetail.termsTpl"></includecontent>', '')
 
-    document.getElementById('tnc-container').innerHTML = y;
-    document.getElementById('tnc-container-mobile').innerHTML = y;
-    return y;
+    document.getElementById('tnc-container').innerHTML = editorContent;
 }
 
-// document.getElementById('promotionGuide-button').onclick = () => {
-//   document.getElementById('instruction-container').classList.toggle('hidden')
-// }
+//import TNC
+document.getElementById('import-tnc').addEventListener('change', async (e) => {
 
-//import HTML file
+    const tncfile = e.target.files[0]
 
-document.getElementById('import-tnc').addEventListener('change', async(e) => {
-  const tncfile = e.target.files[0]
-  if(tncfile) {
-    const content = await readFile(tncfile);
-    tinymce.get('mytextarea').setContent(content);
-    document.getElementById('import-check').checked = true;
-    document.getElementById('filename').value = tncfile.name.replace('.html', '');
-  } else {
-    document.getElementById('output').innerHTML = 'No file selected';
-  }
+    if (tncfile) {
+        //document.getElementById('import-check').checked = true;
+        const content = await readFile(tncfile);
+        //let y = content.replaceAll('<template #header>', '').replaceAll('<template #content>', '').replaceAll('</template>', '');
+
+        const parser = new DOMParser(); //allows to convert the HTML string into a DOM object. Once converted, you can interact with it just like you would with any DOM node.
+        const doc = parser.parseFromString(content, 'text/html');
+        const contentScripts = doc.getElementsByTagName('head')[0].innerHTML;
+        const contentEN = doc.querySelector('#content-en-gb');
+        const contentCN = doc.querySelector('#content-zh-cn');
+        const contentVN = doc.querySelector('#content-vi-vn');
+        const contentTH = doc.querySelector('#content-th-th');
+        const contentKR = doc.querySelector('#content-ko-kr');
+        const contentID = doc.querySelector('#content-id-id');
+        const contentKH = doc.querySelector('#content-km-kh');
+        const contentJP = doc.querySelector('#content-ja-jp');
+        const contentIN = doc.querySelector('#content-hi-in');
+
+        if (contentEN) {
+            tinymce.get('mytextarea').setContent(contentScripts.trim() + contentEN.outerHTML);
+        }
+        if (contentCN) {
+            tinymce.get('mytextarea2').setContent(contentCN.outerHTML);
+        }
+        if (contentVN) {
+            tinymce.get('mytextarea2').setContent(contentVN.outerHTML);
+        }
+        if (contentTH) {
+            tinymce.get('mytextarea2').setContent(contentTH.outerHTML);
+        }
+        if (contentKR) {
+            tinymce.get('mytextarea2').setContent(contentKR.outerHTML);
+        }
+        if (contentID) {
+            tinymce.get('mytextarea2').setContent(contentID.outerHTML);
+        }
+        if (contentKH) {
+            tinymce.get('mytextarea2').setContent(contentKH.outerHTML);
+        }
+        if (contentJP) {
+            tinymce.get('mytextarea2').setContent(contentJP.outerHTML);
+        }
+        if (contentIN) {
+            tinymce.get('mytextarea2').setContent(contentIN.outerHTML);
+        }
+        
+        //console.log(doc.getElementsByTagName('includecontent')[0]);
+    }
 })
-
 const readFile = async (file) => {
-  return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-          resolve(event.target.result);
-      };
-      reader.onerror = (error) => {
-          reject(error);
-      };
-      reader.readAsText(file);
-  });
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            resolve(event.target.result);
+        };
+        reader.onerror = (error) => {
+            reject(error);
+        };
+        reader.readAsText(file);
+    });
 };
 
 //Import DOCX file
 document.getElementById('import-docx').addEventListener('change', (e) => {
-  const fileInput = document.getElementById('import-docx');
-  const file = fileInput.files[0];
-  
-  if (file && file.name.endsWith('.docx')) {
-    const reader = new FileReader();
+    const fileInput = document.getElementById('import-docx');
+    const file = fileInput.files[0];
     
-    reader.onload = function(event) {
-      const arrayBuffer = reader.result;
+    if (file && file.name.endsWith('.docx')) {
+      const reader = new FileReader();
       
-      // Use mammoth.js to convert the DOCX file to HTML
-      mammoth.convertToHtml({arrayBuffer: arrayBuffer})
-        .then(function(result) {
-          // Insert the converted content into the TinyMCE editor
-          tinymce.activeEditor.setContent(result.value);
-        })
-        .catch(function(err) {
-          console.error('Error reading DOCX file:', err);
-        });
-    };
-    
-    reader.readAsArrayBuffer(file);
-  }
+      reader.onload = function(event) {
+        const arrayBuffer = reader.result;
+        
+        // Use mammoth.js to convert the DOCX file to HTML
+        mammoth.convertToHtml({arrayBuffer: arrayBuffer})
+          .then(function(result) {
+            // Insert the converted content into the TinyMCE editor
+            const docparser = new DOMParser();
+            const convertedDocs = docparser.parseFromString(result.value, 'text/html');
+            console.log(convertedDocs.getElementsByTagName('body')[0]);
+            
+            tinymce.get('mytextarea').setContent(convertedDocs.getElementsByTagName('body')[0].innerHTML);
+            
+          })
+          .catch(function(err) {
+            console.error('Error reading DOCX file:', err);
+          });
+      };
+      
+      reader.readAsArrayBuffer(file);
+    }
+  })
+
+//download TNC
+document.getElementById('download').addEventListener('click', () => {
+    if (document.getElementById('import-check').checked === false) {
+
+        let ENcontent = tinymce.get('mytextarea').getContent();
+        let LOCALcontent = tinymce.get('mytextarea2').getContent();
+        let mergedContent = ENcontent + LOCALcontent;
+
+        //clean up
+        mergedContent = mergedContent.replaceAll(' mceEditable', '').replaceAll(' non-editable', '').replaceAll('mceEditable', '')
+
+        //storing en and local full promotion
+        // let findFullProm = mergedContent.match(/<h2 class="m-4 font-semibold text-body-1">(.*?)<\/h2>/g)
+        // let fullpromEN = findFullProm[0];
+        // let fullpromLOCAL = findFullProm[1];
+
+        //shorten the code to replace full promotion when a user replaced the text of EN and/or Local full promotion
+        // mergedContent = mergedContent
+        //     .replace(fullpromEN, SExpansion.replace('<h2 class="m-4 font-semibold text-body-1">Full Promotion Specific Terms and Conditions</h2>', fullpromEN))
+        //     .replace(fullpromLOCAL, SExpansion.replace('<h2 class="m-4 font-semibold text-body-1">Full Promotion Specific Terms and Conditions</h2>', fullpromLOCAL))
+
+        // mergedContent = mergedContent
+        //     .replaceAll(/<\/div>\s*<div id="closeSExpansion" class="hidden" style="visibility: hidden;">1<\/div>\s*<\/div>/g, closeSExpansion)
+
+        //replacing links
+        mergedContent = mergedContent
+            .replace(/:href="https:\/\/www.188asia.com\/[^/]*\/([^>]*)">/g, ':href="`/${gv.lan}/$1`">')
+            .replace(/:href="https:\/\/www.188bet.com\/[^/]*\/([^>]*)">/g, ':href="`/${gv.lan}/$1`">')
+            .replace(/:href="`https:\/\/www.188bet.com\/[^/]*\/([^>]*)`">/g, ':href="`/${gv.lan}/$1`">')
+            .replace(/:href="https:\/\/www.my188promo.com\/[^/]*\/([^>]*)">/g, ':href="`/${gv.lan}/$1`">')
+            .replace(/:href="https:\/\/www.188family.com\/[^/]*\/([^>]*)">/g, ':href="`/${gv.lan}/$1`">')
+            .replace(/:href="https:\/\/www.188sukses.com\/[^/]*\/([^>]*)">/g, ':href="`/${gv.lan}/$1`">')
+            .replace(/<a href="https:\/\/www.188asia.com\/[^/]*\/([^>]*)">/g, '<a :href="`/${gv.lan}/$1`">')
+            .replace(/<a href="https:\/\/www.188bet.com\/[^/]*\/([^>]*)">/g, '<a :href="`/${gv.lan}/$1`">')
+            .replace(/<a href="https:\/\/www.my188promo.com\/[^/]*\/([^>]*)">/g, '<a :href="`/${gv.lan}/$1`">')
+            .replace(/<a href="https:\/\/www.188family.com\/[^/]*\/([^>]*)">/g, '<a :href="`/${gv.lan}/$1`">')
+            .replace(/<a href="https:\/\/www.188sukses.com\/[^/]*\/([^>]*)">/g, '<a :href="`/${gv.lan}/$1`">')
+        
+        //replacing list styles
+            .replaceAll('<ol>', '<ol class="list-decimal pl-8 mb-4">')
+            .replaceAll('<ol style="list-style-type: lower-roman;">', '<ol class="list-lower-roman pl-8 mb-4" style="list-style-type: lower-roman;">')
+            .replaceAll('<ol style="list-style-type: upper-roman;">', '<ol class="list-upper-roman pl-8 mb-4" style="list-style-type: upper-roman;">')
+            .replaceAll('<ol style="list-style-type: lower-alpha;">', '<ol class="list-lower-alpha pl-8 mb-4" style="list-style-type: lower-alpha;">')
+            .replaceAll('<ol style="list-style-type: upper-alpha;">', '<ol class="list-upper-alpha pl-8 mb-4" style="list-style-type: upper-alpha;">')
+            .replaceAll(/<ol start="(.*?)">/g, '<ol class="list-decimal pl-8 mb-4" start="$1">')
+            //.replaceAll(/<ol start="(.*?)" type="i">/g, '<ol class="list-lower-roman pl-8 mb-4" style="list-style-type: lower-roman;" start="$1">')
+            //.replaceAll(/<ol start="(.*?)" type="I">/g, '<ol class="list-upper-roman pl-8 mb-4" style="list-style-type: upper-roman;" start="$1">')
+            //.replaceAll(/<ol start="(.*?)" type="a">/g, '<ol class="list-lower-alpha pl-8 mb-4" style="list-style-type: lower-alpha;" start="$1">')
+            //.replaceAll(/<ol start="(.*?)" type="A">/g, '<ol class="list-upper-alpha pl-8 mb-4" style="list-style-type: upper-alpha;" start="$1">')
+
+        //replacing recommended game icons
+            .replace(/<table id="casino-icons" class="non-editable">\s*<tbody>\s*<tr>\s*<td>(.*?)<\/td>\s*<\/tr>\s*<tr>\s*<td>(.*?)<\/td>\s*<\/tr>\s*<tr>\s*<td>(.*?)<\/td>\s*<\/tr>\s*<\/tbody>\s*<\/table>/g, '<div class="md:w-1/2 w-full m-auto"><CustomGames product="casino" title="$1" games="$2" type="$3" class="tnc-multiple-games" :limit="200"></CustomGames></div>')
+            .replace(/<table id="live-casino-icons" class="non-editable">\s*<tbody>\s*<tr>\s*<td>(.*?)<\/td>\s*<\/tr>\s*<tr>\s*<td>(.*?)<\/td>\s*<\/tr>\s*<tr>\s*<td>(.*?)<\/td>\s*<\/tr>\s*<\/tbody>\s*<\/table>/g, '<div class="md:w-1/2 w-full m-auto"><CustomGames product="live" title="$1" games="$2" type="$3" class="tnc-multiple-games" :limit="200"></CustomGames></div>')
+        
+        //replacing tables
+            .replace(/<table(.*?)>/g, '<div class="border rounded mb-4 table-responsive"><table class="w-full border-collapse border-spacing-0 text-center">')
+            .replaceAll('<tbody>', '<tbody class="divide-y">')
+            .replaceAll('</table>', '</table></div>')
+            //.replace(/<td nowrap="nowrap" width="(.*?)">/g, '<td width="$1">')
+        
+        //replacing paragraph
+            //.replace(/<p class="MsoNormal">/g, '<p>')
+            .replaceAll('<p style="text-align: center;">', '<p class="text-center" style="text-align: center;">')
+            .replaceAll('<p style="text-align: left;">', '<p class="text-left" style="text-align: left;">')
+            .replaceAll('<p style="text-align: right;">', '<p class="text-right" style="text-align: right;">')
+            .replaceAll('<p style="text-align: justify;">', '<p class="text-justify" style="text-align: justify;">')
+
+        //replacing list discs
+            .replace(/<ul(.*?)>/g, '<ul class="list-disc pl-8 mb-4"$1>')
+
+         //images
+            .replace(/<img(.*?)\/>/g, '<img class="my-2 mx-auto h-auto" $1/>')
+            .replace(/<img(.*?)>/g, '<img class="my-2 mx-auto h-auto" $1/>')
+
+        //Sportsbook Free Bet Component
+            .replace(/<h5 class="non-editable" style="width: full; text-align: left; padding: 12px; background-color: #f5f5f5; border-left: 5px solid #5ba7ff;">Where to find your Sportbook Free Bet<IncludeContent :init-collapse="isClaimed" :url="gv.domains.content \+ '\/templates\/promotions\/Indonesia\/202408\/188DAYBLUE-0824_where-to-find-your-sportsbook-free-bet.html'" \/><\/IncludeContent><\/h5>/g, '<IncludeContent :init-collapse="isClaimed" :url="gv.domains.content + \'/templates/promotions/Indonesia/202408/188DAYBLUE-0824_where-to-find-your-sportsbook-free-bet.html\'" /></IncludeContent>')
+        
+        //removing spans language
+            //.replace(/<span lang="EN-US">/g, '')
+            //.replace(/<span lang="EN-GB">/g, '')
+            //.replace(/<span lang="ZH-CN">/g, '')
+            //.replace(/<span lang="JA">/g, '')
+            //.replace(/<span lang="KHM">/g, '')
+            //.replace(/<span lang="TH">/g, '')
+            //.replace(/<span lang="KO">/g, '')
+            //.replace(/<span lang="AR-SA">/g, '')
+            //.replace(/<span data-contrast="auto">/g, '')
+            //.replace(/<span lang="EN-US" style="color: windowtext;">/g, '')
+            //.replace(/<span lang="EN-US" style="color: black;">/g, '')
+            //.replace(/<span lang="EN-GB" style="color: black;">/g, '')
+            //.replace(/<span lang="TH" style="color: black;">/g, '')
+            //.replace(/<span lang="AR-SA" style="color: black;">/g, '')
+            //.replace(/<span style="color: black;">/g, '')
+            //.replace(/<\/span>/g, '')
+
+        //cleaning up some mess
+            .replaceAll('<br />', '')
+            .replaceAll('<br/>', '')
+            .replaceAll('<br><br>', '<br>')
+            .replaceAll('<p> </p>', '')
+            //.replaceAll(' class="MsoNormal"', '')
+            //.replaceAll(' class="MsoNoSpacing"', '')
+            //.replaceAll('<p class="MsoListParagraphCxSpMiddle">', '<p>')
+
+        //imports
+            .replaceAll('sexpansionpanel', 'SExpansionPanel')
+            .replaceAll('#header=""', '#header')
+            .replaceAll('#content=""', '#content')
+            .replaceAll('includecontent', 'IncludeContent')
+            .replaceAll('customgames', 'CustomGames')
+            .replaceAll('show-game-subtitle=""', 'show-game-subtitle')
+
+            .replace(/<a href="&#96;(.*?)&#96;">/g, '<a :href="`$1`">')
+
+        let finalContent = mergedContent;
+
+        let fileName = document.getElementById('filename').value;
+        let blob = new Blob([finalContent], { type: 'text/html' });
+        let htmlFile = document.createElement('a');
+        htmlFile.download = `${fileName}.html`;
+        htmlFile.href = window.URL.createObjectURL(blob);
+        htmlFile.click();
+    }
 })
 
+//preview dropdown
+document.getElementById('preview-dropdown').addEventListener('change', () => {
+    let previewHTML = document.getElementById('preview-dropdown').value;
 
-//left control panel
-document.getElementById('resetBtn').addEventListener('click', () => {
-  console.log('hello');
-  document.getElementById('import-tnc').value = ''
-  tinymce.get('mytextarea').setContent('')
-  tncRegionDropdown.value = '#'
-  document.getElementById('import-check').checked = false;
-  document.getElementById('filename').value = '';
+    switch(previewHTML) {
+        case 'prev-en-gb':
+            previewContent('mytextarea');
+            break;
+        case 'prev-localized':
+            previewContent('mytextarea2');
+            break;
+    }
+})
+
+//close preview
+document.getElementById('hidePreview').addEventListener('click', () => {
+    document.getElementById('preview-section').classList.toggle('hidden');
+    document.getElementById('preview-overlay').classList.toggle('hidden');
 })

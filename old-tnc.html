@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en" style="scroll-behavior: smooth;">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tiny.cloud/1/te167wk1fiddsv5gf6bf7yi169ojp0pclg2kksirxrl0w9lg/tinymce/4/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.4.2/mammoth.browser.min.js"></script>
+    <link rel="stylesheet" href="sys/style.css">
+    <link href="sys/src/output.css" rel="stylesheet">
+    <style>
+        .mce-tinymce {
+            border-radius: 6px;
+        }
+        .mce-content-body, .mce-resizehandle {
+            display: none !important;
+        }
+        .mce-content-body table {
+            resize: none;
+        }
+        .data-mce-style {
+            cursor: none;
+        }
+        #mceu_15-body {
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg-[#100C1A] h-screen overflow-hidden">
+    <header id="header">
+        <nav class="flex flex-row justify-between items-center p-3 border-b border-[#332654] mb-4">
+            <ul>
+                <li id="automation-name" class="text-white font-semibold text-lg">TNC Automation</li>
+            </ul>
+            <ul class="flex flex-row gap-x-2">
+                <li class="bg-[#2C1A5A] text-white font-medium rounded-[4px] px-2 text-xs">
+                    <select id="automation-dropdown" class="bg-transparent border-none outline-none w-44 h-full hover:cursor-pointer">
+                        <option value="index.html" selected>Terms and Conditions</option>
+                        <option value="newsletter.html">Newsletter</option>
+                        <option value="floating-banner.html">Floating Banner</option>
+                        <option value="landing-page.html">Landing Page</option>
+                        <option value="widgets.html">Widgets</option>
+                    </select>
+                </li>
+                <li>
+                    <button id="whats-new" class="bg-[#2C1A5A] text-white font-medium p-2 rounded-[4px] text-xs relative">
+                        <div class="bg-red-700 w-2 h-2 rounded-full absolute -top-1 -right-1 animate-ping"></div>
+                        <div class="bg-red-600 w-2 h-2 rounded-full absolute -top-1 -right-1"></div>
+                        Changelog
+                    </button>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <!--PROMOTION AUTOMATION-->
+        <div class="px-3 mb-4 flex justify-between items-center">
+            <div class="flex flex-row gap-x-2 items-center">
+                <input id="filename" type="text" class="rounded-[4px] p-2 h-10 w-80 outline-none font-medium text-xs" placeholder="TNC Filename" autocomplete="off">
+                <button id="generateFilename" class="bg-[#4816C3] rounded-[4px] p-2 font-medium text-xs text-white h-fit flex flex-row gap-x-1 items-center hover:bg-[#591DEF]">Convert APS</button>
+                <button id="importBtn" class="bg-[#4816C3] rounded-[4px] p-2 font-medium text-xs text-white h-fit flex flex-row gap-x-1 items-center hover:bg-[#591DEF]">
+                    <svg  xmlns="http://www.w3.org/2000/svg"  width="16"  height="16"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-help-circle"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" /><path d="M12 16v.01" /><path d="M12 13a2 2 0 0 0 .914 -3.782a1.98 1.98 0 0 0 -2.414 .483" /></svg>
+                    Guide
+                </button>
+                <div class="text-xs text-white flex flex-row items-center gap-x-2 hidden">
+                    <input type="checkbox" id="import-check">
+                    <label for="import-check">Uncheck if not imported</label>
+                </div>
+            </div>
+            <div class="flex gap-x-2">
+                <ol>
+                    <li id="region-container" class="bg-[#2C1A5A] text-white font-medium h-fit px-2 rounded-[4px] text-xs">
+                        <select name="" id="tnc-regions-dropdown" class="bg-transparent border-none outline-none w-44 py-2 hover:cursor-pointer">
+                            <option value="#">Select region</option>
+                            <option value="zh-cn">China - CN</option>
+                            <option value="zh-my" disabled>Malaysia - MY</option>
+                            <option value="vi-vn">Vietnam - VN</option>
+                            <option value="th-th">Thailand - TH</option>
+                            <option value="ko-kr">Korea - KR</option>
+                            <option value="id-id">Indonesia - ID</option>
+                            <option value="km-kh">Cambodia - KH</option>
+                            <option value="ja-jp">Japan - JP</option>
+                            <option value="hi-in">India - IN</option>
+                        </select>
+                    </li>
+                </ol>
+                <a href="#preview-section">
+                    <button onclick="previewContent()" class="bg-[#4816C3] rounded-[4px] p-2 font-medium text-xs text-white h-fit flex flex-row gap-x-1 hover:bg-[#591DEF]">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                class="icon icon-tabler icons-tabler-outline icon-tabler-eye">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+                                <path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />
+                        </svg>
+                        PREVIEW
+                    </button>
+                </a>
+                <label for="import-tnc" class="bg-[#4816C3] p-2 rounded-[4px] font-medium text-xs text-white h-fit w-fit flex flex-row gap-x-1 items-center hover:bg-[#591DEF] cursor-pointer">
+                    <svg  xmlns="http://www.w3.org/2000/svg"  width="16"  height="16"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-code"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 8l-4 4l4 4" /><path d="M17 8l4 4l-4 4" /><path d="M14 4l-4 16" /></svg>
+                    IMPORT HTML
+                    <input type="file" id="import-tnc" accept=".html" class="hidden">
+                </label>
+                <label for="import-docx" class="bg-[#4816C3] p-2 rounded-[4px] font-medium text-xs text-white h-fit w-fit flex flex-row gap-x-1 items-center hover:bg-[#591DEF] cursor-pointer hidden">
+                    <svg  xmlns="http://www.w3.org/2000/svg"  width="16"  height="16"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-file-word"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" /><path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" /></svg>
+                    UPLOAD DOCX
+                    <input type="file" id="import-docx" accept=".docx" class="hidden">
+                </label>
+                <button id="download" class="bg-[#4816C3] rounded-[4px] p-2 font-medium text-xs text-white h-fit flex flex-row gap-x-1 hover:bg-[#591DEF]">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="icon icon-tabler icons-tabler-outline icon-tabler-download">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" />
+                            <path d="M7 11l5 5l5 -5" />
+                            <path d="M12 4l0 12" />
+                    </svg>
+                    DOWNLOAD
+                </button>
+            </div>
+        </div>
+        <!--WYSIWYG Section-->
+        <div id="container" class="flex flex-row w-full justify-center relative">
+            <div class="flex flex-col gap-y-2 absolute left-0 pl-3">
+                <button id="resetBtn" class="bg-[#4816C3] rounded-[4px] p-2 font-medium text-xs text-white h-fit flex flex-row gap-x-1 items-center hover:bg-[#591DEF]">
+                    <svg  xmlns="http://www.w3.org/2000/svg"  width="16"  height="16"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-back-up"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 14l-4 -4l4 -4" /><path d="M5 10h11a4 4 0 1 1 0 8h-1" /></svg>
+                    RESET CONTENT
+                </button>
+                <button id="redBtn" class="bg-[#4816C3] rounded-[4px] p-2 font-medium text-xs text-white h-fit flex flex-row gap-x-1 items-center hover:bg-[#591DEF] hidden">Change color to red</button>
+                <button id="blackBtn" class="bg-[#4816C3] rounded-[4px] p-2 font-medium text-xs text-white h-fit flex flex-row gap-x-1 items-center hover:bg-[#591DEF] hidden">Change color to black</button>
+            </div>
+            <div id="editor-container" class="w-[70%] h-fit overflow-hidden rounded-xl">
+                <textarea id="mytextarea">
+                    
+                </textarea>
+            </div>
+        </div>
+        <!--Preview Section-->
+        <div id="preview-section" class="mt-20 mx-3 flex flex-row gap-x-3 relative h-screen">
+            <!--Desktop Preview-->
+            <div class="w-full h-screen overflow-scroll bg-white relative">
+                <nav class="w-full h-16 bg-neutral-800 flex flex-row justify-between items-center px-5 sticky top-0">
+                    <ul class="flex flex-row gap-x-8 items-center font-semibold text-neutral-400 text-xs">
+                        <li><img id="light-logo" style="width: 60px;" src="https://www.sbbanner.com/newsletter/newsletter-template-2024/188-light.png"></li>
+                        <li>Sports</li>
+                        <li>Casino</li>
+                        <li>Live Casino</li>
+                        <li>Chess Game</li>
+                        <li>Virtual</li>
+                        <li>Lotto</li>
+                        <li class="text-white">Promotions</li>
+                        <li>App</li>
+                    </ul>
+                    <ul class="flex flex-row gap-x-2 items-center">
+                        <li class="bg-neutral-700 p-2 rounded-[4px] font-semibold text-white text-xs">LOG IN</li>
+                        <li><svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="#FFFFFF"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-grid-dots"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M12 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M19 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M5 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M19 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M5 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M12 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M19 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /></svg></li>
+                    </ul>
+                </nav>
+                <div class="py-4 px-20">
+                    <div class="w-full h-40 bg-neutral-800 flex flex-col p-4 gap-y-3">
+                        <div>
+                            <svg  xmlns="http://www.w3.org/2000/svg"  width="20"  height="20"  viewBox="0 0 24 24"  fill="none"  stroke="#FFFFFF"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-left"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l14 0" /><path d="M5 12l6 6" /><path d="M5 12l6 -6" /></svg>
+                        </div>
+                        <div>
+                            <h1 class="text-white font-semibold text-lg">Promotion Title</h1>
+                            <p class="text-neutral-400 text-xs mb-9">Description</p>
+                            <p class="text-neutral-400 text-xs">Terms and conditions apply</p>
+                        </div>
+                    </div>
+                    <div id="tnc-container" class="w-full py-4">
+                        
+                    </div>
+                </div>
+            </div>
+            <!--Mobile Preview-->
+            <div class="w-[425px] h-screen overflow-scroll bg-white relative">
+                <nav class="w-full h-auto bg-neutral-800 flex flex-col justify-between items-center px-4 sticky top-0">
+                    <ul class="w-full p-2 flex flex-row justify-between items-center">
+                        <li><img id="light-logo" style="width: 40px;" src="https://www.sbbanner.com/newsletter/newsletter-template-2024/188-light.png"></li>
+                        <ul class="flex flex-row gap-x-2 items-center">
+                            <li class="bg-neutral-700 p-2 rounded-[4px] font-semibold text-white text-xs">LOG IN</li>
+                            <li><svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="#FFFFFF"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-grid-dots"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M12 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M19 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M5 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M19 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M5 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M12 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M19 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /></svg></li>
+                        </ul>
+                    </ul>
+                </nav>
+                <div>
+                    <div class="w-full h-auto bg-neutral-800 flex flex-col p-4 gap-y-3">
+                        <div>
+                            <svg  xmlns="http://www.w3.org/2000/svg"  width="20"  height="20"  viewBox="0 0 24 24"  fill="none"  stroke="#FFFFFF"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-left"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l14 0" /><path d="M5 12l6 6" /><path d="M5 12l6 -6" /></svg>
+                        </div>
+                        <div>
+                            <h1 class="text-white font-semibold text-sm">Promotion Title</h1>
+                            <p class="text-neutral-400 text-xs mb-4">Description</p>
+                            <p class="text-neutral-400 text-xs">Terms and conditions apply</p>
+                        </div>
+                    </div>
+                    <div id="tnc-container-mobile" class="w-full p-4 text-xs"></div>
+                </div>
+            </div>
+            <a href="#header" class="bg-[#4816C3] rounded-full p-4 font-medium text-xs text-white h-fit flex flex-row gap-x-1 hover:bg-[#591DEF] absolute right-5 bottom-5 animate-bounce">Back to content editor</a>
+        <!--Footer Section-->
+        <footer class="px-3 py-5 text-black text-xs font-medium flex flex-row justify-between items-center absolute bottom-0 gap-x-1">
+            <p>Created by Rave</p>
+        </footer>
+        </div>
+    <!--PROMOTION AUTOMATION-->
+
+    <div id="update-card" class="hidden flex flex-col gap-y-1 w-80 h-fit bg-[#2C1A5A] border-2 border-[#4816C3] rounded-md absolute top-14 right-0 mr-3 p-1"></div>
+    <!--Import div-->
+    <div id="importArea" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white overflow-hidden p-4 rounded-md h-fit w-[800px] hidden flex flex-col shadow-[0_0_12px_6px_rgba(0,0,0,0.3)] select-none">
+        <h1 class="font-semibold">Guide</h1>
+        <p class="text-xs mb-4">An intensive guide on how to use the automation</p>
+        <div class="text-xs flex flex-col gap-y-2 h-96 overflow-scroll">
+            <p><b>TNC Automation</b> - a system that automates the creation of TNC HTML file. Users can copy/paste their TNCs from docx file or create their own from scratch using the automation's power editor.</p>
+            <p><b>Changelog</b> - this is where you see all the updates and changes done to the system.</p>
+            <p><b>TNC File Name</b> - user must input the file name of their TNC before downloading the file. (ex. MY_SPPT_11_Dec_2025_005)</p>
+            <p><b>Convert APS</b> - a button that converts the APS code to HTML filename. <a href="#" target="_blank" class="underline italic text-[#FF9200]">Watch tutorial</a></p>
+            <p><b>Select Region</b> - a dropdown containing all 188bet regions. Each region has their own TNC template. User must select region before creating TNC. After selecting a region, a generated text will appear at the editor.</p>
+            <p><b>Preview</b> - a button for previewing the TNC Promotion when deployed to the production.</p>
+            <p><b>Import TNC</b> - an upload button for importing TNC html file. A feature where the users can import and edit their existing TNCs. Imported file will create a new file after the download (This is to protect the old file and serve as a backup file). <a href="https://superadminict888.sharepoint.com/:v:/s/Webteam526/EZDCPkYW9ahCkBeyQ2R0ZOIB28g9aaYzXvndqWwGrn9Urw?e=8UCwb6" target="_blank" class="underline italic text-[#FF9200]">Watch tutorial</a></p>
+            <p><b>Download</b> - a button to download the file created by the user.</p>
+            <p><b>Reset Editor</b> - a button to reset the entire editor.</p>
+            <p><b>Copying of images directly to the automation's editor</b> - Message the Web team (your region's POC) to deploy the image to the server. Wait for the image link provided by Web team, paste the link to editor and it will automatically convert to image.</p>
+            <br>
+            <p><b>Must watch tutorials</b></p>
+            <p>How to paste texts with <b>alpha</b> or <b>roman</b> list style from a docx file <a href="https://superadminict888.sharepoint.com/:v:/s/Webteam526/Eeb0WbrAEGJAiEgOxS4E-ooBVUQcGFQ5C1nAWGIKhS8HJw?e=cslaZL" target="_blank" class="underline italic text-[#FF9200]">Watch tutorial</a></p>
+            <p>How to add <b>tables</b> <a href="https://superadminict888.sharepoint.com/:v:/s/Webteam526/Eb8FxG29nhtDtzas8w0mcyMBDpV7EEs94TBI6hDShk-sLA?e=bkztcS" target="_blank" class="underline italic text-[#FF9200]">Watch tutorial</a></p>
+            <p>How to add <b>links</b> to a text <a href="https://superadminict888.sharepoint.com/:v:/s/Webteam526/EdUexoR_slxPv1c5idAmfNQBLuobYAgH4_tBPFcDqBkhKQ?e=QgxNIQ" target="_blank" class="underline italic text-[#FF9200]">Watch tutorial</a></p>
+            <p>How to add <b>images</b> <a href="https://superadminict888.sharepoint.com/:v:/s/Webteam526/ERQiw37pM6pIl5qwWxwH5EUBh3fC3pxjN09QtgsNKpkDpA?e=5k2Jbo" target="_blank" class="underline italic text-[#FF9200]">Watch tutorial</a></p>
+        </div>
+        <div class="flex flex-row gap-x-2 justify-end">
+            <button id="cancelImport" class="bg-neutral-300 rounded-[4px] p-2 font-medium text-xs h-fit w-fit cursor-pointer">CLOSE</button>
+        </div>
+    </div>
+
+</body>
+
+<!--Scripts-->
+<script src="sys/homepage.js"></script>
+<script src="sys/promotion.js"></script>
+<script src="sys/updates.js"></script>
+
+</html>
